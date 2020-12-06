@@ -1,7 +1,9 @@
+var loaded: boolean = false;
 let canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas idk");
 let ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 let winWid: number = canvas.width;
 let winHei: number = canvas.height;
+
 
 function drawCircle(x: number, y: number, r: number, color: string) : void {
 	ctx.beginPath();
@@ -38,3 +40,15 @@ function rgbToHex(r: number, g: number, b: number) : string {
 function rd(low: number, high: number) : number {
 	return Math.floor(Math.random() * high) + low;  
 }
+
+function drawImage(id: string, x: number, y: number, width: number, height: number) {
+	if (loaded) {
+		var img: any = document.getElementById(id);
+		ctx.drawImage(img, x, y, width, height);
+	}
+	else {
+		console.log("wait until loaded");
+	}
+}
+const round = (x: number) => Math.round(x);
+const floor = (x: number) => Math.floor(x);

@@ -1,3 +1,4 @@
+var loaded = false;
 var canvas = document.getElementById("canvas idk");
 var ctx = canvas.getContext('2d');
 var winWid = canvas.width;
@@ -33,3 +34,14 @@ function rgbToHex(r, g, b) {
 function rd(low, high) {
     return Math.floor(Math.random() * high) + low;
 }
+function drawImage(id, x, y, width, height) {
+    if (loaded) {
+        var img = document.getElementById(id);
+        ctx.drawImage(img, x, y, width, height);
+    }
+    else {
+        console.log("wait until loaded");
+    }
+}
+var round = function (x) { return Math.round(x); };
+var floor = function (x) { return Math.floor(x); };
