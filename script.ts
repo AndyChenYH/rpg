@@ -34,16 +34,22 @@ for (var i = 0; i < mapHei; i ++) {
 // } variables
 
 // functions {
-const bd = (i: number, j: number) => 0 <= i && i < mapHei && 0 <= j && j < mapWid;
+function bd (i: number, j: number) : boolean {
+	return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
+}
+
+function fill(i: number, j: number) : void {
+	var dir: number[][] = [[-1, 0], [0, 1], [0, -1], [1, 0]];
+}
 // } functions
 
 // events {
-//var heldDown: string[] = [];
-var heldDown: {"A": boolean, "D": boolean, "W": boolean, "S": boolean} = {
+var heldDown: any = {
 	"A": false,
 	"D": false,
 	"W": false,
 	"S": false,
+	"B": false,
 };
 window.addEventListener("keydown",this.checkDown,false);
 window.addEventListener("keyup",this.checkUp,false);
@@ -61,9 +67,12 @@ function checkUp(e: KeyboardEvent) : void {
 		heldDown[ch] = false;
 	}
 }
+/*
 canvas.addEventListener('mousedown', function (evt: any) {
 	console.log(evt.layerX, evt.layerY);
 }, false);
+*/
+
 // } events
 
 
@@ -73,7 +82,7 @@ function gameLoop() : void {
 	if (heldDown["D"]) player.j += 0.1;
 	if (heldDown["W"]) player.i -= 0.1;
 	if (heldDown["S"]) player.i += 0.1;
-	if (bd(player.i, player.j)) {
+	if (heldDown["B"] && bd(round(player.i), round(player.j))) {
 		terrain[round(player.i)][round(player.j)].imageId = "wood1";
 	}
 	
@@ -88,7 +97,6 @@ function gameLoop() : void {
 			if (bd(ni, nj)) {
 				const bitI: number = player.i - round(player.i);
 				const bitJ: number = player.j - round(player.j);
-				// drawRect((j - bitJ) * scale, (i - bitI) * scale, scale, scale, terrain[ni][nj].color);
 				drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
 			}
 		}
@@ -101,3 +109,11 @@ gameLoop();
 function debug() {
 	console.log(JSON.stringify(player));
 }
+
+var hi: list<number> = new list();
+hi.push_back(5);
+hi.push_back(3);
+hi.push_back(10);
+console.log(hi.toString());
+hi.pop_front();
+console.log(hi.toString());

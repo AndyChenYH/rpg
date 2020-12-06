@@ -50,7 +50,7 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 		var img: any = document.getElementById(id);
 		ctx.drawImage(img, x, y, width, height);
 	}
-	else {
-		console.log("wait until loaded");
-	}
+	// else {
+	// 	console.log("wait until loaded");
+	// }
 }

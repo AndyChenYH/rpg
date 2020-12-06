@@ -48,15 +48,20 @@ for (var i = 0; i < mapHei; i++) {
 }
 // } variables
 // functions {
-var bd = function (i, j) { return 0 <= i && i < mapHei && 0 <= j && j < mapWid; };
+function bd(i, j) {
+    return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
+}
+function fill(i, j) {
+    var dir = [[-1, 0], [0, 1], [0, -1], [1, 0]];
+}
 // } functions
 // events {
-//var heldDown: string[] = [];
 var heldDown = {
     "A": false,
     "D": false,
     "W": false,
-    "S": false
+    "S": false,
+    "B": false
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
@@ -74,9 +79,11 @@ function checkUp(e) {
         heldDown[ch] = false;
     }
 }
-canvas.addEventListener('mousedown', function (evt) {
+/*
+canvas.addEventListener('mousedown', function (evt: any) {
     console.log(evt.layerX, evt.layerY);
 }, false);
+*/
 // } events
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
@@ -88,7 +95,7 @@ function gameLoop() {
         player.i -= 0.1;
     if (heldDown["S"])
         player.i += 0.1;
-    if (bd(player.i, player.j)) {
+    if (heldDown["B"] && bd(round(player.i), round(player.j))) {
         terrain[round(player.i)][round(player.j)].imageId = "wood1";
     }
     var wide = round(winWid / scale);
@@ -102,7 +109,6 @@ function gameLoop() {
             if (bd(ni, nj)) {
                 var bitI = player.i - round(player.i);
                 var bitJ = player.j - round(player.j);
-                // drawRect((j - bitJ) * scale, (i - bitI) * scale, scale, scale, terrain[ni][nj].color);
                 drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
             }
         }
@@ -114,3 +120,10 @@ gameLoop();
 function debug() {
     console.log(JSON.stringify(player));
 }
+var hi = new list();
+hi.push_back(5);
+hi.push_back(3);
+hi.push_back(10);
+console.log(hi.toString());
+hi.pop_front();
+console.log(hi.toString());

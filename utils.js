@@ -43,7 +43,7 @@ function drawImage(id, x, y, width, height) {
         var img = document.getElementById(id);
         ctx.drawImage(img, x, y, width, height);
     }
-    else {
-        console.log("wait until loaded");
-    }
+    // else {
+    // 	console.log("wait until loaded");
+    // }
 }
