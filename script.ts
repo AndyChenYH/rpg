@@ -45,29 +45,31 @@ for (var i = 0; i < mapHei; i ++) {
 
 console.log(map);
 
-
-var frame: number = 0;
 function gameLoop() : void {
 	ctx.clearRect(0, 0, winWid, winHei);
 	for (var k of heldDown) {
-		if (k == "A") p.j --;
-		else if (k == "D") p.j ++;
-		else if (k == "W") p.i --;
-		else if (k == "S") p.i ++;
+		if (k == "A") p.j -= 0.1;
+		else if (k == "D") p.j += 0.1;
+		else if (k == "W") p.i -= 0.1;
+		else if (k == "S") p.i += 0.1;
 	}
+	var bd = (i: number, j: number) => 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 	const wide: number = Math.floor(winWid / scale);
 	const long: number = Math.floor(winHei / scale);
 	for (var i = 0; i < long; i ++) {
 		for (var j = 0; j < wide; j ++) {
-			if (0 <= p.i + i && p.i + i < mapHei && 0 <= p.j + j && p.j + j < mapWid) {
-				drawRect(j * scale, i * scale, scale, scale, map[p.i + i][p.j + j]);
+			const ni: number = Math.floor(p.i + i);
+			const nj: number = Math.floor(p.j + j);
+			if (bd(ni, nj)) {
+				const bitI: number = p.i - Math.floor(p.i);
+				const bitJ: number = p.j - Math.floor(p.j);
+				drawRect((j - bitJ) * scale, (i - bitI) * scale, scale, scale, map[ni][nj]);
 			}
 
 		}
 	}
 	var half: number = Math.floor(winHei / scale / 2);
 	drawCircle(20, 20, scale / 2, "#0000FF");
-	frame ++;
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();
