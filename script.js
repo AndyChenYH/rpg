@@ -35,9 +35,10 @@ var Player = /** @class */ (function (_super) {
 // } classes
 // variables {
 var scale = 20;
+var edit = false;
 var player = new Player(10, 10);
-var mapWid = 100;
-var mapHei = 100;
+var mapWid = 20;
+var mapHei = 20;
 var terrain = [];
 for (var i = 0; i < mapHei; i++) {
     terrain.push(new Array(mapWid));
@@ -50,22 +51,27 @@ for (var i = 0; i < mapHei; i++) {
 var bd = function (i, j) { return 0 <= i && i < mapHei && 0 <= j && j < mapWid; };
 // } functions
 // events {
-var heldDown = [];
+//var heldDown: string[] = [];
+var heldDown = {
+    "A": false,
+    "D": false,
+    "W": false,
+    "S": false
+};
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
 function checkDown(e) {
     if (e.repeat)
         return;
     var ch = String.fromCharCode(e.keyCode);
-    heldDown.push(ch);
+    if (heldDown[ch] != undefined) {
+        heldDown[ch] = true;
+    }
 }
 function checkUp(e) {
-    for (var i = 0; i < heldDown.length; i++) {
-        var ch = String.fromCharCode(e.keyCode);
-        if (heldDown[i] == ch) {
-            heldDown.splice(i, 1);
-            i--;
-        }
+    var ch = String.fromCharCode(e.keyCode);
+    if (heldDown[ch] != undefined) {
+        heldDown[ch] = false;
     }
 }
 canvas.addEventListener('mousedown', function (evt) {
@@ -74,17 +80,14 @@ canvas.addEventListener('mousedown', function (evt) {
 // } events
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
-    for (var _i = 0, heldDown_1 = heldDown; _i < heldDown_1.length; _i++) {
-        var k = heldDown_1[_i];
-        if (k == "A")
-            player.j -= 0.1;
-        else if (k == "D")
-            player.j += 0.1;
-        else if (k == "W")
-            player.i -= 0.1;
-        else if (k == "S")
-            player.i += 0.1;
-    }
+    if (heldDown["A"])
+        player.j -= 0.1;
+    if (heldDown["D"])
+        player.j += 0.1;
+    if (heldDown["W"])
+        player.i -= 0.1;
+    if (heldDown["S"])
+        player.i += 0.1;
     if (bd(player.i, player.j)) {
         terrain[round(player.i)][round(player.j)].imageId = "wood1";
     }

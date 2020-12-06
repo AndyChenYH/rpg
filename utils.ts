@@ -32,7 +32,7 @@ function drawRect(x: number, y: number, wid: number, hei: number, color: string)
 
 function componentToHex(c: number) : string{
   var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+  return hex.length === 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r: number, g: number, b: number) : string {
