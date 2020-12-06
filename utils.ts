@@ -4,6 +4,8 @@ let ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 let winWid: number = canvas.width;
 let winHei: number = canvas.height;
 
+const round = (x: number) => Math.round(x);
+const floor = (x: number) => Math.floor(x);
 
 function drawCircle(x: number, y: number, r: number, color: string) : void {
 	ctx.beginPath();
@@ -38,7 +40,9 @@ function rgbToHex(r: number, g: number, b: number) : string {
 }
 
 function rd(low: number, high: number) : number {
-	return Math.floor(Math.random() * high) + low;  
+		low = Math.ceil(low);
+		high = Math.floor(high);
+		return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
 function drawImage(id: string, x: number, y: number, width: number, height: number) {
@@ -50,5 +54,3 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 		console.log("wait until loaded");
 	}
 }
-const round = (x: number) => Math.round(x);
-const floor = (x: number) => Math.floor(x);

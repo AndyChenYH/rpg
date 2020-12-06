@@ -1,3 +1,4 @@
+// classes {
 class Tile {
 	imageId: string;
 	constructor(imageId: string) {
@@ -7,22 +8,21 @@ class Tile {
 class Entity {
 	i: number;
 	j: number;
-	microI: number;
-	microJ: number;
 	constructor(i: number, j: number) {
 		this.i = i;
 		this.j = j;
-		this.microI = this.microJ = 0;
 	}
 }
 class Player extends Entity {
 }
+// } classes
 
+// variables {
 const scale: number = 20;
 
-var p: Player = new Player(10, 10);
-const mapWid: number = 500;
-const mapHei: number = 500;
+var player: Player = new Player(10, 10);
+const mapWid: number = 100;
+const mapHei: number = 100;
 var terrain: Tile[][] = [];
 for (var i = 0; i < mapHei; i ++) {
 	terrain.push(new Array(mapWid));
@@ -30,12 +30,17 @@ for (var i = 0; i < mapHei; i ++) {
 		terrain[i][j] = new Tile("dirt1");
 	}
 }
+// } variables
+
+// functions {
 const bd = (i: number, j: number) => 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 
+// } functions
+
+// events {
 var heldDown: string[] = [];
 window.addEventListener("keydown",this.checkDown,false);
 window.addEventListener("keyup",this.checkUp,false);
-
 function checkDown(e: KeyboardEvent) : void {
 	if (e.repeat) return;
 	var ch: string = String.fromCharCode(e.keyCode);
@@ -51,21 +56,23 @@ function checkUp(e: KeyboardEvent) : void {
 		}
 	}
 }
+canvas.addEventListener('mousedown', function (evt: any) {
+	console.log(evt.layerX, evt.layerY);
+}, false);
+// } events
 
 
 function gameLoop() : void {
 	ctx.clearRect(0, 0, winWid, winHei);
-	drawImage("dirt1", 20, 20, scale, scale);
 	for (var k of heldDown) {
-		if (k == "A") p.j -= 0.1;
-		else if (k == "D") p.j += 0.1;
-		else if (k == "W") p.i -= 0.1;
-		else if (k == "S") p.i += 0.1;
+		if (k == "A") player.j -= 0.1;
+		else if (k == "D") player.j += 0.1;
+		else if (k == "W") player.i -= 0.1;
+		else if (k == "S") player.i += 0.1;
 	}
-	// debug {
-	// if (bd(p.i, p.j)) {
-	// 	terrain[round(p.i)][round(p.j)].color = "#000000";
-	// }
+	if (bd(player.i, player.j)) {
+		terrain[round(player.i)][round(player.j)].imageId = "wood1";
+	}
 	
 	const wide: number = round(winWid / scale);
 	const long: number = round(winHei / scale);
@@ -73,15 +80,14 @@ function gameLoop() : void {
 	const halfL: number = round(long / 2);
 	for (var i = -1; i < long + 1; i ++) {
 		for (var j = -1; j < wide + 1; j ++) {
-			const ni: number = round(p.i) - halfL + i;
-			const nj: number = round(p.j) - halfW + j;
+			const ni: number = round(player.i) - halfL + i;
+			const nj: number = round(player.j) - halfW + j;
 			if (bd(ni, nj)) {
-				const bitI: number = p.i - round(p.i);
-				const bitJ: number = p.j - round(p.j);
+				const bitI: number = player.i - round(player.i);
+				const bitJ: number = player.j - round(player.j);
 				// drawRect((j - bitJ) * scale, (i - bitI) * scale, scale, scale, terrain[ni][nj].color);
 				drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
 			}
-
 		}
 	}
 	drawCircle(winWid / 2 + scale, winHei / 2 + scale, scale / 2, "#0000FF");
@@ -89,7 +95,6 @@ function gameLoop() : void {
 }
 gameLoop();
 
-
 function debug() {
-	console.log(JSON.stringify(p));
+	console.log(JSON.stringify(player));
 }
