@@ -1,7 +1,7 @@
-var c = document.getElementById("canvas idk");
-var ctx = c.getContext('2d');
-var winWid = window.innerWidth;
-var winHei = window.innerHeight;
+var canvas = document.getElementById("canvas idk");
+var ctx = canvas.getContext('2d');
+var winWid = canvas.width;
+var winHei = canvas.height;
 function drawCircle(x, y, r, color) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);

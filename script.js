@@ -17,11 +17,13 @@ window.addEventListener("keyup", this.checkUp, false);
 function checkDown(e) {
     if (e.repeat)
         return;
-    heldDown.push(String.fromCharCode(e.keyCode));
+    var ch = String.fromCharCode(e.keyCode);
+    heldDown.push(ch);
 }
 function checkUp(e) {
     for (var i = 0; i < heldDown.length; i++) {
-        if (heldDown[i] == String.fromCharCode(e.keyCode)) {
+        var ch = String.fromCharCode(e.keyCode);
+        if (heldDown[i] == ch) {
             heldDown.splice(i, 1);
             i--;
         }
@@ -31,6 +33,7 @@ var Entity = /** @class */ (function () {
     function Entity(i, j) {
         this.i = i;
         this.j = j;
+        this.microI = this.microJ = 0;
     }
     return Entity;
 }());
@@ -43,7 +46,7 @@ var Player = /** @class */ (function (_super) {
 }(Entity));
 // setup {
 var scale = 20;
-var p = new Player(0, 0);
+var p = new Player(10, 10);
 var mapWid = 500;
 var mapHei = 500;
 var map = [];
@@ -55,36 +58,58 @@ for (var i = 0; i < mapHei; i++) {
     }
 }
 // } setup
-console.log(map);
+var bd = function (i, j) { return 0 <= i && i < mapHei && 0 <= j && j < mapWid; };
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
     for (var _i = 0, heldDown_1 = heldDown; _i < heldDown_1.length; _i++) {
         var k = heldDown_1[_i];
         if (k == "A")
-            p.j -= 0.1;
+            p.microJ -= 0.1;
         else if (k == "D")
-            p.j += 0.1;
+            p.microJ += 0.1;
         else if (k == "W")
-            p.i -= 0.1;
+            p.microI -= 0.1;
         else if (k == "S")
-            p.i += 0.1;
+            p.microI += 0.1;
     }
-    var bd = function (i, j) { return 0 <= i && i < mapHei && 0 <= j && j < mapWid; };
-    var wide = Math.floor(winWid / scale);
-    var long = Math.floor(winHei / scale);
-    for (var i = 0; i < long; i++) {
-        for (var j = 0; j < wide; j++) {
-            var ni = Math.floor(p.i + i);
-            var nj = Math.floor(p.j + j);
+    if (p.microI >= 1) {
+        p.i++;
+        p.microI = 0;
+    }
+    if (p.microI <= -1) {
+        p.i--;
+        p.microI = 0;
+    }
+    if (p.microJ >= 1) {
+        p.j++;
+        p.microJ = 0;
+    }
+    if (p.microJ <= -1) {
+        p.j--;
+        p.microJ = 0;
+    }
+    // debug {
+    if (bd(p.i, p.j)) {
+        map[p.i][p.j] = "#000000";
+    }
+    // } debug
+    var wide = Math.round(winWid / scale);
+    var long = Math.round(winHei / scale);
+    var halfW = Math.round(wide / 2);
+    var halfL = Math.round(long / 2);
+    for (var i = -1; i < long + 1; i++) {
+        for (var j = -1; j < wide + 1; j++) {
+            var ni = p.i - halfL + i;
+            var nj = p.j - halfW + j;
             if (bd(ni, nj)) {
-                var bitI = p.i - Math.floor(p.i);
-                var bitJ = p.j - Math.floor(p.j);
-                drawRect((j - bitJ) * scale, (i - bitI) * scale, scale, scale, map[ni][nj]);
+                drawRect((j - p.microJ) * scale, (i - p.microI) * scale, scale, scale, map[ni][nj]);
             }
         }
     }
-    var half = Math.floor(winHei / scale / 2);
-    drawCircle(20, 20, scale / 2, "#0000FF");
+    drawCircle(winWid / 2 + scale, winHei / 2 + scale, scale / 2, "#0000FF");
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
+function debug() {
+    console.log(p.i, p.j, p.microI, p.microJ);
+}

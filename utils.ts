@@ -1,8 +1,7 @@
-let c: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas idk");
-let ctx: CanvasRenderingContext2D = c.getContext('2d');
-let winWid: number = window.innerWidth;
-let winHei: number = window.innerHeight;
-
+let canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas idk");
+let ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+let winWid: number = canvas.width;
+let winHei: number = canvas.height;
 
 function drawCircle(x: number, y: number, r: number, color: string) : void {
 	ctx.beginPath();
