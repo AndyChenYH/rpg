@@ -4,6 +4,9 @@ class Tile {
 	constructor(imageId: string) {
 		this.imageId = imageId;
 	}
+	equals(rhs: Tile) : boolean {
+		return this.imageId === rhs.imageId;
+	}
 }
 class Entity {
 	i: number;
@@ -42,15 +45,15 @@ function fill(i: number, j: number, tile: Tile) : void {
 	var dir: number[][] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
-	terrain[i][j] = JSON.parse(JSON.stringify(tile));
+	terrain[i][j] = tile;
 	L1: while (q.size != 0) {
 		var fr: number[] = q.front();
 		q.pop_front();
 		for (var dr of dir) {
 			var ni: number = fr[0] + dr[0];
 			var nj: number = fr[1] + dr[1];
-			if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
-				terrain[ni][nj] = JSON.parse(JSON.stringify(tile));
+			if (bd(ni, nj) && !terrain[ni][nj].equals(tile)) {
+				terrain[ni][nj] = tile;
 				q.push_back([ni, nj]);
 			}
 		}

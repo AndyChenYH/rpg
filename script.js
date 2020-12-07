@@ -16,6 +16,9 @@ var Tile = /** @class */ (function () {
     function Tile(imageId) {
         this.imageId = imageId;
     }
+    Tile.prototype.equals = function (rhs) {
+        return this.imageId === rhs.imageId;
+    };
     return Tile;
 }());
 var Entity = /** @class */ (function () {
@@ -55,7 +58,7 @@ function fill(i, j, tile) {
     var dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
     var q = new list();
     q.push_back([i, j]);
-    terrain[i][j] = JSON.parse(JSON.stringify(tile));
+    terrain[i][j] = tile;
     L1: while (q.size != 0) {
         var fr = q.front();
         q.pop_front();
@@ -63,8 +66,8 @@ function fill(i, j, tile) {
             var dr = dir_1[_i];
             var ni = fr[0] + dr[0];
             var nj = fr[1] + dr[1];
-            if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
-                terrain[ni][nj] = JSON.parse(JSON.stringify(tile));
+            if (bd(ni, nj) && !terrain[ni][nj].equals(tile)) {
+                terrain[ni][nj] = tile;
                 q.push_back([ni, nj]);
             }
         }
