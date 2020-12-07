@@ -18,6 +18,13 @@ var Tile = /** @class */ (function () {
     }
     return Tile;
 }());
+var Block = /** @class */ (function () {
+    function Block(imageId, passable) {
+        this.imageId = imageId;
+        this.passable = passable;
+    }
+    return Block;
+}());
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
         this.i = i;
@@ -40,10 +47,13 @@ var player = new Player(10, 10);
 var mapWid = 50;
 var mapHei = 50;
 var terrain = [];
+var level = [];
 for (var i = 0; i < mapHei; i++) {
     terrain.push(new Array(mapWid));
+    level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
         terrain[i][j] = new Tile("dirt1");
+        level[i][j] = new Block("blank1", true);
     }
 }
 // } variables

@@ -5,6 +5,14 @@ class Tile {
 		this.imageId = imageId;
 	}
 }
+class Block {
+	imageId: string;
+	passable: boolean;
+	constructor(imageId: string, passable: boolean) {
+		this.imageId = imageId;
+		this.passable = passable;
+	}
+}
 class Entity {
 	i: number;
 	j: number;
@@ -25,10 +33,13 @@ var player: Player = new Player(10, 10);
 const mapWid: number = 50;
 const mapHei: number = 50;
 var terrain: Tile[][] = [];
+var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
+	level.push(new Array(mapWid));
 	for (var j = 0; j < mapWid; j ++) {
 		terrain[i][j] = new Tile("dirt1");
+		level[i][j] = new Block("blank1", true);
 	}
 }
 // } variables
@@ -111,5 +122,6 @@ canvas.addEventListener('mousedown', function (evt: any) {
 	console.log(evt.layerX, evt.layerY);
 }, false);
 */
+
 
 // } events

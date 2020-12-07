@@ -31,6 +31,8 @@ function gameLoop(): void {
 				const bitI: number = player.i - round(player.i);
 				const bitJ: number = player.j - round(player.j);
 				drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
+				drawImage(level[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
+
 			}
 		}
 	}

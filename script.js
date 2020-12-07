@@ -32,6 +32,7 @@ function gameLoop() {
                 var bitI = player.i - round(player.i);
                 var bitJ = player.j - round(player.j);
                 drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
+                drawImage(level[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
             }
         }
     }
