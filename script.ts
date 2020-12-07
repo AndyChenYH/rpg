@@ -7,10 +7,10 @@ function gameLoop(): void {
 	drawImage("bg3", 0, 0, winWid, winHei);
 	player.preI = player.i;
 	player.preJ = player.j;
-	if (heldDown["A"] && level[round(player.i)][round(player.j - 0.1)].passable) player.j -= 0.1;
-	if (heldDown["D"] && level[round(player.i)][round(player.j + 0.1)].passable) player.j += 0.1;
-	if (heldDown["W"] && level[round(player.i - 0.1)][round(player.j)].passable) player.i -= 0.1;
-	if (heldDown["S"] && level[round(player.i + 0.1)][round(player.j)].passable) player.i += 0.1;
+	if (heldDown["A"]) player.move(0, -1);
+	if (heldDown["D"]) player.move(0, 1);
+	if (heldDown["W"]) player.move(-1, 0);
+	if (heldDown["S"]) player.move(1, 0);
 	player.i = max(0, min(mapHei, player.i));
 	player.j = max(0, min(mapWid, player.j));
 	if (!level[round(player.i)][round(player.j)].passable) {
@@ -49,5 +49,5 @@ function gameLoop(): void {
 gameLoop();
 
 function debug() {
-	console.log(JSON.stringify(player));
+	console.log(round(player.i * 100) / 100, round(player.j * 100) / 100);
 }

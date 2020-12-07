@@ -35,8 +35,18 @@ var Entity = /** @class */ (function () {
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
     function Player() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.speed = 0.1;
+        return _this;
     }
+    Player.prototype.move = function (di, dj) {
+        di *= this.speed;
+        dj *= this.speed;
+        if (level[round(this.i + di)][round(this.j + dj)].passable) {
+            this.i += di;
+            this.j += dj;
+        }
+    };
     return Player;
 }(Entity));
 // } classes

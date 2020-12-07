@@ -24,6 +24,15 @@ class Entity {
 	}
 }
 class Player extends Entity {
+	speed: number = 0.1;
+	move(di: number, dj: number) : void {
+		di *= this.speed;
+		dj *= this.speed;
+		if (level[round(this.i + di)][round(this.j + dj)].passable) {
+			this.i += di;
+			this.j += dj;
+		}
+	}
 }
 // } classes
 
