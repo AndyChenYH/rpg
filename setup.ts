@@ -16,9 +16,11 @@ class Block {
 class Entity {
 	i: number;
 	j: number;
+	preI: number;
+	preJ: number;
 	constructor(i: number, j: number) {
-		this.i = i;
-		this.j = j;
+		this.i = this.preI = i;
+		this.j = this.preJ = j;
 	}
 }
 class Player extends Entity {
@@ -39,26 +41,30 @@ for (var i = 0; i < mapHei; i++) {
 	level.push(new Array(mapWid));
 	for (var j = 0; j < mapWid; j ++) {
 		terrain[i][j] = new Tile("dirt1");
-		level[i][j] = new Block("blank1", true);
+		level[i][j] = rd(0, 10) == 0 ? new Block("grass4", false) : new Block("blank1", true);
 	}
 }
 // } variables
 
 // functions {
+function dist(i1: number, j1: number, i2: number, j2: number) : number {
+	var di: number = i1 - i2;
+	var dj: number = j1 - j2;
+	return Math.sqrt(di * di + dj * dj);
+}
 function bd(i: number, j: number): boolean {
 	return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 }
 
 function fill(i: number, j: number, tile: Tile): void {
 	if (!bd(i, j)) return;
-	const dir: number[][] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
 	terrain[i][j] = tile;
 	L1: while (q.size != 0) {
 		var fr: number[] = q.front();
 		q.pop_front();
-		for (var dr of dir) {
+		for (var dr of drs) {
 			var ni: number = fr[0] + dr[0];
 			var nj: number = fr[1] + dr[1];
 			if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {

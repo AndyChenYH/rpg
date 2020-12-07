@@ -3,16 +3,23 @@ terrFromString(terr);
 var cur = "stone1";
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
-    if (heldDown["A"])
+    drawImage("bg3", 0, 0, winWid, winHei);
+    player.preI = player.i;
+    player.preJ = player.j;
+    if (heldDown["A"] && level[round(player.i)][round(player.j - 0.1)].passable)
         player.j -= 0.1;
-    if (heldDown["D"])
+    if (heldDown["D"] && level[round(player.i)][round(player.j + 0.1)].passable)
         player.j += 0.1;
-    if (heldDown["W"])
+    if (heldDown["W"] && level[round(player.i - 0.1)][round(player.j)].passable)
         player.i -= 0.1;
-    if (heldDown["S"])
+    if (heldDown["S"] && level[round(player.i + 0.1)][round(player.j)].passable)
         player.i += 0.1;
     player.i = max(0, min(mapHei, player.i));
     player.j = max(0, min(mapWid, player.j));
+    if (!level[round(player.i)][round(player.j)].passable) {
+        player.i = player.preI;
+        player.j = player.preJ;
+    }
     if (heldDown["B"] && bd(round(player.i), round(player.j))) {
         terrain[round(player.i)][round(player.j)].imageId = cur;
     }

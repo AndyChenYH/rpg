@@ -54,3 +54,25 @@ class list<T> {
 		return res;
 	}
 }
+
+// class Vec {
+// 	i: number;
+// 	j: number;
+// 	constructor(i: number, j: number) {
+// 		this.i = i;
+// 		this.j = j;
+// 	}
+// 	mult(c: number) : void {
+// 		this.i *= c;
+// 		this.j *= c;
+// 	}
+// 	div(c: number) : void {
+// 		this.i /= c;
+// 		this.j /= c;
+// 	}
+// 	dist(rhs: Vec) : number {
+// 		var di: number = rhs.i - this.i;
+// 		var dj: number = rhs.j - this.j;
+// 		return Math.sqrt(di * di + dj * dj);
+// 	}
+// }

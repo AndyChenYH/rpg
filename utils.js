@@ -3,6 +3,7 @@ var canvas = document.getElementById("canvas idk");
 var ctx = canvas.getContext('2d');
 var winWid = canvas.width;
 var winHei = canvas.height;
+var drs = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 var round = function (x) { return Math.round(x); };
 var floor = function (x) { return Math.floor(x); };
 var max = function (a, b) { return Math.max(a, b); };

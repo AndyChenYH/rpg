@@ -4,6 +4,7 @@ let ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 let winWid: number = canvas.width;
 let winHei: number = canvas.height;
 
+const drs: number[][] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 const round = (x: number) => Math.round(x);
 const floor = (x: number) => Math.floor(x);
 const max = (a: number, b: number) => Math.max(a, b);

@@ -27,8 +27,8 @@ var Block = /** @class */ (function () {
 }());
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
-        this.i = i;
-        this.j = j;
+        this.i = this.preI = i;
+        this.j = this.preJ = j;
     }
     return Entity;
 }());
@@ -53,26 +53,30 @@ for (var i = 0; i < mapHei; i++) {
     level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
         terrain[i][j] = new Tile("dirt1");
-        level[i][j] = new Block("blank1", true);
+        level[i][j] = rd(0, 10) == 0 ? new Block("grass4", false) : new Block("blank1", true);
     }
 }
 // } variables
 // functions {
+function dist(i1, j1, i2, j2) {
+    var di = i1 - i2;
+    var dj = j1 - j2;
+    return Math.sqrt(di * di + dj * dj);
+}
 function bd(i, j) {
     return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 }
 function fill(i, j, tile) {
     if (!bd(i, j))
         return;
-    var dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
     var q = new list();
     q.push_back([i, j]);
     terrain[i][j] = tile;
     L1: while (q.size != 0) {
         var fr = q.front();
         q.pop_front();
-        for (var _i = 0, dir_1 = dir; _i < dir_1.length; _i++) {
-            var dr = dir_1[_i];
+        for (var _i = 0, drs_1 = drs; _i < drs_1.length; _i++) {
+            var dr = drs_1[_i];
             var ni = fr[0] + dr[0];
             var nj = fr[1] + dr[1];
             if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
