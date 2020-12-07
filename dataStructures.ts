@@ -20,7 +20,7 @@ class list<T> {
 		return this.first.val;
 	}
 	push_front(val: T) : void {
-		if (this.first == null) {
+		if (this.first === null) {
 			this.first = this.last = new ListNode<T>(val);
 		}
 		else {
@@ -31,7 +31,7 @@ class list<T> {
 		this.size ++;
 	}
 	push_back(val: T) : void {
-		if (this.first == null) {
+		if (this.first === null) {
 			this.push_front(val);
 			return;
 		}

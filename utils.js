@@ -5,6 +5,8 @@ var winWid = canvas.width;
 var winHei = canvas.height;
 var round = function (x) { return Math.round(x); };
 var floor = function (x) { return Math.floor(x); };
+var max = function (a, b) { return Math.max(a, b); };
+var min = function (a, b) { return Math.min(a, b); };
 function drawCircle(x, y, r, color) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);

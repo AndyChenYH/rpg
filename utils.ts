@@ -6,6 +6,8 @@ let winHei: number = canvas.height;
 
 const round = (x: number) => Math.round(x);
 const floor = (x: number) => Math.floor(x);
+const max = (a: number, b: number) => Math.max(a, b);
+const min = (a: number, b: number) => Math.min(a, b);
 
 function drawCircle(x: number, y: number, r: number, color: string) : void {
 	ctx.beginPath();

@@ -15,7 +15,7 @@ var list = /** @class */ (function () {
         return this.first.val;
     };
     list.prototype.push_front = function (val) {
-        if (this.first == null) {
+        if (this.first === null) {
             this.first = this.last = new ListNode(val);
         }
         else {
@@ -26,7 +26,7 @@ var list = /** @class */ (function () {
         this.size++;
     };
     list.prototype.push_back = function (val) {
-        if (this.first == null) {
+        if (this.first === null) {
             this.push_front(val);
             return;
         }
