@@ -16,10 +16,10 @@ function gameLoop() {
         player.move(1, 0);
     player.i = max(0, min(mapHei, player.i));
     player.j = max(0, min(mapWid, player.j));
-    if (!level[round(player.i)][round(player.j)].passable) {
-        player.i = player.preI;
-        player.j = player.preJ;
-    }
+    // if (!level[round(player.i)][round(player.j)].passable) {
+    // 	player.i = player.preI;
+    // 	player.j = player.preJ;
+    // }
     if (heldDown["B"] && bd(round(player.i), round(player.j))) {
         terrain[round(player.i)][round(player.j)].imageId = cur;
     }
@@ -27,23 +27,18 @@ function gameLoop() {
         fill(round(player.i), round(player.j), new Tile(cur));
         heldDown["F"] = false;
     }
-    var wide = round(winWid / scale);
-    var long = round(winHei / scale);
-    var halfW = round(wide / 2);
-    var halfL = round(long / 2);
-    for (var i = -1; i < long + 1; i++) {
-        for (var j = -1; j < wide + 1; j++) {
-            var ni = round(player.i) - halfL + i;
-            var nj = round(player.j) - halfW + j;
-            if (bd(ni, nj)) {
-                var bitI = player.i - round(player.i);
-                var bitJ = player.j - round(player.j);
-                drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
-                drawImage(level[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
+    //TODO make it rectangle compatible
+    var num = floor(winWid / scale / 2);
+    var top = player.i - num;
+    var left = player.j - num;
+    for (var i = 0; i < num * 2; i++) {
+        for (var j = 0; j < num * 2; j++) {
+            if (bd(i, j)) {
+                drawImage(terrain[floor(i)][floor(j)].imageId, (j - left) * scale, (i - top) * scale, scale, scale);
             }
         }
     }
-    drawCircle(winWid / 2 + scale, winHei / 2 + scale, scale / 2, "#0000FF");
+    drawCircle(winWid / 2 + scale / 2, winHei / 2 + scale / 2, scale / 2, "#0000FF");
     requestAnimationFrame(gameLoop);
 }
 gameLoop();

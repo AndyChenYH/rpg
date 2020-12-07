@@ -46,16 +46,19 @@ var Player = /** @class */ (function (_super) {
             this.i += di;
             this.j += dj;
         }
+        this.i = round(this.i * 1e5) / 1e5;
+        this.j = round(this.j * 1e5) / 1e5;
     };
     return Player;
 }(Entity));
 // } classes
 // variables {
+// should be divisible by canvas width and height
 var scale = 30;
 var edit = false;
 var player = new Player(10, 10);
-var mapWid = 50;
-var mapHei = 50;
+var mapWid = 100;
+var mapHei = 100;
 var terrain = [];
 var level = [];
 for (var i = 0; i < mapHei; i++) {
@@ -63,7 +66,7 @@ for (var i = 0; i < mapHei; i++) {
     level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
         terrain[i][j] = new Tile("dirt1");
-        level[i][j] = rd(0, 10) == 0 ? new Block("grass4", false) : new Block("blank1", true);
+        level[i][j] = new Block("blank1", true);
     }
 }
 // } variables
@@ -82,7 +85,7 @@ function fill(i, j, tile) {
     var q = new list();
     q.push_back([i, j]);
     terrain[i][j] = tile;
-    L1: while (q.size != 0) {
+    while (q.size != 0) {
         var fr = q.front();
         q.pop_front();
         for (var _i = 0, drs_1 = drs; _i < drs_1.length; _i++) {
@@ -127,7 +130,8 @@ var heldDown = {
     "W": false,
     "S": false,
     "B": false,
-    "F": false
+    "F": false,
+    "O": false
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);

@@ -32,17 +32,20 @@ class Player extends Entity {
 			this.i += di;
 			this.j += dj;
 		}
+		this.i = round(this.i * 1e5) / 1e5;
+		this.j = round(this.j * 1e5) / 1e5;
 	}
 }
 // } classes
 
 // variables {
+// should be divisible by canvas width and height
 const scale: number = 30;
 
 var edit: boolean = false;
 var player: Player = new Player(10, 10);
-const mapWid: number = 50;
-const mapHei: number = 50;
+const mapWid: number = 100;
+const mapHei: number = 100;
 var terrain: Tile[][] = [];
 var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
@@ -50,7 +53,7 @@ for (var i = 0; i < mapHei; i++) {
 	level.push(new Array(mapWid));
 	for (var j = 0; j < mapWid; j ++) {
 		terrain[i][j] = new Tile("dirt1");
-		level[i][j] = rd(0, 10) == 0 ? new Block("grass4", false) : new Block("blank1", true);
+		level[i][j] = new Block("blank1", true);
 	}
 }
 // } variables
@@ -70,7 +73,7 @@ function fill(i: number, j: number, tile: Tile): void {
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
 	terrain[i][j] = tile;
-	L1: while (q.size != 0) {
+	while (q.size != 0) {
 		var fr: number[] = q.front();
 		q.pop_front();
 		for (var dr of drs) {
@@ -115,6 +118,7 @@ var heldDown: any = {
 	"S": false,
 	"B": false,
 	"F": false,
+	"O": false,
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);

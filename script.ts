@@ -13,10 +13,10 @@ function gameLoop(): void {
 	if (heldDown["S"]) player.move(1, 0);
 	player.i = max(0, min(mapHei, player.i));
 	player.j = max(0, min(mapWid, player.j));
-	if (!level[round(player.i)][round(player.j)].passable) {
-		player.i = player.preI;
-		player.j = player.preJ;
-	}
+	// if (!level[round(player.i)][round(player.j)].passable) {
+	// 	player.i = player.preI;
+	// 	player.j = player.preJ;
+	// }
 
 	if (heldDown["B"] && bd(round(player.i), round(player.j))) {
 		terrain[round(player.i)][round(player.j)].imageId = cur;
@@ -25,25 +25,18 @@ function gameLoop(): void {
 		fill(round(player.i), round(player.j), new Tile(cur));
 		heldDown["F"] = false;
 	}
-
-	const wide: number = round(winWid / scale);
-	const long: number = round(winHei / scale);
-	const halfW: number = round(wide / 2);
-	const halfL: number = round(long / 2);
-	for (var i = -1; i < long + 1; i++) {
-		for (var j = -1; j < wide + 1; j++) {
-			const ni: number = round(player.i) - halfL + i;
-			const nj: number = round(player.j) - halfW + j;
-			if (bd(ni, nj)) {
-				const bitI: number = player.i - round(player.i);
-				const bitJ: number = player.j - round(player.j);
-				drawImage(terrain[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
-				drawImage(level[ni][nj].imageId, (j - bitJ) * scale, (i - bitI) * scale, scale, scale);
-
+	//TODO make it rectangle compatible
+	var num: number = floor(winWid / scale / 2);
+	var top: number = player.i - num;
+	var left: number = player.j - num;
+	for (var i = 0; i < num * 2; i ++) {
+		for (var j = 0; j < num * 2; j ++) {
+			if (bd(i, j)) {
+				drawImage(terrain[floor(i)][floor(j)].imageId, (j - left) * scale, (i - top) * scale, scale, scale);
 			}
 		}
 	}
-	drawCircle(winWid / 2 + scale, winHei / 2 + scale, scale / 2, "#0000FF");
+	drawCircle(winWid / 2 + scale / 2, winHei / 2 + scale / 2, scale / 2, "#0000FF");
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();
