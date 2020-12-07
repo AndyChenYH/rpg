@@ -66,7 +66,7 @@ for (var i = 0; i < mapHei; i++) {
     level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
         terrain[i][j] = new Tile("dirt1");
-        level[i][j] = new Block("blank1", true);
+        level[i][j] = rd(0, 10) == 0 ? new Block("grass2", false) : new Block("blank1", true);
     }
 }
 // } variables

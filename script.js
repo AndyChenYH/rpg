@@ -16,10 +16,6 @@ function gameLoop() {
         player.move(1, 0);
     player.i = max(0, min(mapHei, player.i));
     player.j = max(0, min(mapWid, player.j));
-    // if (!level[round(player.i)][round(player.j)].passable) {
-    // 	player.i = player.preI;
-    // 	player.j = player.preJ;
-    // }
     if (heldDown["B"] && bd(round(player.i), round(player.j))) {
         terrain[round(player.i)][round(player.j)].imageId = cur;
     }
@@ -34,7 +30,10 @@ function gameLoop() {
     for (var i = 0; i < num * 2; i++) {
         for (var j = 0; j < num * 2; j++) {
             if (bd(i, j)) {
-                drawImage(terrain[floor(i)][floor(j)].imageId, (j - left) * scale, (i - top) * scale, scale, scale);
+                var x = (j - left) * scale;
+                var y = (i - top) * scale;
+                drawImage(terrain[floor(i)][floor(j)].imageId, x, y, scale, scale);
+                drawImage(level[floor(i)][floor(j)].imageId, x, y, scale, scale);
             }
         }
     }
