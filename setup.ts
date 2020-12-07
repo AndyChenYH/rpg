@@ -1,12 +1,14 @@
 // classes {
 class Tile {
 	imageId: string;
-	constructor(imageId: string) {
+	constructor(imageId: string="blank1") {
 		this.imageId = imageId;
 	}
+	fromJSON(obj: any) : void {
+		this.imageId = obj.imageId;
+	}
 }
-class Block {
-	imageId: string;
+class Block extends Tile {
 	passable: boolean;
 	/*
 	if you are adding instance fields, make sure to change:
@@ -14,12 +16,12 @@ class Block {
 	constructor initialization
 	fromJSON
 	*/
-	constructor(imageId: string="", passable: boolean=true) {
-		this.imageId = imageId;
+	constructor(imageId: string="blank1", passable: boolean=false) {
+		super(imageId);
 		this.passable = passable;
 	}
 	fromJSON(obj: any) : void {
-		this.imageId = obj.imageId;
+		super.fromJSON(obj);
 		this.passable = obj.passable;
 	}
 }
@@ -47,7 +49,7 @@ class Player extends Entity {
 		this.faceJ = dj;
 		var ni: number = this.i + di * this.speed;
 		var nj: number = this.j + dj * this.speed;
-		if (bd(round(ni), round(nj)) && level[round(ni)][round(nj)].passable) {
+		if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
 			this.i = ni;
 			this.j = nj;
 		}
@@ -72,18 +74,18 @@ class Player extends Entity {
 // should be divisible by canvas width and height
 const scale: number = 30;
 
-var edit: boolean = false;
+var editing: boolean = false;
 var player: Player = new Player(1, 1);
-const mapWid: number = 5;
-const mapHei: number = 5;
+const mapWid: number = 30;
+const mapHei: number = 30;
 var terrain: Tile[][] = [];
 var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
 	level.push(new Array(mapWid));
 	for (var j = 0; j < mapWid; j ++) {
-		terrain[i][j] = new Tile("dirt1");
-		level[i][j] = rd(0, 10) == 0 ? new Block("grass2", false) : new Block("blank1", true);
+		terrain[i][j] = new Tile();
+		level[i][j] = new Block();
 	}
 }
 // } variables
@@ -116,32 +118,16 @@ function fill(i: number, j: number, tile: Tile): void {
 		}
 	}
 }
-function terrToString() : string {
-	var res = "";
-	for (var i = 0; i < mapHei; i ++) {
-		for (var j = 0; j < mapWid; j ++) {
-			res += terrain[i][j].imageId;
-			if (j != mapWid - 1) res += " ";
-		}
-		if (i != mapHei - 1) {
-			res += "/";
-		}
-	}
-	return res;
-}
-function terrFromString(raw: string) : void {
-	var rows: string[] = raw.split("/");
-	for (var i = 0; i < min(mapHei, rows.length); i ++) {
-		var tiles: string[] = rows[i].split(" ");
-		for (var j = 0; j < min(mapWid, tiles.length); j ++) {
-			terrain[i][j].imageId = tiles[j];
+function terrFromString(obj: any) : void {
+	for (var i = 0; i < min(mapHei, obj.length); i ++) {
+		for (var j = 0; j < min(mapWid, obj[i].length); j ++) {
+			terrain[i][j].fromJSON(obj[i][j]);
 		}
 	}
 }
 function levelFromJSON(obj: any) : void {
 	for (var i = 0; i < min(mapHei, obj.length); i ++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j ++) {
-			level[i][j] = new Block();
 			level[i][j].fromJSON(obj[i][j]);
 		}
 	}

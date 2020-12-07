@@ -1,8 +1,11 @@
 // @ts-ignore
-terrFromString(rawTerr);
+terrFromString(JSON.parse(rawTerr));
 // @ts-ignore
 levelFromJSON(JSON.parse(rawLev));
+// cur setting {
 var cur = "stone1";
+var which = 0;
+// } cur setting
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
     drawImage("bg3", 0, 0, winWid, winHei);
@@ -14,13 +17,20 @@ function gameLoop() {
         player.move(-1, 0);
     if (heldDown["S"])
         player.move(1, 0);
+    // level editing {
     if (heldDown["B"] && bd(round(player.i), round(player.j))) {
-        terrain[round(player.i)][round(player.j)].imageId = cur;
+        if (which == 0) {
+            terrain[round(player.i)][round(player.j)].imageId = cur;
+        }
+        else if (which == 1) {
+            level[round(player.i)][round(player.j)] = new Block(cur, false);
+        }
     }
     if (heldDown["F"]) {
         fill(round(player.i), round(player.j), new Tile(cur));
         heldDown["F"] = false;
     }
+    // } level editing
     var numW = floor(winWid / scale / 2);
     var numH = floor(winHei / scale / 2);
     var top = player.i - numH;
@@ -31,7 +41,7 @@ function gameLoop() {
                 var x = (j - left) * scale;
                 var y = (i - top) * scale;
                 drawImage(terrain[floor(i)][floor(j)].imageId, x, y, scale, scale);
-                drawImage(level[floor(i)][floor(j)].imageId, x, y, scale, scale);
+                drawImage(level[floor(i)][floor(j)].imageId, x + scale * 0.05, y + scale * 0.05, scale * 0.9, scale * 0.9);
             }
         }
     }
@@ -41,4 +51,7 @@ function gameLoop() {
 gameLoop();
 function debug() {
     console.log(player.i, player.j);
+}
+function edit() {
+    editing = !editing;
 }

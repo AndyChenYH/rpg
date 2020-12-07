@@ -14,11 +14,16 @@ var __extends = (this && this.__extends) || (function () {
 // classes {
 var Tile = /** @class */ (function () {
     function Tile(imageId) {
+        if (imageId === void 0) { imageId = "blank1"; }
         this.imageId = imageId;
     }
+    Tile.prototype.fromJSON = function (obj) {
+        this.imageId = obj.imageId;
+    };
     return Tile;
 }());
-var Block = /** @class */ (function () {
+var Block = /** @class */ (function (_super) {
+    __extends(Block, _super);
     /*
     if you are adding instance fields, make sure to change:
     constructor parameter
@@ -26,17 +31,18 @@ var Block = /** @class */ (function () {
     fromJSON
     */
     function Block(imageId, passable) {
-        if (imageId === void 0) { imageId = ""; }
-        if (passable === void 0) { passable = true; }
-        this.imageId = imageId;
-        this.passable = passable;
+        if (imageId === void 0) { imageId = "blank1"; }
+        if (passable === void 0) { passable = false; }
+        var _this = _super.call(this, imageId) || this;
+        _this.passable = passable;
+        return _this;
     }
     Block.prototype.fromJSON = function (obj) {
-        this.imageId = obj.imageId;
+        _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
     };
     return Block;
-}());
+}(Tile));
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
         this.i = i;
@@ -59,7 +65,7 @@ var Player = /** @class */ (function (_super) {
         this.faceJ = dj;
         var ni = this.i + di * this.speed;
         var nj = this.j + dj * this.speed;
-        if (bd(round(ni), round(nj)) && level[round(ni)][round(nj)].passable) {
+        if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
             this.i = ni;
             this.j = nj;
         }
@@ -86,18 +92,18 @@ var Player = /** @class */ (function (_super) {
 // variables {
 // should be divisible by canvas width and height
 var scale = 30;
-var edit = false;
+var editing = false;
 var player = new Player(1, 1);
-var mapWid = 5;
-var mapHei = 5;
+var mapWid = 30;
+var mapHei = 30;
 var terrain = [];
 var level = [];
 for (var i = 0; i < mapHei; i++) {
     terrain.push(new Array(mapWid));
     level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
-        terrain[i][j] = new Tile("dirt1");
-        level[i][j] = rd(0, 10) == 0 ? new Block("grass2", false) : new Block("blank1", true);
+        terrain[i][j] = new Tile();
+        level[i][j] = new Block();
     }
 }
 // } variables
@@ -130,34 +136,16 @@ function fill(i, j, tile) {
         }
     }
 }
-function terrToString() {
-    var res = "";
-    for (var i = 0; i < mapHei; i++) {
-        for (var j = 0; j < mapWid; j++) {
-            res += terrain[i][j].imageId;
-            if (j != mapWid - 1)
-                res += " ";
-        }
-        if (i != mapHei - 1) {
-            res += "/";
-        }
-    }
-    return res;
-}
-function terrFromString(raw) {
-    var rows = raw.split("/");
-    for (var i = 0; i < min(mapHei, rows.length); i++) {
-        var tiles = rows[i].split(" ");
-        for (var j = 0; j < min(mapWid, tiles.length); j++) {
-            terrain[i][j].imageId = tiles[j];
+function terrFromString(obj) {
+    for (var i = 0; i < min(mapHei, obj.length); i++) {
+        for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+            terrain[i][j].fromJSON(obj[i][j]);
         }
     }
 }
 function levelFromJSON(obj) {
-    console.log(obj);
     for (var i = 0; i < min(mapHei, obj.length); i++) {
         for (var j = 0; j < min(mapWid, obj[i].length); j++) {
-            level[i][j] = new Block();
             level[i][j].fromJSON(obj[i][j]);
         }
     }
