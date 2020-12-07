@@ -19,35 +19,66 @@ var Tile = /** @class */ (function () {
     return Tile;
 }());
 var Block = /** @class */ (function () {
+    /*
+    if you are adding instance fields, make sure to change:
+    constructor parameter
+    constructor initialization
+    fromJSON
+    */
     function Block(imageId, passable) {
+        if (imageId === void 0) { imageId = ""; }
+        if (passable === void 0) { passable = true; }
         this.imageId = imageId;
         this.passable = passable;
     }
+    Block.prototype.fromJSON = function (obj) {
+        this.imageId = obj.imageId;
+        this.passable = obj.passable;
+    };
     return Block;
 }());
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
-        this.i = this.preI = i;
-        this.j = this.preJ = j;
+        this.i = i;
+        this.j = j;
+        this.faceI = 1;
+        this.faceJ = 0;
     }
     return Entity;
 }());
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
-    function Player() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function Player(i, j) {
+        var _this = _super.call(this, i, j) || this;
         _this.speed = 0.1;
+        _this.images = ["player1", "player2", "player3", "player4"];
         return _this;
     }
     Player.prototype.move = function (di, dj) {
-        di *= this.speed;
-        dj *= this.speed;
-        if (level[round(this.i + di)][round(this.j + dj)].passable) {
-            this.i += di;
-            this.j += dj;
+        this.faceI = di;
+        this.faceJ = dj;
+        var ni = this.i + di * this.speed;
+        var nj = this.j + dj * this.speed;
+        if (bd(round(ni), round(nj)) && level[round(ni)][round(nj)].passable) {
+            this.i = ni;
+            this.j = nj;
         }
+        this.i = max(0, min(mapHei, this.i));
+        this.j = max(0, min(mapWid, this.j));
         this.i = round(this.i * 1e5) / 1e5;
         this.j = round(this.j * 1e5) / 1e5;
+    };
+    Player.prototype.paint = function () {
+        var image;
+        if (this.faceI === 1)
+            image = this.images[0];
+        else if (this.faceJ === -1)
+            image = this.images[1];
+        else if (this.faceJ === 1)
+            image = this.images[2];
+        else if (this.faceI === -1)
+            image = this.images[3];
+        drawImage(image, winWid / 2, winHei / 2, scale, scale);
     };
     return Player;
 }(Entity));
@@ -56,9 +87,9 @@ var Player = /** @class */ (function (_super) {
 // should be divisible by canvas width and height
 var scale = 30;
 var edit = false;
-var player = new Player(10, 10);
-var mapWid = 100;
-var mapHei = 100;
+var player = new Player(1, 1);
+var mapWid = 5;
+var mapHei = 5;
 var terrain = [];
 var level = [];
 for (var i = 0; i < mapHei; i++) {
@@ -119,6 +150,15 @@ function terrFromString(raw) {
         var tiles = rows[i].split(" ");
         for (var j = 0; j < min(mapWid, tiles.length); j++) {
             terrain[i][j].imageId = tiles[j];
+        }
+    }
+}
+function levelFromJSON(obj) {
+    console.log(obj);
+    for (var i = 0; i < min(mapHei, obj.length); i++) {
+        for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+            level[i][j] = new Block();
+            level[i][j].fromJSON(obj[i][j]);
         }
     }
 }

@@ -8,32 +8,62 @@ class Tile {
 class Block {
 	imageId: string;
 	passable: boolean;
-	constructor(imageId: string, passable: boolean) {
+	/*
+	if you are adding instance fields, make sure to change:
+	constructor parameter
+	constructor initialization
+	fromJSON
+	*/
+	constructor(imageId: string="", passable: boolean=true) {
 		this.imageId = imageId;
 		this.passable = passable;
+	}
+	fromJSON(obj: any) : void {
+		this.imageId = obj.imageId;
+		this.passable = obj.passable;
 	}
 }
 class Entity {
 	i: number;
 	j: number;
-	preI: number;
-	preJ: number;
+	faceI: number;
+	faceJ: number;
 	constructor(i: number, j: number) {
-		this.i = this.preI = i;
-		this.j = this.preJ = j;
+		this.i = i;
+		this.j = j;
+		this.faceI = 1;
+		this.faceJ = 0;
 	}
 }
 class Player extends Entity {
 	speed: number = 0.1;
+	images: string[];
+	constructor(i: number, j: number) {
+		super(i, j);
+		this.images = ["player1", "player2", "player3", "player4"];
+	}
 	move(di: number, dj: number) : void {
-		di *= this.speed;
-		dj *= this.speed;
-		if (level[round(this.i + di)][round(this.j + dj)].passable) {
-			this.i += di;
-			this.j += dj;
+		this.faceI = di;
+		this.faceJ = dj;
+		var ni: number = this.i + di * this.speed;
+		var nj: number = this.j + dj * this.speed;
+		if (bd(round(ni), round(nj)) && level[round(ni)][round(nj)].passable) {
+			this.i = ni;
+			this.j = nj;
 		}
+		this.i = max(0, min(mapHei, this.i));
+		this.j = max(0, min(mapWid, this.j));
+
 		this.i = round(this.i * 1e5) / 1e5;
 		this.j = round(this.j * 1e5) / 1e5;
+	}
+	paint() : void {
+		var image: string;
+		if (this.faceI === 1) image = this.images[0];
+		else if (this.faceJ === -1) image = this.images[1];
+		else if (this.faceJ === 1) image = this.images[2];
+		else if (this.faceI === -1) image = this.images[3];
+		drawImage(image, winWid / 2, winHei / 2, scale, scale);
 	}
 }
 // } classes
@@ -43,9 +73,9 @@ class Player extends Entity {
 const scale: number = 30;
 
 var edit: boolean = false;
-var player: Player = new Player(10, 10);
-const mapWid: number = 100;
-const mapHei: number = 100;
+var player: Player = new Player(1, 1);
+const mapWid: number = 5;
+const mapHei: number = 5;
 var terrain: Tile[][] = [];
 var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
@@ -105,6 +135,14 @@ function terrFromString(raw: string) : void {
 		var tiles: string[] = rows[i].split(" ");
 		for (var j = 0; j < min(mapWid, tiles.length); j ++) {
 			terrain[i][j].imageId = tiles[j];
+		}
+	}
+}
+function levelFromJSON(obj: any) : void {
+	for (var i = 0; i < min(mapHei, obj.length); i ++) {
+		for (var j = 0; j < min(mapWid, obj[i].length); j ++) {
+			level[i][j] = new Block();
+			level[i][j].fromJSON(obj[i][j]);
 		}
 	}
 }

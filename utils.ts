@@ -58,3 +58,9 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 	// 	console.log("wait until loaded");
 	// }
 }
+
+function assert(condition: boolean) {
+    if (!condition) {
+        throw "Assertion failed";
+    }
+}

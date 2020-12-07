@@ -51,3 +51,8 @@ function drawImage(id, x, y, width, height) {
     // 	console.log("wait until loaded");
     // }
 }
+function assert(condition) {
+    if (!condition) {
+        throw "Assertion failed";
+    }
+}
