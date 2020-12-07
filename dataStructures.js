@@ -11,6 +11,9 @@ var list = /** @class */ (function () {
         this.first = this.last = null;
         this.size = 0;
     }
+    list.prototype.front = function () {
+        return this.first.val;
+    };
     list.prototype.push_front = function (val) {
         if (this.first == null) {
             this.first = this.last = new ListNode(val);
@@ -20,18 +23,20 @@ var list = /** @class */ (function () {
             this.first = new ListNode(val);
             this.first.next = tmp;
         }
+        this.size++;
     };
     list.prototype.push_back = function (val) {
         if (this.first == null) {
             this.push_front(val);
+            return;
         }
-        else {
-            this.last.next = new ListNode(val);
-            this.last = this.last.next;
-        }
+        this.last.next = new ListNode(val);
+        this.last = this.last.next;
+        this.size++;
     };
     list.prototype.pop_front = function () {
         this.first = this.first.next;
+        this.size--;
     };
     list.prototype.toString = function () {
         var res = "";

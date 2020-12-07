@@ -38,8 +38,23 @@ function bd (i: number, j: number) : boolean {
 	return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 }
 
-function fill(i: number, j: number) : void {
-	var dir: number[][] = [[-1, 0], [0, 1], [0, -1], [1, 0]];
+function fill(i: number, j: number, tile: Tile) : void {
+	var dir: number[][] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+	var q: list<number[]> = new list<number[]>();
+	q.push_back([i, j]);
+	terrain[i][j] = JSON.parse(JSON.stringify(tile));
+	L1: while (q.size != 0) {
+		var fr: number[] = q.front();
+		q.pop_front();
+		for (var dr of dir) {
+			var ni: number = fr[0] + dr[0];
+			var nj: number = fr[1] + dr[1];
+			if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
+				terrain[ni][nj] = JSON.parse(JSON.stringify(tile));
+				q.push_back([ni, nj]);
+			}
+		}
+	}
 }
 // } functions
 
@@ -50,6 +65,7 @@ var heldDown: any = {
 	"W": false,
 	"S": false,
 	"B": false,
+	"F": false,
 };
 window.addEventListener("keydown",this.checkDown,false);
 window.addEventListener("keyup",this.checkUp,false);
@@ -85,6 +101,10 @@ function gameLoop() : void {
 	if (heldDown["B"] && bd(round(player.i), round(player.j))) {
 		terrain[round(player.i)][round(player.j)].imageId = "wood1";
 	}
+	if (heldDown["F"]) {
+		fill(round(player.i), round(player.j), new Tile("wood1"));
+		heldDown["F"] = false;
+	}
 	
 	const wide: number = round(winWid / scale);
 	const long: number = round(winHei / scale);
@@ -110,10 +130,7 @@ function debug() {
 	console.log(JSON.stringify(player));
 }
 
-var hi: list<number> = new list();
-hi.push_back(5);
-hi.push_back(3);
-hi.push_back(10);
-console.log(hi.toString());
-hi.pop_front();
-console.log(hi.toString());
+// var a: Tile = new Tile("wood1");
+// // var b: Tile = new Tile("dirt1");
+
+// console.log(terrain[10][10].equals(a));
