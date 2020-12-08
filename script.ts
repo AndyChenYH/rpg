@@ -4,12 +4,6 @@ terrFromString(JSON.parse(rawTerr));
 levelFromJSON(JSON.parse(rawLev));
 
 
-// cur setting {
-var cur: string = "stone1";
-var which: number = 0;
-// } cur setting
-
-
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
 	drawImage("bg3", 0, 0, winWid, winHei);
@@ -24,12 +18,10 @@ function gameLoop(): void {
 			terrain[round(player.i)][round(player.j)].imageId = cur;
 		}
 		else if (which == 1) {
-			level[round(player.i)][round(player.j)] = new Block(cur, false);
+			level[round(player.i)][round(player.j)].imageId = cur;
+			level[round(player.i)][round(player.j)].passable = pass;
+
 		}
-	}
-	if (heldDown["F"]) {
-		fill(round(player.i), round(player.j), new Tile(cur));
-		heldDown["F"] = false;
 	}
 	// } level editing
 	var numW: number = floor(winWid / scale / 2);
@@ -56,4 +48,5 @@ function debug() : void {
 }
 function edit() : void {
 	editing = !editing;
+	document.getElementById("editing").innerHTML = String(editing);
 }

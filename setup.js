@@ -94,8 +94,8 @@ var Player = /** @class */ (function (_super) {
 var scale = 30;
 var editing = false;
 var player = new Player(1, 1);
-var mapWid = 30;
-var mapHei = 30;
+var mapWid = 20;
+var mapHei = 20;
 var terrain = [];
 var level = [];
 for (var i = 0; i < mapHei; i++) {
@@ -106,6 +106,11 @@ for (var i = 0; i < mapHei; i++) {
         level[i][j] = new Block();
     }
 }
+// cur setting {
+var cur = "dirt1";
+var which = 0;
+var pass = false;
+// } cur setting
 // } variables
 // functions {
 function dist(i1, j1, i2, j2) {
@@ -116,7 +121,18 @@ function dist(i1, j1, i2, j2) {
 function bd(i, j) {
     return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 }
-function fill(i, j, tile) {
+function setEdit() {
+    // @ts-ignore	
+    cur = document.getElementById("curSet").value;
+    // @ts-ignore	
+    which = Number(document.getElementById("whichSet").value);
+    // @ts-ignore	
+    pass = document.getElementById("passSet").value == "true";
+}
+function fill() {
+    var i = round(player.i);
+    var j = round(player.j);
+    var tile = new Tile(cur);
     if (!bd(i, j))
         return;
     var q = new list();
@@ -158,7 +174,6 @@ var heldDown = {
     "W": false,
     "S": false,
     "B": false,
-    "F": false,
     "O": false
 };
 window.addEventListener("keydown", this.checkDown, false);

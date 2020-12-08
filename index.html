@@ -13,8 +13,15 @@
 	<script src="setup.js"></script>
 	<script src="mapData.js"></script>
 	<script src="script.js"></script>
-	<button type="button" onclick="debug()">debug</button>
-	<button type="button" onclick="edit()">edit</button>
+	<button class="right" type="button" onclick="debug()">debug</button>
+	<button class="right" type="button" onclick="edit()">edit</button>
+	<p id="editing" class="right">false</p>
+	<input class="right" type="text" id="curSet" value="dirt1">
+	<input class="right" type="text" id="whichSet" value="0">
+	<input class="right" type="text" id="passSet" value="false">
+	<button class="right" type="button" onclick="setEdit()">set edit</button>
+	<button class="right" type="button" onclick="fill()">fill</button>
+	
 
 	<div style="display:none;">
 		<img id="dirt1" src="assets/dirt1.png" width="200" height="200">

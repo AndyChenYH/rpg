@@ -76,8 +76,8 @@ const scale: number = 30;
 
 var editing: boolean = false;
 var player: Player = new Player(1, 1);
-const mapWid: number = 30;
-const mapHei: number = 30;
+const mapWid: number = 20;
+const mapHei: number = 20;
 var terrain: Tile[][] = [];
 var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
@@ -88,6 +88,12 @@ for (var i = 0; i < mapHei; i++) {
 		level[i][j] = new Block();
 	}
 }
+
+// cur setting {
+var cur: string = "dirt1";
+var which: number = 0;
+var pass: boolean = false;
+// } cur setting
 // } variables
 
 // functions {
@@ -100,7 +106,19 @@ function bd(i: number, j: number): boolean {
 	return 0 <= i && i < mapHei && 0 <= j && j < mapWid;
 }
 
-function fill(i: number, j: number, tile: Tile): void {
+function setEdit() {
+	// @ts-ignore	
+	cur = document.getElementById("curSet").value;
+	// @ts-ignore	
+	which = Number(document.getElementById("whichSet").value);
+	// @ts-ignore	
+	pass = document.getElementById("passSet").value == "true";
+}
+
+function fill(): void {
+	var i: number = round(player.i);
+	var j: number = round(player.j);
+	var tile: Tile = new Tile(cur);
 	if (!bd(i, j)) return;
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
@@ -141,7 +159,6 @@ var heldDown: any = {
 	"W": false,
 	"S": false,
 	"B": false,
-	"F": false,
 	"O": false,
 };
 window.addEventListener("keydown", this.checkDown, false);
