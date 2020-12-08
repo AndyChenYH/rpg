@@ -35,9 +35,6 @@ var Block = /** @class */ (function (_super) {
         _this.isPt = isPt;
         _this.ptI = ptI;
         _this.ptJ = ptJ;
-        if (isPt) {
-            _this.passable = level[ptI][ptJ].passable;
-        }
         return _this;
     }
     Block.prototype.fromJSON = function (obj) {
@@ -95,8 +92,15 @@ var Player = /** @class */ (function (_super) {
     return Player;
 }(Entity));
 // } classes
-var relDim = {
-    "tree2": [1, 2]
+var imgDat = {
+    "tree2": [
+        [true],
+        [false],
+    ],
+    "tree3": [
+        [false, false],
+        [false, false],
+    ]
 };
 // variables {
 // should be divisible by canvas width and height
@@ -137,6 +141,21 @@ function setEdit() {
     which = Number(document.getElementById("whichSet").value);
     // @ts-ignore	
     pass = document.getElementById("passSet").value == "true";
+}
+function addBlock(imageId, i, j) {
+    assert(bd(i, j));
+    var img = imgDat[imageId];
+    for (var ii = 0; ii < imgDat[imageId].length; ii++) {
+        for (var jj = 0; jj < imgDat[imageId][0].length; jj++) {
+            assert(bd(i + ii, j + jj));
+            if (ii == 0 && jj == 0) {
+                level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
+            }
+            else {
+                level[i + ii][j + jj] = new Block("blank1", img[ii][jj], true, i, j);
+            }
+        }
+    }
 }
 function fill() {
     var i = round(player.i);

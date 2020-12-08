@@ -25,9 +25,6 @@ class Block extends Tile {
 		this.isPt = isPt;
 		this.ptI = ptI;
 		this.ptJ = ptJ;
-		if (isPt) {
-			this.passable = level[ptI][ptJ].passable;
-		}
 	}
 	fromJSON(obj: any): void {
 		super.fromJSON(obj);
@@ -81,9 +78,15 @@ class Player extends Entity {
 	}
 }
 // } classes
-
-var relDim: any = {
-	"tree2": [1, 2],
+var imgDat: {[key: string]: boolean[][]} = {
+	"tree2": [
+		[true],
+		[false],
+	],
+	"tree3": [
+		[false, false],
+		[false, false],
+	],
 };
 
 // variables {
@@ -129,6 +132,22 @@ function setEdit() {
 	which = Number(document.getElementById("whichSet").value);
 	// @ts-ignore	
 	pass = document.getElementById("passSet").value == "true";
+}
+
+function addBlock(imageId: string, i: number, j: number) : void {
+	assert(bd(i, j));
+	const img: boolean[][] = imgDat[imageId];
+	for (var ii = 0; ii < imgDat[imageId].length; ii ++) {
+		for (var jj = 0; jj < imgDat[imageId][0].length; jj ++) {
+			assert(bd(i + ii, j + jj));
+			if (ii == 0 && jj == 0) {
+				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
+			}
+			else {
+				level[i + ii][j + jj] = new Block("blank1", img[ii][jj], true, i, j);
+			}
+		}
+	}
 }
 
 function fill(): void {

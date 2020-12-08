@@ -3,7 +3,10 @@ terrFromString(rawTerr);
 // @ts-ignore
 levelFromJSON(rawLev);
 
-level[5][5] = new Block("tree2", true);
+// level[5][5] = new Block("tree2", true);
+// level[5][6] = new Block("blank1", true, true, 5, 5);
+// level[2][2] = new Block("tree3", false);
+addBlock("tree3", 2, 2);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
@@ -47,16 +50,18 @@ function gameLoop(): void {
 				var x: number = (j - left) * scale;
 				var y: number = (i - top) * scale;
 				if (lev.isPt) {
+					x = (lev.ptI - left) * scale;
+					y = (lev.ptJ - top) * scale;
 					lev = level[lev.ptI][lev.ptJ];
-					x = (lev.ptJ - left) * scale;
-					y = (lev.ptI - top) * scale;
 				}
-				var relWid: number = relDim[lev.imageId] !== undefined ? relDim[lev.imageId][0] : 1;
-				var relHei: number = relDim[lev.imageId] !== undefined ? relDim[lev.imageId][1] : 1;
-				if (lev.imageId == "tree2") {
-					console.log(relWid, relHei);
+				if (imgDat[lev.imageId] === undefined) {
+					drawImage(lev.imageId, x, y, scale, scale);
 				}
-				drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
+				else {
+					var relWid: number = imgDat[lev.imageId].length;
+					var relHei: number = imgDat[lev.imageId][0].length;
+					drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
+				}
 			}
 		}
 	}
