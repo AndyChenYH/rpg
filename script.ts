@@ -1,11 +1,5 @@
 // @ts-ignore
-terrFromString(rawTerr);
-// @ts-ignore
-levelFromJSON(rawLev);
-
-// level[5][5] = new Block("tree2", true);
-// level[5][6] = new Block("blank1", true, true, 5, 5);
-// level[2][2] = new Block("tree3", false);
+gameFromJSON(rawGame);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);

@@ -115,6 +115,15 @@ var which = 0;
 // } cur setting
 var blockDat = {
     "wall1": [[false]],
+    "table1": [[false]],
+    "barrel1": [
+        [false],
+        [false],
+    ],
+    "tree1": [
+        [false],
+        [false],
+    ],
     "tree2": [
         [true],
         [false],
@@ -183,7 +192,7 @@ function fill() {
         }
     }
 }
-function terrFromString(obj) {
+function terrFromJSON(obj) {
     for (var i = 0; i < min(mapHei, obj.length); i++) {
         for (var j = 0; j < min(mapWid, obj[i].length); j++) {
             terrain[i][j].fromJSON(obj[i][j]);
@@ -196,6 +205,13 @@ function levelFromJSON(obj) {
             level[i][j].fromJSON(obj[i][j]);
         }
     }
+}
+function gameToJSON() {
+    return [JSON.parse(JSON.stringify(terrain)), JSON.parse(JSON.stringify(level))];
+}
+function gameFromJSON(obj) {
+    terrFromJSON(obj[0]);
+    levelFromJSON(obj[1]);
 }
 // } functions
 // events {
@@ -223,9 +239,7 @@ function checkUp(e) {
         heldDown[ch] = false;
     }
 }
-/*
-canvas.addEventListener('mousedown', function (evt: any) {
+canvas.addEventListener('mousedown', function (evt) {
     console.log(evt.layerX, evt.layerY);
 }, false);
-*/
 // } events
