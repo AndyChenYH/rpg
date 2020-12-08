@@ -33,10 +33,18 @@ function gameLoop() {
         for (var j = 0; j < numW * 2; j++) {
             if (bd(i, j)) {
                 var ter = terrain[floor(i)][floor(j)];
-                var lev = level[floor(i)][floor(j)];
                 var x = (j - left) * scale;
                 var y = (i - top) * scale;
                 drawImage(ter.imageId, x, y, scale, scale);
+            }
+        }
+    }
+    for (var i = 0; i < numH * 2; i++) {
+        for (var j = 0; j < numW * 2; j++) {
+            if (bd(i, j)) {
+                var lev = level[floor(i)][floor(j)];
+                var x = (j - left) * scale;
+                var y = (i - top) * scale;
                 if (lev.isPt) {
                     lev = level[lev.ptI][lev.ptJ];
                     x = (lev.ptJ - left) * scale;
