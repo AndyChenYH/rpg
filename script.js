@@ -1,11 +1,9 @@
 // @ts-ignore
 gameFromJSON(rawGame);
-// level[5][5] = new Block("tree2", true);
-// level[5][6] = new Block("blank1", true, true, 5, 5);
-// level[2][2] = new Block("tree3", false);
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
     drawImage("bg1", 0, 0, winWid, winHei);
+    // player controls {
     if (heldDown["A"])
         player.move(0, -1);
     if (heldDown["D"])
@@ -14,6 +12,7 @@ function gameLoop() {
         player.move(-1, 0);
     if (heldDown["S"])
         player.move(1, 0);
+    // } player controls
     // level editing {
     var pi = round(player.i);
     var pj = round(player.j);
@@ -30,25 +29,24 @@ function gameLoop() {
             terrain[pi][pj] = new Tile();
         }
         else if (which == 1) {
-            level[pi][pj] = new Block();
-            // var ii: number = pi;
-            // var jj: number = pj;
-            // if (level[pi][pj].isPt) {
-            // 	ii = level[pi][pj].ptI;
-            // 	jj = level[pi][pj].ptJ;
-            // }
-            // var wid: number = 1;
-            // var hei: number = 1;
-            // var img: boolean[][] = blockDat[level[ii][jj].imageId];
-            // if (img != undefined) {
-            // 	wid = img.length;
-            // 	hei = img[0].length;
-            // }
-            // for (var i = 0; i < hei; i ++) {
-            // 	for (var j = 0; j < wid; j ++) {
-            // 		level[ii + i][jj + j] = new Block();
-            // 	}
-            // }
+            var ii = pi;
+            var jj = pj;
+            if (level[pi][pj].isPt) {
+                ii = level[pi][pj].ptI;
+                jj = level[pi][pj].ptJ;
+            }
+            var wid = 1;
+            var hei = 1;
+            var img = blockDat[level[ii][jj].imageId];
+            if (img != undefined) {
+                hei = img.length;
+                wid = img[0].length;
+            }
+            for (var i = 0; i < hei; i++) {
+                for (var j = 0; j < wid; j++) {
+                    level[ii + i][jj + j] = new Block();
+                }
+            }
         }
     }
     // } level editing

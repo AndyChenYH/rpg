@@ -125,10 +125,15 @@ var blockDat = {
         [false],
     ],
     "tree2": [
-        [true],
+        [false],
         [false],
     ],
     "tree3": [
+        [false, false],
+        [false, false],
+    ],
+    "tree4": [
+        [false, false],
         [false, false],
         [false, false],
     ]
@@ -239,7 +244,7 @@ function checkUp(e) {
         heldDown[ch] = false;
     }
 }
-canvas.addEventListener('mousedown', function (evt) {
-    console.log(evt.layerX, evt.layerY);
-}, false);
+// canvas.addEventListener('mousedown', function (evt: any) {
+// 	console.log(evt.layerX, evt.layerY);
+// }, false);
 // } events

@@ -19,7 +19,7 @@ class Block extends Tile {
 	isPt: boolean;
 	ptI: number;
 	ptJ: number;
-	constructor(imageId: string = "blank1", passable: boolean = true, isPt: boolean=false, ptI: number=-1, ptJ: number=-1) {
+	constructor(imageId: string = "blank1", passable: boolean = true, isPt: boolean = false, ptI: number = -1, ptJ: number = -1) {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
@@ -102,7 +102,7 @@ var cur: string = "dirt1";
 var which: number = 0;
 // } cur setting
 
-const blockDat: {[key: string]: boolean[][]} = {
+const blockDat: { [key: string]: boolean[][] } = {
 	"wall1": [[false]],
 	"table1": [[false]],
 	"barrel1": [
@@ -114,10 +114,15 @@ const blockDat: {[key: string]: boolean[][]} = {
 		[false],
 	],
 	"tree2": [
-		[true],
+		[false],
 		[false],
 	],
 	"tree3": [
+		[false, false],
+		[false, false],
+	],
+	"tree4": [
+		[false, false],
 		[false, false],
 		[false, false],
 	],
@@ -142,7 +147,7 @@ function setEdit() {
 	which = Number(document.getElementById("whichSet").value);
 }
 
-function addBlock(imageId: string, i: number, j: number) : void {
+function addBlock(imageId: string, i: number, j: number): void {
 	const img: boolean[][] = blockDat[imageId];
 	for (var ii = 0; ii < img.length; ii++) {
 		for (var jj = 0; jj < img[0].length; jj++) {
@@ -151,8 +156,8 @@ function addBlock(imageId: string, i: number, j: number) : void {
 			}
 		}
 	}
-	for (var ii = 0; ii < img.length; ii ++) {
-		for (var jj = 0; jj < img[0].length; jj ++) {
+	for (var ii = 0; ii < img.length; ii++) {
+		for (var jj = 0; jj < img[0].length; jj++) {
 			if (ii == 0 && jj == 0) {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
 			}
@@ -198,17 +203,17 @@ function levelFromJSON(obj: any): void {
 		}
 	}
 }
-function gameToJSON() : any {
+function gameToJSON(): any {
 	return [JSON.parse(JSON.stringify(terrain)), JSON.parse(JSON.stringify(level))];
 }
-function gameFromJSON(obj: any) : void {
+function gameFromJSON(obj: any): void {
 	terrFromJSON(obj[0]);
 	levelFromJSON(obj[1]);
 }
 // } functions
 
 // events {
-var heldDown: {[key: string]: boolean} = {
+var heldDown: { [key: string]: boolean } = {
 	"A": false,
 	"D": false,
 	"W": false,
@@ -232,9 +237,9 @@ function checkUp(e: KeyboardEvent): void {
 		heldDown[ch] = false;
 	}
 }
-canvas.addEventListener('mousedown', function (evt: any) {
-	console.log(evt.layerX, evt.layerY);
-}, false);
+// canvas.addEventListener('mousedown', function (evt: any) {
+// 	console.log(evt.layerX, evt.layerY);
+// }, false);
 
 
-	// } events
+// } events

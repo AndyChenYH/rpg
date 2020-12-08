@@ -1328,7 +1328,14 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "tree2",
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
         "passable": true,
         "isPt": false,
         "ptI": -1,
@@ -1349,730 +1356,723 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "tree3",
+        "imageId": "tree4",
         "passable": false,
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
       },
       {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 0,
-        "ptJ": 15
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
+        "imageId": "tree4",
         "passable": false,
         "isPt": true,
         "ptI": 0,
-        "ptJ": 12
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 0,
-        "ptJ": 15
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 0,
-        "ptJ": 15
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 2,
-        "ptJ": 14
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
-        "passable": false,
-        "isPt": true,
-        "ptI": 1,
-        "ptJ": 18
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 2,
-        "ptJ": 14
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 2,
-        "ptJ": 14
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree3",
-        "passable": false,
-        "isPt": true,
-        "ptI": 4,
-        "ptJ": 17
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "wall1",
-        "passable": false,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
-        "passable": false,
-        "isPt": true,
-        "ptI": 4,
         "ptJ": 16
       },
       {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 0,
+        "ptJ": 16
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 0,
+        "ptJ": 16
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 0,
+        "ptJ": 16
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 0,
+        "ptJ": 16
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree3",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree3",
+        "passable": false,
+        "isPt": true,
+        "ptI": 4,
+        "ptJ": 17
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "wall1",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree2",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
         "imageId": "tree3",
         "passable": false,
         "isPt": true,
@@ -2187,11 +2187,11 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
+        "imageId": "tree2",
+        "passable": false,
+        "isPt": true,
+        "ptI": 5,
+        "ptJ": 13
       },
       {
         "imageId": "blank1",
@@ -3288,7 +3288,7 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "tree2",
+        "imageId": "blank1",
         "passable": true,
         "isPt": false,
         "ptI": -1,
@@ -3388,7 +3388,7 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "tree2",
+        "imageId": "blank1",
         "passable": true,
         "isPt": false,
         "ptI": -1,
@@ -3430,148 +3430,6 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "tree2",
-        "passable": false,
-        "isPt": true,
-        "ptI": 14,
-        "ptJ": 8
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      }
-    ],
-    [
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "tree2",
-        "passable": false,
-        "isPt": true,
-        "ptI": 15,
-        "ptJ": 2
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
         "imageId": "blank1",
         "passable": true,
         "isPt": false,
@@ -3693,8 +3551,22 @@ var rawGame = [
         "ptJ": -1
       },
       {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
         "imageId": "tree2",
-        "passable": true,
+        "passable": false,
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
@@ -3714,32 +3586,18 @@ var rawGame = [
         "ptJ": -1
       },
       {
-        "imageId": "blank1",
-        "passable": true,
+        "imageId": "tree4",
+        "passable": false,
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
       },
       {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false,
-        "ptI": -1,
-        "ptJ": -1
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 10
       },
       {
         "imageId": "blank1",
@@ -3800,17 +3658,17 @@ var rawGame = [
     ],
     [
       {
-        "imageId": "tree3",
+        "imageId": "tree4",
         "passable": false,
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
       },
       {
-        "imageId": "tree3",
+        "imageId": "tree4",
         "passable": false,
         "isPt": true,
-        "ptI": 18,
+        "ptI": 17,
         "ptJ": 0
       },
       {
@@ -3821,11 +3679,139 @@ var rawGame = [
         "ptJ": -1
       },
       {
+        "imageId": "tree2",
+        "passable": false,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
         "imageId": "blank1",
         "passable": true,
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree2",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 7
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 10
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 10
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false,
+        "ptI": -1,
+        "ptJ": -1
+      }
+    ],
+    [
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 17,
+        "ptJ": 0
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 17,
+        "ptJ": 0
       },
       {
         "imageId": "blank1",
@@ -3839,7 +3825,7 @@ var rawGame = [
         "passable": false,
         "isPt": true,
         "ptI": 17,
-        "ptJ": 5
+        "ptJ": 3
       },
       {
         "imageId": "blank1",
@@ -3882,6 +3868,20 @@ var rawGame = [
         "isPt": false,
         "ptI": -1,
         "ptJ": -1
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 10
+      },
+      {
+        "imageId": "tree4",
+        "passable": false,
+        "isPt": true,
+        "ptI": 16,
+        "ptJ": 10
       },
       {
         "imageId": "blank1",
@@ -3942,17 +3942,17 @@ var rawGame = [
     ],
     [
       {
-        "imageId": "tree3",
+        "imageId": "tree4",
         "passable": false,
         "isPt": true,
-        "ptI": 18,
+        "ptI": 17,
         "ptJ": 0
       },
       {
-        "imageId": "tree3",
+        "imageId": "tree4",
         "passable": false,
         "isPt": true,
-        "ptI": 18,
+        "ptI": 17,
         "ptJ": 0
       },
       {
@@ -4083,4 +4083,4 @@ var rawGame = [
       }
     ]
   ]
-];
+]
