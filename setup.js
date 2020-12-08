@@ -92,16 +92,6 @@ var Player = /** @class */ (function (_super) {
     return Player;
 }(Entity));
 // } classes
-var blockDat = {
-    "tree2": [
-        [false],
-        [false],
-    ],
-    "tree3": [
-        [false, false],
-        [false, false],
-    ]
-};
 // variables {
 // should be divisible by canvas width and height
 var scale = 30;
@@ -123,6 +113,16 @@ for (var i = 0; i < mapHei; i++) {
 var cur = "dirt1";
 var which = 0;
 // } cur setting
+var blockDat = {
+    "wall1": [[false]],
+    "tree2": [
+        [true],
+    ],
+    "tree3": [
+        [false, false],
+        [false, false],
+    ]
+};
 // } variables
 // functions {
 function dist(i1, j1, i2, j2) {
@@ -142,8 +142,8 @@ function setEdit() {
 function addBlock(imageId, i, j) {
     assert(bd(i, j));
     var img = blockDat[imageId];
-    for (var ii = 0; ii < blockDat[imageId].length; ii++) {
-        for (var jj = 0; jj < blockDat[imageId][0].length; jj++) {
+    for (var ii = 0; ii < img.length; ii++) {
+        for (var jj = 0; jj < img[0].length; jj++) {
             assert(bd(i + ii, j + jj));
             if (ii == 0 && jj == 0) {
                 level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);

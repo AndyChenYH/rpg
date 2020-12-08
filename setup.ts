@@ -78,17 +78,6 @@ class Player extends Entity {
 	}
 }
 // } classes
-var blockDat: {[key: string]: boolean[][]} = {
-	"tree2": [
-		[false],
-		[false],
-	],
-	"tree3": [
-		[false, false],
-		[false, false],
-	],
-};
-
 // variables {
 // should be divisible by canvas width and height
 const scale: number = 30;
@@ -112,6 +101,19 @@ for (var i = 0; i < mapHei; i++) {
 var cur: string = "dirt1";
 var which: number = 0;
 // } cur setting
+
+const blockDat: {[key: string]: boolean[][]} = {
+	"wall1": [[false]],
+	"tree2": [
+		[true],
+		// [false],
+	],
+	"tree3": [
+		[false, false],
+		[false, false],
+	],
+};
+
 // } variables
 
 // functions {
@@ -134,8 +136,8 @@ function setEdit() {
 function addBlock(imageId: string, i: number, j: number) : void {
 	assert(bd(i, j));
 	const img: boolean[][] = blockDat[imageId];
-	for (var ii = 0; ii < blockDat[imageId].length; ii ++) {
-		for (var jj = 0; jj < blockDat[imageId][0].length; jj ++) {
+	for (var ii = 0; ii < img.length; ii ++) {
+		for (var jj = 0; jj < img[0].length; jj ++) {
 			assert(bd(i + ii, j + jj));
 			if (ii == 0 && jj == 0) {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);

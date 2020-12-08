@@ -61,6 +61,7 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 
 function assert(condition: boolean) {
     if (!condition) {
-        throw "Assertion failed";
+		alert("Assertion failed");
+		throw "Assertion failed";
     }
 }

@@ -42,17 +42,15 @@ function gameLoop() {
             }
         }
     }
+    player.paint();
     for (var i = 0; i < numH * 2; i++) {
         for (var j = 0; j < numW * 2; j++) {
             if (bd(i, j)) {
                 var lev = level[floor(i)][floor(j)];
                 var x = (j - left) * scale;
                 var y = (i - top) * scale;
-                if (lev.isPt) {
-                    x = (lev.ptI - left) * scale;
-                    y = (lev.ptJ - top) * scale;
-                    lev = level[lev.ptI][lev.ptJ];
-                }
+                if (lev.isPt)
+                    continue;
                 if (blockDat[lev.imageId] === undefined) {
                     drawImage(lev.imageId, x, y, scale, scale);
                 }
@@ -64,7 +62,6 @@ function gameLoop() {
             }
         }
     }
-    player.paint();
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
