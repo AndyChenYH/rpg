@@ -24,22 +24,28 @@ var Tile = /** @class */ (function () {
 }());
 var Block = /** @class */ (function (_super) {
     __extends(Block, _super);
-    /*
-    if you are adding instance fields, make sure to change:
-    constructor parameter
-    constructor initialization
-    fromJSON
-    */
-    function Block(imageId, passable) {
+    function Block(imageId, passable, isPt, ptI, ptJ) {
         if (imageId === void 0) { imageId = "blank1"; }
         if (passable === void 0) { passable = false; }
+        if (isPt === void 0) { isPt = false; }
+        if (ptI === void 0) { ptI = -1; }
+        if (ptJ === void 0) { ptJ = -1; }
         var _this = _super.call(this, imageId) || this;
         _this.passable = passable;
+        _this.isPt = isPt;
+        _this.ptI = ptI;
+        _this.ptJ = ptJ;
+        if (isPt) {
+            _this.passable = level[ptI][ptJ].passable;
+        }
         return _this;
     }
     Block.prototype.fromJSON = function (obj) {
         _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
+        this.isPt = obj.isPt;
+        this.ptI = obj.ptI;
+        this.ptJ = obj.ptJ;
     };
     return Block;
 }(Tile));
@@ -89,6 +95,9 @@ var Player = /** @class */ (function (_super) {
     return Player;
 }(Entity));
 // } classes
+var relDim = {
+    "tree2": [1, 2]
+};
 // variables {
 // should be divisible by canvas width and height
 var scale = 30;
@@ -138,14 +147,14 @@ function fill() {
     var q = new list();
     q.push_back([i, j]);
     terrain[i][j] = tile;
-    while (q.size != 0) {
+    while (q.size !== 0) {
         var fr = q.front();
         q.pop_front();
         for (var _i = 0, drs_1 = drs; _i < drs_1.length; _i++) {
             var dr = drs_1[_i];
             var ni = fr[0] + dr[0];
             var nj = fr[1] + dr[1];
-            if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
+            if (bd(ni, nj) && terrain[ni][nj].imageId !== tile.imageId) {
                 terrain[ni][nj] = tile;
                 q.push_back([ni, nj]);
             }
@@ -182,19 +191,19 @@ function checkDown(e) {
     if (e.repeat)
         return;
     var ch = String.fromCharCode(e.keyCode);
-    if (heldDown[ch] != undefined) {
+    if (heldDown[ch] !== undefined) {
         heldDown[ch] = true;
     }
 }
 function checkUp(e) {
     var ch = String.fromCharCode(e.keyCode);
-    if (heldDown[ch] != undefined) {
+    if (heldDown[ch] !== undefined) {
         heldDown[ch] = false;
     }
 }
 /*
 canvas.addEventListener('mousedown', function (evt: any) {
-    console.log(evt.layerX, evt.layerY);
+console.log(evt.layerX, evt.layerY);
 }, false);
 */
 // } events

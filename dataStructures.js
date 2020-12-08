@@ -40,9 +40,9 @@ var list = /** @class */ (function () {
     };
     list.prototype.toString = function () {
         var res = "";
-        for (var a = this.first; a != null; a = a.next) {
+        for (var a = this.first; a !== null; a = a.next) {
             res += a.val;
-            if (a.next != null) {
+            if (a.next !== null) {
                 res += ", ";
             }
         }

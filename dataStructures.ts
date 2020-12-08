@@ -45,9 +45,9 @@ class list<T> {
 	}
 	toString() : string {
 		var res = "";
-		for (var a: ListNode<T> = this.first; a != null; a = a.next) {
+		for (var a: ListNode<T> = this.first; a !== null; a = a.next) {
 			res += a.val;
-			if (a.next != null) {
+			if (a.next !== null) {
 				res += ", ";
 			}
 		}

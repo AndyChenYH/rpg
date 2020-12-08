@@ -1,28 +1,40 @@
 // classes {
 class Tile {
-	imageId: string;
-	constructor(imageId: string="blank1") {
-		this.imageId = imageId;
-	}
-	fromJSON(obj: any) : void {
-		this.imageId = obj.imageId;
-	}
-}
-class Block extends Tile {
-	passable: boolean;
 	/*
 	if you are adding instance fields, make sure to change:
 	constructor parameter
 	constructor initialization
 	fromJSON
 	*/
-	constructor(imageId: string="blank1", passable: boolean=false) {
+	imageId: string;
+	constructor(imageId: string = "blank1") {
+		this.imageId = imageId;
+	}
+	fromJSON(obj: any): void {
+		this.imageId = obj.imageId;
+	}
+}
+class Block extends Tile {
+	passable: boolean;
+	isPt: boolean;
+	ptI: number;
+	ptJ: number;
+	constructor(imageId: string = "blank1", passable: boolean = false, isPt: boolean=false, ptI: number=-1, ptJ: number=-1) {
 		super(imageId);
 		this.passable = passable;
+		this.isPt = isPt;
+		this.ptI = ptI;
+		this.ptJ = ptJ;
+		if (isPt) {
+			this.passable = level[ptI][ptJ].passable;
+		}
 	}
-	fromJSON(obj: any) : void {
+	fromJSON(obj: any): void {
 		super.fromJSON(obj);
 		this.passable = obj.passable;
+		this.isPt = obj.isPt;
+		this.ptI = obj.ptI;
+		this.ptJ = obj.ptJ;
 	}
 }
 class Entity {
@@ -44,7 +56,7 @@ class Player extends Entity {
 		super(i, j);
 		this.images = ["player1", "player2", "player3", "player4"];
 	}
-	move(di: number, dj: number) : void {
+	move(di: number, dj: number): void {
 		this.faceI = di;
 		this.faceJ = dj;
 		var ni: number = this.i + di * this.speed;
@@ -59,7 +71,7 @@ class Player extends Entity {
 		this.i = round(this.i * 1e5) / 1e5;
 		this.j = round(this.j * 1e5) / 1e5;
 	}
-	paint() : void {
+	paint(): void {
 		var image: string;
 		if (this.faceI === 1) image = this.images[0];
 		else if (this.faceJ === -1) image = this.images[1];
@@ -69,6 +81,10 @@ class Player extends Entity {
 	}
 }
 // } classes
+
+var relDim: any = {
+	"tree2": [1, 2],
+};
 
 // variables {
 // should be divisible by canvas width and height
@@ -83,7 +99,7 @@ var level: Block[][] = [];
 for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
 	level.push(new Array(mapWid));
-	for (var j = 0; j < mapWid; j ++) {
+	for (var j = 0; j < mapWid; j++) {
 		terrain[i][j] = new Tile();
 		level[i][j] = new Block();
 	}
@@ -97,7 +113,7 @@ var pass: boolean = false;
 // } variables
 
 // functions {
-function dist(i1: number, j1: number, i2: number, j2: number) : number {
+function dist(i1: number, j1: number, i2: number, j2: number): number {
 	var di: number = i1 - i2;
 	var dj: number = j1 - j2;
 	return Math.sqrt(di * di + dj * dj);
@@ -123,29 +139,29 @@ function fill(): void {
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
 	terrain[i][j] = tile;
-	while (q.size != 0) {
+	while (q.size !== 0) {
 		var fr: number[] = q.front();
 		q.pop_front();
 		for (var dr of drs) {
 			var ni: number = fr[0] + dr[0];
 			var nj: number = fr[1] + dr[1];
-			if (bd(ni, nj) && terrain[ni][nj].imageId != tile.imageId) {
+			if (bd(ni, nj) && terrain[ni][nj].imageId !== tile.imageId) {
 				terrain[ni][nj] = tile;
 				q.push_back([ni, nj]);
 			}
 		}
 	}
 }
-function terrFromString(obj: any) : void {
-	for (var i = 0; i < min(mapHei, obj.length); i ++) {
-		for (var j = 0; j < min(mapWid, obj[i].length); j ++) {
+function terrFromString(obj: any): void {
+	for (var i = 0; i < min(mapHei, obj.length); i++) {
+		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
 			terrain[i][j].fromJSON(obj[i][j]);
 		}
 	}
 }
-function levelFromJSON(obj: any) : void {
-	for (var i = 0; i < min(mapHei, obj.length); i ++) {
-		for (var j = 0; j < min(mapWid, obj[i].length); j ++) {
+function levelFromJSON(obj: any): void {
+	for (var i = 0; i < min(mapHei, obj.length); i++) {
+		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
 			level[i][j].fromJSON(obj[i][j]);
 		}
 	}
@@ -166,22 +182,22 @@ window.addEventListener("keyup", this.checkUp, false);
 function checkDown(e: KeyboardEvent): void {
 	if (e.repeat) return;
 	var ch: string = String.fromCharCode(e.keyCode);
-	if (heldDown[ch] != undefined) {
+	if (heldDown[ch] !== undefined) {
 		heldDown[ch] = true;
 	}
 }
 
 function checkUp(e: KeyboardEvent): void {
 	var ch: string = String.fromCharCode(e.keyCode);
-	if (heldDown[ch] != undefined) {
+	if (heldDown[ch] !== undefined) {
 		heldDown[ch] = false;
 	}
 }
-/*
+	/*
 canvas.addEventListener('mousedown', function (evt: any) {
 	console.log(evt.layerX, evt.layerY);
 }, false);
 */
 
 
-// } events
+	// } events
