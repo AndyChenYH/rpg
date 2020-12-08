@@ -78,9 +78,9 @@ class Player extends Entity {
 	}
 }
 // } classes
-var imgDat: {[key: string]: boolean[][]} = {
+var blockDat: {[key: string]: boolean[][]} = {
 	"tree2": [
-		[true],
+		[false],
 		[false],
 	],
 	"tree3": [
@@ -111,7 +111,6 @@ for (var i = 0; i < mapHei; i++) {
 // cur setting {
 var cur: string = "dirt1";
 var which: number = 0;
-var pass: boolean = false;
 // } cur setting
 // } variables
 
@@ -130,15 +129,13 @@ function setEdit() {
 	cur = document.getElementById("curSet").value;
 	// @ts-ignore	
 	which = Number(document.getElementById("whichSet").value);
-	// @ts-ignore	
-	pass = document.getElementById("passSet").value == "true";
 }
 
 function addBlock(imageId: string, i: number, j: number) : void {
 	assert(bd(i, j));
-	const img: boolean[][] = imgDat[imageId];
-	for (var ii = 0; ii < imgDat[imageId].length; ii ++) {
-		for (var jj = 0; jj < imgDat[imageId][0].length; jj ++) {
+	const img: boolean[][] = blockDat[imageId];
+	for (var ii = 0; ii < blockDat[imageId].length; ii ++) {
+		for (var jj = 0; jj < blockDat[imageId][0].length; jj ++) {
 			assert(bd(i + ii, j + jj));
 			if (ii == 0 && jj == 0) {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
@@ -188,7 +185,7 @@ function levelFromJSON(obj: any): void {
 // } functions
 
 // events {
-var heldDown: any = {
+var heldDown: {[key: string]: boolean} = {
 	"A": false,
 	"D": false,
 	"W": false,

@@ -7,6 +7,7 @@ levelFromJSON(rawLev);
 // level[5][6] = new Block("blank1", true, true, 5, 5);
 // level[2][2] = new Block("tree3", false);
 addBlock("tree3", 2, 2);
+addBlock("tree2", 5, 5);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
@@ -23,9 +24,7 @@ function gameLoop(): void {
 			terrain[round(player.i)][round(player.j)].imageId = cur;
 		}
 		else if (which == 1) {
-			level[round(player.i)][round(player.j)].imageId = cur;
-			level[round(player.i)][round(player.j)].passable = pass;
-
+			addBlock(cur, round(player.i), round(player.j));
 		}
 	}
 	// } level editing
@@ -54,12 +53,12 @@ function gameLoop(): void {
 					y = (lev.ptJ - top) * scale;
 					lev = level[lev.ptI][lev.ptJ];
 				}
-				if (imgDat[lev.imageId] === undefined) {
+				if (blockDat[lev.imageId] === undefined) {
 					drawImage(lev.imageId, x, y, scale, scale);
 				}
 				else {
-					var relWid: number = imgDat[lev.imageId].length;
-					var relHei: number = imgDat[lev.imageId][0].length;
+					var relHei: number = blockDat[lev.imageId].length;
+					var relWid: number = blockDat[lev.imageId][0].length;
 					drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
 				}
 			}
