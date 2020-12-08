@@ -19,7 +19,7 @@ class Block extends Tile {
 	isPt: boolean;
 	ptI: number;
 	ptJ: number;
-	constructor(imageId: string = "blank1", passable: boolean = false, isPt: boolean=false, ptI: number=-1, ptJ: number=-1) {
+	constructor(imageId: string = "blank1", passable: boolean = true, isPt: boolean=false, ptI: number=-1, ptJ: number=-1) {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
@@ -106,7 +106,7 @@ const blockDat: {[key: string]: boolean[][]} = {
 	"wall1": [[false]],
 	"tree2": [
 		[true],
-		// [false],
+		[false],
 	],
 	"tree3": [
 		[false, false],
@@ -134,16 +134,21 @@ function setEdit() {
 }
 
 function addBlock(imageId: string, i: number, j: number) : void {
-	assert(bd(i, j));
 	const img: boolean[][] = blockDat[imageId];
+	for (var ii = 0; ii < img.length; ii++) {
+		for (var jj = 0; jj < img[0].length; jj++) {
+			if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
+				return;
+			}
+		}
+	}
 	for (var ii = 0; ii < img.length; ii ++) {
 		for (var jj = 0; jj < img[0].length; jj ++) {
-			assert(bd(i + ii, j + jj));
 			if (ii == 0 && jj == 0) {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
 			}
 			else {
-				level[i + ii][j + jj] = new Block("blank1", img[ii][jj], true, i, j);
+				level[i + ii][j + jj] = new Block(imageId, img[ii][jj], true, i, j);
 			}
 		}
 	}
@@ -192,8 +197,8 @@ var heldDown: {[key: string]: boolean} = {
 	"D": false,
 	"W": false,
 	"S": false,
-	"B": false,
-	"O": false,
+	"B": false,  // editing single tile/block
+	"L": false,  // deleting single tile/block 
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
@@ -211,7 +216,7 @@ function checkUp(e: KeyboardEvent): void {
 		heldDown[ch] = false;
 	}
 }
-	/*
+/*
 canvas.addEventListener('mousedown', function (evt: any) {
 	console.log(evt.layerX, evt.layerY);
 }, false);

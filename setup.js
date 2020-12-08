@@ -26,7 +26,7 @@ var Block = /** @class */ (function (_super) {
     __extends(Block, _super);
     function Block(imageId, passable, isPt, ptI, ptJ) {
         if (imageId === void 0) { imageId = "blank1"; }
-        if (passable === void 0) { passable = false; }
+        if (passable === void 0) { passable = true; }
         if (isPt === void 0) { isPt = false; }
         if (ptI === void 0) { ptI = -1; }
         if (ptJ === void 0) { ptJ = -1; }
@@ -117,6 +117,7 @@ var blockDat = {
     "wall1": [[false]],
     "tree2": [
         [true],
+        [false],
     ],
     "tree3": [
         [false, false],
@@ -140,16 +141,21 @@ function setEdit() {
     which = Number(document.getElementById("whichSet").value);
 }
 function addBlock(imageId, i, j) {
-    assert(bd(i, j));
     var img = blockDat[imageId];
     for (var ii = 0; ii < img.length; ii++) {
         for (var jj = 0; jj < img[0].length; jj++) {
-            assert(bd(i + ii, j + jj));
+            if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
+                return;
+            }
+        }
+    }
+    for (var ii = 0; ii < img.length; ii++) {
+        for (var jj = 0; jj < img[0].length; jj++) {
             if (ii == 0 && jj == 0) {
                 level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
             }
             else {
-                level[i + ii][j + jj] = new Block("blank1", img[ii][jj], true, i, j);
+                level[i + ii][j + jj] = new Block(imageId, img[ii][jj], true, i, j);
             }
         }
     }
@@ -199,7 +205,7 @@ var heldDown = {
     "W": false,
     "S": false,
     "B": false,
-    "O": false
+    "L": false
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
@@ -219,7 +225,7 @@ function checkUp(e) {
 }
 /*
 canvas.addEventListener('mousedown', function (evt: any) {
-console.log(evt.layerX, evt.layerY);
+    console.log(evt.layerX, evt.layerY);
 }, false);
 */
 // } events

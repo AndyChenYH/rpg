@@ -5,8 +5,6 @@ levelFromJSON(rawLev);
 // level[5][5] = new Block("tree2", true);
 // level[5][6] = new Block("blank1", true, true, 5, 5);
 // level[2][2] = new Block("tree3", false);
-addBlock("tree3", 2, 2);
-addBlock("tree2", 5, 5);
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
     drawImage("bg1", 0, 0, winWid, winHei);
@@ -19,12 +17,40 @@ function gameLoop() {
     if (heldDown["S"])
         player.move(1, 0);
     // level editing {
-    if (heldDown["B"] && bd(round(player.i), round(player.j))) {
+    var pi = round(player.i);
+    var pj = round(player.j);
+    if (heldDown["B"]) {
         if (which == 0) {
-            terrain[round(player.i)][round(player.j)].imageId = cur;
+            terrain[pi][pj].imageId = cur;
         }
         else if (which == 1) {
-            addBlock(cur, round(player.i), round(player.j));
+            addBlock(cur, pi, pj);
+        }
+    }
+    if (heldDown["L"]) {
+        if (which == 0) {
+            terrain[pi][pj] = new Tile();
+        }
+        else if (which == 1) {
+            level[pi][pj] = new Block();
+            // var ii: number = pi;
+            // var jj: number = pj;
+            // if (level[pi][pj].isPt) {
+            // 	ii = level[pi][pj].ptI;
+            // 	jj = level[pi][pj].ptJ;
+            // }
+            // var wid: number = 1;
+            // var hei: number = 1;
+            // var img: boolean[][] = blockDat[level[ii][jj].imageId];
+            // if (img != undefined) {
+            // 	wid = img.length;
+            // 	hei = img[0].length;
+            // }
+            // for (var i = 0; i < hei; i ++) {
+            // 	for (var j = 0; j < wid; j ++) {
+            // 		level[ii + i][jj + j] = new Block();
+            // 	}
+            // }
         }
     }
     // } level editing
