@@ -55,24 +55,30 @@ class list<T> {
 	}
 }
 
-// class Vec {
-// 	i: number;
-// 	j: number;
-// 	constructor(i: number, j: number) {
-// 		this.i = i;
-// 		this.j = j;
-// 	}
-// 	mult(c: number) : void {
-// 		this.i *= c;
-// 		this.j *= c;
-// 	}
-// 	div(c: number) : void {
-// 		this.i /= c;
-// 		this.j /= c;
-// 	}
-// 	dist(rhs: Vec) : number {
-// 		var di: number = rhs.i - this.i;
-// 		var dj: number = rhs.j - this.j;
-// 		return Math.sqrt(di * di + dj * dj);
-// 	}
-// }
+class Vec {
+	i: number;
+	j: number;
+	constructor(i: number, j: number) {
+		this.i = i;
+		this.j = j;
+	}
+	mult(c: number) : void {
+		this.i *= c;
+		this.j *= c;
+	}
+	div(c: number) : void {
+		this.i /= c;
+		this.j /= c;
+	}
+	mag() : number {
+		return Math.sqrt(this.i * this.i + this.j * this.j);
+	}
+	normalize() : void {
+		this.div(this.mag());
+	}
+	dist(rhs: Vec) : number {
+		var di: number = rhs.i - this.i;
+		var dj: number = rhs.j - this.j;
+		return Math.sqrt(di * di + dj * dj);
+	}
+}

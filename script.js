@@ -12,6 +12,23 @@ function gameLoop() {
         player.move(-1, 0);
     if (heldDown["S"])
         player.move(1, 0);
+    // facing
+    if (heldDown["J"]) {
+        player.faceI = 0;
+        player.faceJ = -1;
+    }
+    if (heldDown["L"]) {
+        player.faceI = 0;
+        player.faceJ = 1;
+    }
+    if (heldDown["I"]) {
+        player.faceI = -1;
+        player.faceJ = 0;
+    }
+    if (heldDown["K"]) {
+        player.faceI = 1;
+        player.faceJ = 0;
+    }
     // } player controls
     // level editing {
     var pi = round(player.i);
@@ -24,7 +41,7 @@ function gameLoop() {
             addBlock(cur, pi, pj);
         }
     }
-    if (heldDown["L"]) {
+    if (heldDown["C"]) {
         if (which == 0) {
             terrain[pi][pj] = new Tile();
         }

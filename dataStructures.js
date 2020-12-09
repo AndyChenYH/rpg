@@ -50,24 +50,29 @@ var list = /** @class */ (function () {
     };
     return list;
 }());
-// class Vec {
-// 	i: number;
-// 	j: number;
-// 	constructor(i: number, j: number) {
-// 		this.i = i;
-// 		this.j = j;
-// 	}
-// 	mult(c: number) : void {
-// 		this.i *= c;
-// 		this.j *= c;
-// 	}
-// 	div(c: number) : void {
-// 		this.i /= c;
-// 		this.j /= c;
-// 	}
-// 	dist(rhs: Vec) : number {
-// 		var di: number = rhs.i - this.i;
-// 		var dj: number = rhs.j - this.j;
-// 		return Math.sqrt(di * di + dj * dj);
-// 	}
-// }
+var Vec = /** @class */ (function () {
+    function Vec(i, j) {
+        this.i = i;
+        this.j = j;
+    }
+    Vec.prototype.mult = function (c) {
+        this.i *= c;
+        this.j *= c;
+    };
+    Vec.prototype.div = function (c) {
+        this.i /= c;
+        this.j /= c;
+    };
+    Vec.prototype.mag = function () {
+        return Math.sqrt(this.i * this.i + this.j * this.j);
+    };
+    Vec.prototype.normalize = function () {
+        this.div(this.mag());
+    };
+    Vec.prototype.dist = function (rhs) {
+        var di = rhs.i - this.i;
+        var dj = rhs.j - this.j;
+        return Math.sqrt(di * di + dj * dj);
+    };
+    return Vec;
+}());

@@ -54,8 +54,6 @@ class Player extends Entity {
 		this.images = ["player1", "player2", "player3", "player4"];
 	}
 	move(di: number, dj: number): void {
-		this.faceI = di;
-		this.faceJ = dj;
 		var ni: number = this.i + di * this.speed;
 		var nj: number = this.j + dj * this.speed;
 		if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
@@ -78,10 +76,11 @@ class Player extends Entity {
 	}
 }
 // } classes
+
 // variables {
+// #region
 // should be divisible by canvas width and height
 const scale: number = 30;
-
 var editing: boolean = false;
 var player: Player = new Player(1, 1);
 const mapWid: number = 20;
@@ -105,32 +104,20 @@ var which: number = 0;
 const blockDat: { [key: string]: boolean[][] } = {
 	"wall1": [[false]],
 	"table1": [[false]],
-	"barrel1": [
-		[false],
-		[false],
-	],
-	"tree1": [
-		[false],
-		[false],
-	],
-	"tree2": [
-		[false],
-		[false],
-	],
-	"tree3": [
-		[false, false],
-		[false, false],
-	],
-	"tree4": [
-		[false, false],
-		[false, false],
-		[false, false],
-	],
+	"barrel1": [[false], [false]],
+	"tree1": [[false], [false]],
+	"tree2": [[false], [false]],
+	"tree3": [[false, false], [false, false]],
+	"tree4": [[false, false], [false, false], [false, false]],
+	"fireplace1": [[false]],
+	"box1": [[false]],
+	"clock1": [[false], [false]],
 };
-
+// #endregion
 // } variables
 
 // functions {
+// #region
 function dist(i1: number, j1: number, i2: number, j2: number): number {
 	var di: number = i1 - i2;
 	var dj: number = j1 - j2;
@@ -210,16 +197,25 @@ function gameFromJSON(obj: any): void {
 	terrFromJSON(obj[0]);
 	levelFromJSON(obj[1]);
 }
+// #endregion
 // } functions
 
 // events {
+// #region
 var heldDown: { [key: string]: boolean } = {
+	// movements
 	"A": false,
 	"D": false,
 	"W": false,
 	"S": false,
+
 	"B": false,  // editing single tile/block
-	"L": false,  // deleting single tile/block 
+	"C": false,  // deleting single tile/block 
+	// facings
+	"J": false,
+	"L": false,
+	"I": false,
+	"K": false,
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
@@ -237,9 +233,11 @@ function checkUp(e: KeyboardEvent): void {
 		heldDown[ch] = false;
 	}
 }
-// canvas.addEventListener('mousedown', function (evt: any) {
-// 	console.log(evt.layerX, evt.layerY);
-// }, false);
-
+/*
+canvas.addEventListener('mousedown', function (evt: any) {
+	console.log(evt.layerX, evt.layerY);
+}, false);
+*/
+// #endregion
 
 // } events

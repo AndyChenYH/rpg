@@ -64,8 +64,6 @@ var Player = /** @class */ (function (_super) {
         return _this;
     }
     Player.prototype.move = function (di, dj) {
-        this.faceI = di;
-        this.faceJ = dj;
         var ni = this.i + di * this.speed;
         var nj = this.j + dj * this.speed;
         if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
@@ -116,27 +114,14 @@ var which = 0;
 var blockDat = {
     "wall1": [[false]],
     "table1": [[false]],
-    "barrel1": [
-        [false],
-        [false],
-    ],
-    "tree1": [
-        [false],
-        [false],
-    ],
-    "tree2": [
-        [false],
-        [false],
-    ],
-    "tree3": [
-        [false, false],
-        [false, false],
-    ],
-    "tree4": [
-        [false, false],
-        [false, false],
-        [false, false],
-    ]
+    "barrel1": [[false], [false]],
+    "tree1": [[false], [false]],
+    "tree2": [[false], [false]],
+    "tree3": [[false, false], [false, false]],
+    "tree4": [[false, false], [false, false], [false, false]],
+    "fireplace1": [[false]],
+    "box1": [[false]],
+    "clock1": [[false], [false]]
 };
 // } variables
 // functions {
@@ -221,12 +206,18 @@ function gameFromJSON(obj) {
 // } functions
 // events {
 var heldDown = {
+    // movements
     "A": false,
     "D": false,
     "W": false,
     "S": false,
     "B": false,
-    "L": false
+    "C": false,
+    // facings
+    "J": false,
+    "L": false,
+    "I": false,
+    "K": false
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
@@ -244,7 +235,9 @@ function checkUp(e) {
         heldDown[ch] = false;
     }
 }
-// canvas.addEventListener('mousedown', function (evt: any) {
-// 	console.log(evt.layerX, evt.layerY);
-// }, false);
+/*
+canvas.addEventListener('mousedown', function (evt: any) {
+    console.log(evt.layerX, evt.layerY);
+}, false);
+*/
 // } events
