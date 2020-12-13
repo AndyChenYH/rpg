@@ -155,12 +155,19 @@ var mouseY = 0;
 var invOffI = winHei - scale * 4;
 var invOffJ = 0;
 var craOffI = invOffI;
-var craOffJ = invOffJ;
+var craOffJ = scale * 10 + invOffJ;
 var player = new Player(1, 1);
 var mapWid = 20;
 var mapHei = 20;
 var terrain = [];
 var level = [];
+var craftTable = [];
+for (var i = 0; i < 3; i++) {
+    craftTable.push([]);
+    for (var j = 0; j < 3; j++) {
+        craftTable[i].push(undefined);
+    }
+}
 for (var i = 0; i < mapHei; i++) {
     terrain.push(new Array(mapWid));
     level.push(new Array(mapWid));
@@ -337,15 +344,24 @@ var dragY;
 canvas.addEventListener('mousedown', function (evt) {
     var mX = evt.layerX;
     var mY = evt.layerY;
-    if (dispInv) {
-        isDrag = true;
-        dragX = mX;
-        dragY = mY;
-    }
+    isDrag = true;
+    dragX = mX;
+    dragY = mY;
 }, false);
 canvas.addEventListener('mouseup', function (evt) {
     var mX = evt.layerX;
     var mY = evt.layerY;
+    isDrag = false;
+    if (dispInv) {
+        var j = floor((mX - craOffJ) / scale);
+        var i = floor((mY - craOffI) / scale);
+        var invJ = floor((dragX - invOffJ) / scale);
+        var invI = floor((dragY - invOffI) / scale);
+        if (bd(invI, invJ) && bd(i, j)) {
+            craftTable[i][j] = player.inv[invI][invJ];
+            player.inv[invI][invJ] = undefined;
+        }
+    }
 }, false);
 // #endregion
 // } events

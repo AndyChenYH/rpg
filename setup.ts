@@ -137,12 +137,19 @@ var mouseY: number = 0;
 const invOffI: number = winHei - scale * 4;
 const invOffJ: number = 0;
 const craOffI: number = invOffI;
-const craOffJ: number = invOffJ;
+const craOffJ: number = scale * 10 + invOffJ;
 var player: Player = new Player(1, 1);
 const mapWid: number = 20;
 const mapHei: number = 20;
 var terrain: Tile[][] = [];
 var level: Block[][] = [];
+var craftTable: Item[][] = [];
+for (var i = 0; i < 3; i ++) {
+	craftTable.push([]);
+	for (var j = 0; j < 3; j ++) {
+		craftTable[i].push(undefined);
+	}
+}
 for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
 	level.push(new Array(mapWid));
@@ -326,18 +333,24 @@ var dragY: number;
 canvas.addEventListener('mousedown', function (evt: any) {
 	var mX: number = evt.layerX;
 	var mY: number = evt.layerY;
-	if (dispInv) {
-		isDrag = true;
-		dragX = mX;
-		dragY = mY;
-	}
+	isDrag = true;
+	dragX = mX;
+	dragY = mY;
 }, false);
 canvas.addEventListener('mouseup', function (evt: any) {
 	var mX: number = evt.layerX;
 	var mY: number = evt.layerY;
-	assert(isDrag);
 	isDrag = false;
-	
+	if (dispInv) {
+		var j: number = floor((mX - craOffJ) / scale);
+		var i: number = floor((mY - craOffI) / scale);
+		var invJ: number = floor((dragX - invOffJ) / scale);
+		var invI: number = floor((dragY - invOffI) / scale);
+		if (bd(invI, invJ) && bd(i, j)) {
+			craftTable[i][j] = player.inv[invI][invJ];
+			player.inv[invI][invJ] = undefined;
+		}
+	}
 }, false);
 
 // #endregion

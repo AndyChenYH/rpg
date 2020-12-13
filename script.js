@@ -100,13 +100,15 @@ function gameLoop() {
     if (dispInv) {
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
-                drawRect(j * scale + scale * 10 + craOffJ, i * scale + craOffI, scale, scale, "#888888");
+                drawRect(j * scale + craOffJ, i * scale + craOffI, scale, scale, "#888888");
+                if (craftTable[i][j] !== undefined) {
+                    drawImage(craftTable[i][j].imageId, j * scale + craOffJ, i * scale + craOffI, scale, scale);
+                }
             }
         }
     }
     // draw dragging
-    if (isDrag) {
-        assert(dispInv);
+    if (isDrag && dispInv) {
         var invJ = floor((dragX - invOffJ) / scale);
         var invI = floor((dragY - invOffI) / scale);
         if (bd(invI, invJ) && player.inv[invI][invJ] !== undefined) {
