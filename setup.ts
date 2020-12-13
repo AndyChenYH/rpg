@@ -10,6 +10,9 @@ class Tile {
 	constructor(imageId: string = "blank1") {
 		this.imageId = imageId;
 	}
+	toJSON() : any {
+		return { imageId: this.imageId };
+	}
 	fromJSON(obj: any): void {
 		this.imageId = obj.imageId;
 	}
@@ -26,14 +29,26 @@ class Block extends Tile {
 		this.ptI = ptI;
 		this.ptJ = ptJ;
 	}
+	toJSON() : any {
+		var res: any = super.toJSON();
+		res.passable = this.passable;
+		res.isPt = this.isPt;
+		if (this.isPt) {
+			res.ptI = this.ptI;
+			res.ptJ = this.ptJ;
+		}
+	}
 	fromJSON(obj: any): void {
 		super.fromJSON(obj);
 		this.passable = obj.passable;
 		this.isPt = obj.isPt;
-		this.ptI = obj.ptI;
-		this.ptJ = obj.ptJ;
+		if (obj.isPt) {
+			this.ptI = obj.ptI;
+			this.ptJ = obj.ptJ;
+		}
 	}
 }
+
 class Entity {
 	i: number;
 	j: number;
@@ -176,6 +191,26 @@ function fill(): void {
 		}
 	}
 }
+function terrToJSON() : any[][] {
+	var res: any[][] = [];
+	for (var i = 0; i < mapHei; i ++) {
+		res.push([]);
+		for (var j = 0; j < mapWid; j ++) {
+			res[i].push(terrain[i][j].toJSON());
+		}
+	}
+	return res;
+}
+function levelToJSON() : any[][] {
+	var res: any[][] = [];
+	for (var i = 0; i < mapHei; i ++) {
+		res.push([]);
+		for (var j = 0; j < mapWid; j ++) {
+			res[i].push(level[i][j].toJSON());
+		}
+	}
+	return res;
+}
 function terrFromJSON(obj: any): void {
 	for (var i = 0; i < min(mapHei, obj.length); i++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
@@ -191,7 +226,7 @@ function levelFromJSON(obj: any): void {
 	}
 }
 function gameToJSON(): any {
-	return [JSON.parse(JSON.stringify(terrain)), JSON.parse(JSON.stringify(level))];
+	return [terrToJSON(), levelToJSON()];
 }
 function gameFromJSON(obj: any): void {
 	terrFromJSON(obj[0]);

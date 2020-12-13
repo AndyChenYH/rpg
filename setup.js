@@ -17,6 +17,9 @@ var Tile = /** @class */ (function () {
         if (imageId === void 0) { imageId = "blank1"; }
         this.imageId = imageId;
     }
+    Tile.prototype.toJSON = function () {
+        return { imageId: this.imageId };
+    };
     Tile.prototype.fromJSON = function (obj) {
         this.imageId = obj.imageId;
     };
@@ -37,12 +40,23 @@ var Block = /** @class */ (function (_super) {
         _this.ptJ = ptJ;
         return _this;
     }
+    Block.prototype.toJSON = function () {
+        var res = _super.prototype.toJSON.call(this);
+        res.passable = this.passable;
+        res.isPt = this.isPt;
+        if (this.isPt) {
+            res.ptI = this.ptI;
+            res.ptJ = this.ptJ;
+        }
+    };
     Block.prototype.fromJSON = function (obj) {
         _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
         this.isPt = obj.isPt;
-        this.ptI = obj.ptI;
-        this.ptJ = obj.ptJ;
+        if (obj.isPt) {
+            this.ptI = obj.ptI;
+            this.ptJ = obj.ptJ;
+        }
     };
     return Block;
 }(Tile));
@@ -91,6 +105,7 @@ var Player = /** @class */ (function (_super) {
 }(Entity));
 // } classes
 // variables {
+// #region
 // should be divisible by canvas width and height
 var scale = 30;
 var editing = false;
@@ -123,8 +138,10 @@ var blockDat = {
     "box1": [[false]],
     "clock1": [[false], [false]]
 };
+// #endregion
 // } variables
 // functions {
+// #region
 function dist(i1, j1, i2, j2) {
     var di = i1 - i2;
     var dj = j1 - j2;
@@ -182,6 +199,26 @@ function fill() {
         }
     }
 }
+function terrToJSON() {
+    var res = [];
+    for (var i = 0; i < mapHei; i++) {
+        res.push([]);
+        for (var j = 0; j < mapWid; j++) {
+            res[i].push(terrain[i][j].toJSON());
+        }
+    }
+    return res;
+}
+function levelToJSON() {
+    var res = [];
+    for (var i = 0; i < mapHei; i++) {
+        res.push([]);
+        for (var j = 0; j < mapWid; j++) {
+            res[i].push(level[i][j].toJSON());
+        }
+    }
+    return res;
+}
 function terrFromJSON(obj) {
     for (var i = 0; i < min(mapHei, obj.length); i++) {
         for (var j = 0; j < min(mapWid, obj[i].length); j++) {
@@ -197,14 +234,16 @@ function levelFromJSON(obj) {
     }
 }
 function gameToJSON() {
-    return [JSON.parse(JSON.stringify(terrain)), JSON.parse(JSON.stringify(level))];
+    return [terrToJSON(), levelToJSON()];
 }
 function gameFromJSON(obj) {
     terrFromJSON(obj[0]);
     levelFromJSON(obj[1]);
 }
+// #endregion
 // } functions
 // events {
+// #region
 var heldDown = {
     // movements
     "A": false,
@@ -240,4 +279,5 @@ canvas.addEventListener('mousedown', function (evt: any) {
     console.log(evt.layerX, evt.layerY);
 }, false);
 */
+// #endregion
 // } events
