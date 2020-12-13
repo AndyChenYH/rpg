@@ -56,7 +56,6 @@ function drawImage(id, x, y, width, height) {
 }
 function assert(condition) {
     if (!condition) {
-        alert("Assertion failed");
         throw "Assertion failed";
     }
 }

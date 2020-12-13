@@ -318,11 +318,28 @@ function checkUp(e: KeyboardEvent): void {
 		heldDown[ch] = false;
 	}
 }
-/*
+var isDrag: boolean = false;
+var dragX: number;
+var dragY: number;
 canvas.addEventListener('mousedown', function (evt: any) {
-	console.log(evt.layerX, evt.layerY);
+	var mX: number = evt.layerX;
+	var mY: number = evt.layerY;
+	var invJ: number = floor((mX - invOffJ) / scale);
+	var invI: number = floor((mY - invOffI) / scale);
+	if (bd(invI, invJ)) {
+		player.inv[invI][invJ] = new Axe("axe1", 1);
+	}
+	if (dispInv) {
+		isDrag = true;
+		dragX = mX;
+		dragY = mY;
+	}
 }, false);
-*/
+canvas.addEventListener('mouseup', function (evt: any) {
+	var mX: number = evt.layerX;
+	var mY: number = evt.layerY;
+}, false);
+
 // #endregion
 
 // } events

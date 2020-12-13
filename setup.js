@@ -329,10 +329,26 @@ function checkUp(e) {
         heldDown[ch] = false;
     }
 }
-/*
-canvas.addEventListener('mousedown', function (evt: any) {
-    console.log(evt.layerX, evt.layerY);
+var isDrag = false;
+var dragX;
+var dragY;
+canvas.addEventListener('mousedown', function (evt) {
+    var mX = evt.layerX;
+    var mY = evt.layerY;
+    var invJ = floor((mX - invOffJ) / scale);
+    var invI = floor((mY - invOffI) / scale);
+    if (bd(invI, invJ)) {
+        player.inv[invI][invJ] = new Axe("axe1", 1);
+    }
+    if (dispInv) {
+        isDrag = true;
+        dragX = mX;
+        dragY = mY;
+    }
 }, false);
-*/
+canvas.addEventListener('mouseup', function (evt) {
+    var mX = evt.layerX;
+    var mY = evt.layerY;
+}, false);
 // #endregion
 // } events

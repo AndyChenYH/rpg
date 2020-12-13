@@ -1,6 +1,6 @@
 // @ts-ignore
 gameFromJSON(rawGame);
-player.inv[3][0] = new Axe("axe1", 1);
+// player.inv[3][0] = new Axe("axe1", 1);
 function gameLoop() {
     ctx.clearRect(0, 0, winWid, winHei);
     drawImage("bg1", 0, 0, winWid, winHei);
@@ -91,6 +91,9 @@ function gameLoop() {
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 9; j++) {
             drawRect(j * scale + invOffJ, i * scale + invOffI, scale, scale, "#888888");
+            if (player.inv[i][j] !== undefined) {
+                drawImage(player.inv[i][j].imageId, j * scale + invOffJ, i * scale + invOffI, scale, scale);
+            }
         }
     }
     // draw crafting table
