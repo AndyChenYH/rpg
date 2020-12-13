@@ -1,7 +1,7 @@
 // @ts-ignore
 gameFromJSON(rawGame);
 
-player.inv.push(new Axe("axe1", 1));
+player.inv[3][0] = new Axe("axe1", 1);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
@@ -87,11 +87,19 @@ function gameLoop(): void {
 		}
 	}
 
-	// draw hotbar
-	for (var i = 0; i < 5; i ++) {
-		drawRect(i * scale, winHei - scale, scale, scale, "#000000", false);
-		if (i < player.inv.length) {
-			drawImage(player.inv[i].imageId, i * scale, winHei - scale, scale, scale);
+	// draw inventory
+	ctx.strokeStyle = "#000000";
+	for (var i = 0; i < 4; i ++) {
+		for (var j = 0; j < 9; j ++) {
+			drawRect(j * scale + invOffJ, i * scale + invOffI, scale, scale, "#888888");
+		}
+	}
+	// draw crafting table
+	if (dispInv) {
+		for (var i = 0; i < 3; i ++) {
+			for (var j = 0; j < 3; j ++) {
+				drawRect(j * scale + scale * 10 + craOffJ, i * scale + craOffI, scale, scale, "#888888");
+			}
 		}
 	}
 	requestAnimationFrame(gameLoop);

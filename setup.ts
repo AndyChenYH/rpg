@@ -78,21 +78,26 @@ class Entity {
 	j: number;
 	faceI: number;
 	faceJ: number;
-	inv: Item[];
 	constructor(i: number, j: number) {
 		this.i = i;
 		this.j = j;
 		this.faceI = 1;
 		this.faceJ = 0;
-		this.inv = [];
 	}
 }
 class Player extends Entity {
 	speed: number = 0.1;
 	images: string[];
+	inv: Item[][];
+	invI: number;
+	invJ: number;
 	constructor(i: number, j: number) {
 		super(i, j);
 		this.images = ["player1", "player2", "player3", "player4"];
+		this.inv = [...Array(4)].map(e => Array(9));
+		
+		this.invI = 3;
+		this.invJ = 0;
 	}
 	move(di: number, dj: number): void {
 		this.faceI = di;
@@ -126,6 +131,11 @@ class Player extends Entity {
 // should be divisible by canvas width and height
 const scale: number = 30;
 var editing: boolean = false;
+var dispInv: boolean = false;
+const invOffI: number = winHei - scale * 4;
+const invOffJ: number = 0;
+const craOffI: number = invOffI;
+const craOffJ: number = invOffJ;
 var player: Player = new Player(1, 1);
 const mapWid: number = 20;
 const mapHei: number = 20;
@@ -158,6 +168,7 @@ const blockDat: { [key: string]: boolean[][] } = {
 	"clock1": [[false], [false]],
 };
 // #endregion
+
 // } variables
 
 // functions {
@@ -300,6 +311,9 @@ function checkDown(e: KeyboardEvent): void {
 
 function checkUp(e: KeyboardEvent): void {
 	var ch: string = String.fromCharCode(e.keyCode);
+	if (ch == "E") {
+		dispInv = !dispInv;
+	}
 	if (heldDown[ch] !== undefined) {
 		heldDown[ch] = false;
 	}

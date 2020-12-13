@@ -11,6 +11,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 // classes {
 var Tile = /** @class */ (function () {
     function Tile(imageId) {
@@ -94,7 +101,6 @@ var Entity = /** @class */ (function () {
         this.j = j;
         this.faceI = 1;
         this.faceJ = 0;
-        this.inv = [];
     }
     return Entity;
 }());
@@ -104,6 +110,9 @@ var Player = /** @class */ (function (_super) {
         var _this = _super.call(this, i, j) || this;
         _this.speed = 0.1;
         _this.images = ["player1", "player2", "player3", "player4"];
+        _this.inv = __spreadArrays(Array(4)).map(function (e) { return Array(9); });
+        _this.invI = 3;
+        _this.invJ = 0;
         return _this;
     }
     Player.prototype.move = function (di, dj) {
@@ -131,13 +140,6 @@ var Player = /** @class */ (function (_super) {
         else if (this.faceI === -1)
             image = this.images[3];
         drawImage(image, winWid / 2, winHei / 2, scale, scale);
-        // draw hotbar
-        for (var i = 0; i < 5; i++) {
-            drawRect(i * scale, winHei - scale, scale, scale, "#000000", false);
-            if (i < this.inv.length) {
-                drawImage(this.inv[i].imageId, i * scale, winHei - scale, scale, scale);
-            }
-        }
     };
     return Player;
 }(Entity));
@@ -147,6 +149,11 @@ var Player = /** @class */ (function (_super) {
 // should be divisible by canvas width and height
 var scale = 30;
 var editing = false;
+var dispInv = false;
+var invOffI = winHei - scale * 4;
+var invOffJ = 0;
+var craOffI = invOffI;
+var craOffJ = invOffJ;
 var player = new Player(1, 1);
 var mapWid = 20;
 var mapHei = 20;
@@ -315,6 +322,9 @@ function checkDown(e) {
 }
 function checkUp(e) {
     var ch = String.fromCharCode(e.keyCode);
+    if (ch == "E") {
+        dispInv = !dispInv;
+    }
     if (heldDown[ch] !== undefined) {
         heldDown[ch] = false;
     }

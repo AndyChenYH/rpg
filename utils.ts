@@ -26,11 +26,11 @@ function drawLine(x: number, y: number, x1: number, y1: number, wid: number = 1)
 	ctx.stroke();
 }
 
-function drawRect(x: number, y: number, wid: number, hei: number, color: string, fill: boolean=true) : void {
+function drawRect(x: number, y: number, wid: number, hei: number, color: string) : void {
 	ctx.beginPath();
 	ctx.rect(x, y, wid, hei);
 	ctx.fillStyle = color;
-	if (fill) ctx.fill();
+	ctx.fill();
 	ctx.stroke();
 }
 
