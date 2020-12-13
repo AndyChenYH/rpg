@@ -1,6 +1,8 @@
 // @ts-ignore
 gameFromJSON(rawGame);
 
+player.inv.push(new Axe("axe1", 1));
+
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
 	drawImage("bg1", 0, 0, winWid, winHei);
@@ -11,23 +13,6 @@ function gameLoop(): void {
 	if (heldDown["W"]) player.move(-1, 0);
 	if (heldDown["S"]) player.move(1, 0);
 
-	// facing
-	if (heldDown["J"]) {
-		player.faceI = 0;
-		player.faceJ = -1;
-	}
-	if (heldDown["L"]) {
-		player.faceI = 0;
-		player.faceJ = 1;
-	}
-	if (heldDown["I"]) {
-		player.faceI = -1;
-		player.faceJ = 0;
-	}
-	if (heldDown["K"]) {
-		player.faceI = 1;
-		player.faceJ = 0;
-	}
 	// } player controls
 
 	// level editing {
@@ -102,6 +87,13 @@ function gameLoop(): void {
 		}
 	}
 
+	// draw hotbar
+	for (var i = 0; i < 5; i ++) {
+		drawRect(i * scale, winHei - scale, scale, scale, "#000000", false);
+		if (i < player.inv.length) {
+			drawImage(player.inv[i].imageId, i * scale, winHei - scale, scale, scale);
+		}
+	}
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();

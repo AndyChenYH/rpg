@@ -23,11 +23,13 @@ function drawLine(x, y, x1, y1, wid) {
     ctx.lineTo(x1, y1);
     ctx.stroke();
 }
-function drawRect(x, y, wid, hei, color) {
+function drawRect(x, y, wid, hei, color, fill) {
+    if (fill === void 0) { fill = true; }
     ctx.beginPath();
     ctx.rect(x, y, wid, hei);
     ctx.fillStyle = color;
-    ctx.fill();
+    if (fill)
+        ctx.fill();
     ctx.stroke();
 }
 function componentToHex(c) {

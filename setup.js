@@ -66,12 +66,35 @@ var Pointer = /** @class */ (function (_super) {
     };
     return Pointer;
 }(Block));
+var Item = /** @class */ (function () {
+    function Item(imageId) {
+        this.imageId = imageId;
+    }
+    return Item;
+}());
+var Tool = /** @class */ (function (_super) {
+    __extends(Tool, _super);
+    function Tool(imageId, damage) {
+        var _this = _super.call(this, imageId) || this;
+        _this.damage = damage;
+        return _this;
+    }
+    return Tool;
+}(Item));
+var Axe = /** @class */ (function (_super) {
+    __extends(Axe, _super);
+    function Axe() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Axe;
+}(Tool));
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
         this.i = i;
         this.j = j;
         this.faceI = 1;
         this.faceJ = 0;
+        this.inv = [];
     }
     return Entity;
 }());
@@ -84,6 +107,8 @@ var Player = /** @class */ (function (_super) {
         return _this;
     }
     Player.prototype.move = function (di, dj) {
+        this.faceI = di;
+        this.faceJ = dj;
         var ni = this.i + di * this.speed;
         var nj = this.j + dj * this.speed;
         if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
@@ -106,6 +131,13 @@ var Player = /** @class */ (function (_super) {
         else if (this.faceI === -1)
             image = this.images[3];
         drawImage(image, winWid / 2, winHei / 2, scale, scale);
+        // draw hotbar
+        for (var i = 0; i < 5; i++) {
+            drawRect(i * scale, winHei - scale, scale, scale, "#000000", false);
+            if (i < this.inv.length) {
+                drawImage(this.inv[i].imageId, i * scale, winHei - scale, scale, scale);
+            }
+        }
     };
     return Player;
 }(Entity));

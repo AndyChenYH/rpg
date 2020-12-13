@@ -58,17 +58,33 @@ class Pointer extends Block {
 	}
 
 }
-
+class Item {
+	imageId: string;
+	constructor(imageId: string) {
+		this.imageId = imageId;
+	}
+}
+class Tool extends Item {
+	damage: number;
+	constructor(imageId: string, damage: number) {
+		super(imageId);
+		this.damage = damage;
+	}
+}
+class Axe extends Tool {
+}
 class Entity {
 	i: number;
 	j: number;
 	faceI: number;
 	faceJ: number;
+	inv: Item[];
 	constructor(i: number, j: number) {
 		this.i = i;
 		this.j = j;
 		this.faceI = 1;
 		this.faceJ = 0;
+		this.inv = [];
 	}
 }
 class Player extends Entity {
@@ -79,6 +95,8 @@ class Player extends Entity {
 		this.images = ["player1", "player2", "player3", "player4"];
 	}
 	move(di: number, dj: number): void {
+		this.faceI = di;
+		this.faceJ = dj;
 		var ni: number = this.i + di * this.speed;
 		var nj: number = this.j + dj * this.speed;
 		if (bd(round(ni), round(nj)) && (editing || level[round(ni)][round(nj)].passable)) {
@@ -98,6 +116,7 @@ class Player extends Entity {
 		else if (this.faceJ === 1) image = this.images[2];
 		else if (this.faceI === -1) image = this.images[3];
 		drawImage(image, winWid / 2, winHei / 2, scale, scale);
+
 	}
 }
 // } classes
