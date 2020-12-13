@@ -49,7 +49,7 @@ function rd(low: number, high: number) : number {
 		return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
-function drawImage(id: string, x: number, y: number, width: number, height: number) {
+function drawImage(id: string, x: number, y: number, width: number, height: number) : void {
 	if (loaded) {
 		var img: any = document.getElementById(id);
 		try {
@@ -61,12 +61,21 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 		}
 	}
 }
+function drawImageSmaller(id: string, x: number, y: number, width: number, height: number) : void { 
+	drawImage(id, x + scale / 10, y + scale / 10, width - scale / 5, height - scale / 5);
+}
 canvas.addEventListener("mousemove", function (evt: any) {
 	mouseX = evt.layerX;
 	mouseY = evt.layerY;
 }, false);
-function assert(condition: boolean) {
+function assert(condition: boolean) : void {
     if (!condition) {
 		throw "Assertion failed";
     }
+}
+function ord(ch: string) : number {
+	return ch.charCodeAt(0);
+}
+function chr(n: number) : string {
+	return String.fromCharCode(n);
 }

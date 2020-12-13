@@ -13,42 +13,44 @@ function gameLoop(): void {
 	if (heldDown["D"]) player.move(0, 1);
 	if (heldDown["W"]) player.move(-1, 0);
 	if (heldDown["S"]) player.move(1, 0);
-
+	
 	// } player controls
 
 	// level editing {
-	var pi: number = round(player.i);
-	var pj: number = round(player.j);
-	if (heldDown["B"]) {
-		if (which == 0) {
-			terrain[pi][pj].imageId = cur;
-		}
-		else if (which == 1) {
-			addBlock(cur, pi, pj);
-		}
-	}
-	if (heldDown["C"]) {
-		if (which == 0) {
-			terrain[pi][pj] = new Tile("blank1");
-		}
-		else if (which == 1) {
-			var ii: number = pi;
-			var jj: number = pj;
-			if (level[pi][pj].isPt) {
-				var pt: Pointer = level[pi][pj] as Pointer;
-				ii = pt.ptI;
-				jj = pt.ptJ;
+	if (editing) {
+		var pi: number = round(player.i);
+		var pj: number = round(player.j);
+		if (heldDown["B"]) {
+			if (whichEdit == 0) {
+				terrain[pi][pj].imageId = curEdit;
 			}
-			var wid: number = 1;
-			var hei: number = 1;
-			var img: boolean[][] = blockDat[level[ii][jj].imageId];
-			if (img != undefined) {
-				hei = img.length;
-				wid = img[0].length;
+			else if (whichEdit == 1) {
+				addBlock(curEdit, pi, pj);
 			}
-			for (var i = 0; i < hei; i ++) {
-				for (var j = 0; j < wid; j ++) {
-					level[ii + i][jj + j] = new Block("blank1", true, false);
+		}
+		if (heldDown["C"]) {
+			if (whichEdit == 0) {
+				terrain[pi][pj] = new Tile("blank1");
+			}
+			else if (whichEdit == 1) {
+				var ii: number = pi;
+				var jj: number = pj;
+				if (level[pi][pj].isPt) {
+					var pt: Pointer = level[pi][pj] as Pointer;
+					ii = pt.ptI;
+					jj = pt.ptJ;
+				}
+				var wid: number = 1;
+				var hei: number = 1;
+				var img: boolean[][] = blockDat[level[ii][jj].imageId].pass;
+				if (img != undefined) {
+					hei = img.length;
+					wid = img[0].length;
+				}
+				for (var i = 0; i < hei; i ++) {
+					for (var j = 0; j < wid; j ++) {
+						level[ii + i][jj + j] = new Block("blank1", true, false);
+					}
 				}
 			}
 		}
@@ -80,8 +82,8 @@ function gameLoop(): void {
 					drawImage(lev.imageId, x, y, scale, scale);
 				}
 				else {
-					var relHei: number = blockDat[lev.imageId].length;
-					var relWid: number = blockDat[lev.imageId][0].length;
+					var relHei: number = blockDat[lev.imageId].pass.length;
+					var relWid: number = blockDat[lev.imageId].pass[0].length;
 					drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
 				}
 			}
@@ -89,13 +91,14 @@ function gameLoop(): void {
 	}
 
 	// draw inventory
-	ctx.strokeStyle = "#000000";
 	for (var i = 0; i < 4; i ++) {
 		if (!dispInv && i != 3) continue;
 		for (var j = 0; j < 9; j ++) {
+			ctx.strokeStyle = "#AAAAAA";
+			if (i === 3 && j === player.hotJ) ctx.strokeStyle = "#000000";
 			drawRect(j * scale + invOffJ, i * scale + invOffI, scale, scale, "#888888");
 			if (player.inv[i][j] !== undefined) {
-				drawImage(player.inv[i][j].imageId, j * scale + invOffJ, i * scale + invOffI, scale, scale);
+				drawImageSmaller(player.inv[i][j].imageId, j * scale + invOffJ, i * scale + invOffI, scale, scale);
 			}
 		}
 	}
@@ -103,9 +106,10 @@ function gameLoop(): void {
 	if (dispInv) {
 		for (var i = 0; i < 3; i ++) {
 			for (var j = 0; j < 3; j ++) {
+				ctx.strokeStyle = "#AAAAAA";
 				drawRect(j * scale + craOffJ, i * scale + craOffI, scale, scale, "#888888");
 				if (craftTable[i][j] !== undefined) {
-					drawImage(craftTable[i][j].imageId, j * scale + craOffJ, i * scale + craOffI, scale, scale);
+					drawImageSmaller(craftTable[i][j].imageId, j * scale + craOffJ, i * scale + craOffI, scale, scale);
 				}
 			}
 		}
@@ -120,6 +124,7 @@ function gameLoop(): void {
 			ctx.globalAlpha = 1;
 		}
 	}
+
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();

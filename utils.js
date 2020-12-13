@@ -54,6 +54,9 @@ function drawImage(id, x, y, width, height) {
         }
     }
 }
+function drawImageSmaller(id, x, y, width, height) {
+    drawImage(id, x + scale / 10, y + scale / 10, width - scale / 5, height - scale / 5);
+}
 canvas.addEventListener("mousemove", function (evt) {
     mouseX = evt.layerX;
     mouseY = evt.layerY;
@@ -62,4 +65,10 @@ function assert(condition) {
     if (!condition) {
         throw "Assertion failed";
     }
+}
+function ord(ch) {
+    return ch.charCodeAt(0);
+}
+function chr(n) {
+    return String.fromCharCode(n);
 }

@@ -59,6 +59,9 @@ var Pointer = /** @class */ (function (_super) {
         _this.ptJ = ptJ;
         return _this;
     }
+    Pointer.prototype.orig = function () {
+        return level[this.ptI][this.ptJ];
+    };
     Pointer.prototype.toJSON = function () {
         return {
             passable: this.passable,
@@ -111,8 +114,20 @@ var Player = /** @class */ (function (_super) {
         _this.speed = 0.1;
         _this.images = ["player1", "player2", "player3", "player4"];
         _this.inv = __spreadArrays(Array(4)).map(function (e) { return Array(9); });
+        _this.hotJ = 0;
         return _this;
     }
+    Player.prototype.act = function () {
+        var ni = round(this.i) + this.faceI;
+        var nj = round(this.j) + this.faceJ;
+        if (bd(ni, nj)) {
+            var bl;
+            if (level[ni][nj].isPt)
+                bl = level[ni][nj].orig();
+            if (bl.imageId.substring(0, 4) === "tree") {
+            }
+        }
+    };
     Player.prototype.addItem = function (it) {
         for (var i = 3; 0 <= i; i--) {
             for (var j = 0; j < 9; j++) {
@@ -185,20 +200,30 @@ for (var i = 0; i < mapHei; i++) {
     }
 }
 // cur setting {
-var cur = "dirt1";
-var which = 0;
+var curEdit = "dirt1";
+var whichEdit = 0;
 // } cur setting
 var blockDat = {
-    "wall1": [[false]],
-    "table1": [[false]],
-    "barrel1": [[false], [false]],
-    "tree1": [[false], [false]],
-    "tree2": [[false], [false]],
-    "tree3": [[false, false], [false, false]],
-    "tree4": [[false, false], [false, false], [false, false]],
-    "fireplace1": [[false]],
-    "box1": [[false]],
-    "clock1": [[false], [false]]
+    "wall1": {
+        health: Infinity,
+        pass: [[false]]
+    },
+    "tree1": {
+        health: 10,
+        pass: [[false], [false]]
+    },
+    "tree2": {
+        health: 10,
+        pass: [[false], [false]]
+    },
+    "tree3": {
+        health: 10,
+        pass: [[false, false], [false, false]]
+    },
+    "tree4": {
+        health: 10,
+        pass: [[false, false], [false, false], [false, false]]
+    }
 };
 // #endregion
 // } variables
@@ -214,12 +239,12 @@ function bd(i, j) {
 }
 function setEdit() {
     // @ts-ignore	
-    cur = document.getElementById("curSet").value;
+    curEdit = document.getElementById("curSet").value;
     // @ts-ignore	
-    which = Number(document.getElementById("whichSet").value);
+    whichEdit = Number(document.getElementById("whichSet").value);
 }
 function addBlock(imageId, i, j) {
-    var img = blockDat[imageId];
+    var img = blockDat[imageId].pass;
     for (var ii = 0; ii < img.length; ii++) {
         for (var jj = 0; jj < img[0].length; jj++) {
             if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
@@ -241,7 +266,7 @@ function addBlock(imageId, i, j) {
 function fill() {
     var i = round(player.i);
     var j = round(player.j);
-    var tile = new Tile(cur);
+    var tile = new Tile(curEdit);
     if (!bd(i, j))
         return;
     var q = new list();
@@ -315,30 +340,19 @@ function gameFromJSON(obj) {
 // #region
 var heldDown = {
     // movements
-    "A": false,
-    "D": false,
-    "W": false,
-    "S": false,
+    "A": false, "D": false, "W": false, "S": false,
     "B": false,
-    "C": false,
-    // facings
-    "J": false,
-    "L": false,
-    "I": false,
-    "K": false
+    "C": false
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
 function checkDown(e) {
     if (e.repeat)
         return;
-    var ch = String.fromCharCode(e.keyCode);
-    if (heldDown[ch] !== undefined) {
-        heldDown[ch] = true;
+    var ch = chr(e.keyCode);
+    if (49 <= e.keyCode && e.keyCode <= 53) {
+        player.hotJ = e.keyCode - 48 - 1;
     }
-}
-function checkUp(e) {
-    var ch = String.fromCharCode(e.keyCode);
     if (ch == "E") {
         if (dispInv) {
             for (var i = 0; i < 3; i++) {
@@ -352,6 +366,12 @@ function checkUp(e) {
         }
         dispInv = !dispInv;
     }
+    if (heldDown[ch] !== undefined) {
+        heldDown[ch] = true;
+    }
+}
+function checkUp(e) {
+    var ch = chr(e.keyCode);
     if (heldDown[ch] !== undefined) {
         heldDown[ch] = false;
     }

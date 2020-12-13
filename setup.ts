@@ -44,6 +44,9 @@ class Pointer extends Block {
 		this.ptI = ptI;
 		this.ptJ = ptJ;
 	}
+	orig() : Block {
+		return level[this.ptI][this.ptJ];
+	}
 	toJSON() : any {
 		return {
 			passable: this.passable,
@@ -89,10 +92,22 @@ class Player extends Entity {
 	speed: number = 0.1;
 	images: string[];
 	inv: Item[][];
+	hotJ: number;
 	constructor(i: number, j: number) {
 		super(i, j);
 		this.images = ["player1", "player2", "player3", "player4"];
 		this.inv = [...Array(4)].map(e => Array(9));
+		this.hotJ = 0;
+	}
+	act() : void {
+		var ni: number = round(this.i) + this.faceI;
+		var nj: number = round(this.j) + this.faceJ;
+		if (bd(ni, nj)) {
+			var bl: Block;
+			if (level[ni][nj].isPt) bl = (level[ni][nj] as Pointer).orig();
+			if (bl.imageId.substring(0, 4) === "tree") {
+			}
+		}
 	}
 	addItem(it: Item) : void {
 		for (var i = 3; 0 <= i; i --) {
@@ -165,21 +180,31 @@ for (var i = 0; i < mapHei; i++) {
 }
 
 // cur setting {
-var cur: string = "dirt1";
-var which: number = 0;
+var curEdit: string = "dirt1";
+var whichEdit: number = 0;
 // } cur setting
 
-const blockDat: { [key: string]: boolean[][] } = {
-	"wall1": [[false]],
-	"table1": [[false]],
-	"barrel1": [[false], [false]],
-	"tree1": [[false], [false]],
-	"tree2": [[false], [false]],
-	"tree3": [[false, false], [false, false]],
-	"tree4": [[false, false], [false, false], [false, false]],
-	"fireplace1": [[false]],
-	"box1": [[false]],
-	"clock1": [[false], [false]],
+const blockDat: {[key: string]: {health: number, pass: boolean[][]}} = {
+	"wall1": {
+		health: Infinity,
+		pass: [[false]],
+	},
+	"tree1": {
+		health: 10,
+		pass: [[false], [false]],
+	},
+	"tree2": {
+		health: 10,
+		pass: [[false], [false]],
+	},
+	"tree3": {
+		health: 10,
+		pass: [[false, false], [false, false]],
+	},
+	"tree4": {
+		health: 10,
+		pass: [[false, false], [false, false], [false, false]],
+	},
 };
 // #endregion
 
@@ -198,13 +223,13 @@ function bd(i: number, j: number): boolean {
 
 function setEdit() {
 	// @ts-ignore	
-	cur = document.getElementById("curSet").value;
+	curEdit = document.getElementById("curSet").value;
 	// @ts-ignore	
-	which = Number(document.getElementById("whichSet").value);
+	whichEdit = Number(document.getElementById("whichSet").value);
 }
 
 function addBlock(imageId: string, i: number, j: number): void {
-	const img: boolean[][] = blockDat[imageId];
+	const img: boolean[][] = blockDat[imageId].pass;
 	for (var ii = 0; ii < img.length; ii++) {
 		for (var jj = 0; jj < img[0].length; jj++) {
 			if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
@@ -227,7 +252,7 @@ function addBlock(imageId: string, i: number, j: number): void {
 function fill(): void {
 	var i: number = round(player.i);
 	var j: number = round(player.j);
-	var tile: Tile = new Tile(cur);
+	var tile: Tile = new Tile(curEdit);
 	if (!bd(i, j)) return;
 	var q: list<number[]> = new list<number[]>();
 	q.push_back([i, j]);
@@ -300,31 +325,18 @@ function gameFromJSON(obj: any): void {
 // #region
 var heldDown: { [key: string]: boolean } = {
 	// movements
-	"A": false,
-	"D": false,
-	"W": false,
-	"S": false,
-
+	"A": false, "D": false, "W": false, "S": false, 
 	"B": false,  // editing single tile/block
 	"C": false,  // deleting single tile/block 
-	// facings
-	"J": false,
-	"L": false,
-	"I": false,
-	"K": false,
 };
 window.addEventListener("keydown", this.checkDown, false);
 window.addEventListener("keyup", this.checkUp, false);
 function checkDown(e: KeyboardEvent): void {
 	if (e.repeat) return;
-	var ch: string = String.fromCharCode(e.keyCode);
-	if (heldDown[ch] !== undefined) {
-		heldDown[ch] = true;
+	var ch: string = chr(e.keyCode);
+	if (49 <= e.keyCode && e.keyCode <= 53) {
+		player.hotJ = e.keyCode - 48 - 1;
 	}
-}
-
-function checkUp(e: KeyboardEvent): void {
-	var ch: string = String.fromCharCode(e.keyCode);
 	if (ch == "E") {
 		if (dispInv) {
 			for (var i = 0; i < 3; i ++) {
@@ -338,6 +350,13 @@ function checkUp(e: KeyboardEvent): void {
 		}
 		dispInv = !dispInv;
 	}
+	if (heldDown[ch] !== undefined) {
+		heldDown[ch] = true;
+	}
+}
+
+function checkUp(e: KeyboardEvent): void {
+	var ch: string = chr(e.keyCode);
 	if (heldDown[ch] !== undefined) {
 		heldDown[ch] = false;
 	}
