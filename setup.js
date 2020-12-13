@@ -150,6 +150,8 @@ var Player = /** @class */ (function (_super) {
 var scale = 30;
 var editing = false;
 var dispInv = false;
+var mouseX = 0;
+var mouseY = 0;
 var invOffI = winHei - scale * 4;
 var invOffJ = 0;
 var craOffI = invOffI;
@@ -335,11 +337,6 @@ var dragY;
 canvas.addEventListener('mousedown', function (evt) {
     var mX = evt.layerX;
     var mY = evt.layerY;
-    var invJ = floor((mX - invOffJ) / scale);
-    var invI = floor((mY - invOffI) / scale);
-    if (bd(invI, invJ)) {
-        player.inv[invI][invJ] = new Axe("axe1", 1);
-    }
     if (dispInv) {
         isDrag = true;
         dragX = mX;

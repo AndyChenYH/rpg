@@ -54,6 +54,10 @@ function drawImage(id, x, y, width, height) {
         }
     }
 }
+canvas.addEventListener("mousemove", function (evt) {
+    mouseX = evt.layerX;
+    mouseY = evt.layerY;
+}, false);
 function assert(condition) {
     if (!condition) {
         throw "Assertion failed";

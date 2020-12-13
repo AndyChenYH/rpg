@@ -132,6 +132,8 @@ class Player extends Entity {
 const scale: number = 30;
 var editing: boolean = false;
 var dispInv: boolean = false;
+var mouseX: number = 0;
+var mouseY: number = 0;
 const invOffI: number = winHei - scale * 4;
 const invOffJ: number = 0;
 const craOffI: number = invOffI;
@@ -324,11 +326,6 @@ var dragY: number;
 canvas.addEventListener('mousedown', function (evt: any) {
 	var mX: number = evt.layerX;
 	var mY: number = evt.layerY;
-	var invJ: number = floor((mX - invOffJ) / scale);
-	var invI: number = floor((mY - invOffI) / scale);
-	if (bd(invI, invJ)) {
-		player.inv[invI][invJ] = new Axe("axe1", 1);
-	}
 	if (dispInv) {
 		isDrag = true;
 		dragX = mX;
@@ -338,6 +335,9 @@ canvas.addEventListener('mousedown', function (evt: any) {
 canvas.addEventListener('mouseup', function (evt: any) {
 	var mX: number = evt.layerX;
 	var mY: number = evt.layerY;
+	assert(isDrag);
+	isDrag = false;
+	
 }, false);
 
 // #endregion

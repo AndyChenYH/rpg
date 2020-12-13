@@ -61,7 +61,10 @@ function drawImage(id: string, x: number, y: number, width: number, height: numb
 		}
 	}
 }
-
+canvas.addEventListener("mousemove", function (evt: any) {
+	mouseX = evt.layerX;
+	mouseY = evt.layerY;
+}, false);
 function assert(condition: boolean) {
     if (!condition) {
 		throw "Assertion failed";

@@ -1,7 +1,7 @@
 // @ts-ignore
 gameFromJSON(rawGame);
 
-// player.inv[3][0] = new Axe("axe1", 1);
+player.inv[3][0] = new Axe("axe1", 1);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
@@ -103,6 +103,16 @@ function gameLoop(): void {
 			for (var j = 0; j < 3; j ++) {
 				drawRect(j * scale + scale * 10 + craOffJ, i * scale + craOffI, scale, scale, "#888888");
 			}
+		}
+	}
+	// draw dragging
+	if (isDrag && dispInv) {
+		var invJ: number = floor((dragX - invOffJ) / scale);
+		var invI: number = floor((dragY - invOffI) / scale);
+		if (bd(invI, invJ) && player.inv[invI][invJ] !== undefined) {
+			ctx.globalAlpha = 0.7;
+			drawImage(player.inv[invI][invJ].imageId, mouseX - scale / 2, mouseY - scale / 2, scale, scale);
+			ctx.globalAlpha = 1;
 		}
 	}
 	requestAnimationFrame(gameLoop);
