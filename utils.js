@@ -45,11 +45,14 @@ function rd(low, high) {
 function drawImage(id, x, y, width, height) {
     if (loaded) {
         var img = document.getElementById(id);
-        ctx.drawImage(img, x, y, width, height);
+        try {
+            ctx.drawImage(img, x, y, width, height);
+        }
+        catch (err) {
+            console.log(id);
+            throw err;
+        }
     }
-    // else {
-    // 	console.log("wait until loaded");
-    // }
 }
 function assert(condition) {
     if (!condition) {

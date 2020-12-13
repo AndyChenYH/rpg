@@ -43,14 +43,15 @@ function gameLoop() {
     }
     if (heldDown["C"]) {
         if (which == 0) {
-            terrain[pi][pj] = new Tile();
+            terrain[pi][pj] = new Tile("blank1");
         }
         else if (which == 1) {
             var ii = pi;
             var jj = pj;
             if (level[pi][pj].isPt) {
-                ii = level[pi][pj].ptI;
-                jj = level[pi][pj].ptJ;
+                var pt = level[pi][pj];
+                ii = pt.ptI;
+                jj = pt.ptJ;
             }
             var wid = 1;
             var hei = 1;
@@ -61,7 +62,7 @@ function gameLoop() {
             }
             for (var i = 0; i < hei; i++) {
                 for (var j = 0; j < wid; j++) {
-                    level[ii + i][jj + j] = new Block();
+                    level[ii + i][jj + j] = new Block("blank1", true, false);
                 }
             }
         }

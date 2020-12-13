@@ -43,14 +43,15 @@ function gameLoop(): void {
 	}
 	if (heldDown["C"]) {
 		if (which == 0) {
-			terrain[pi][pj] = new Tile();
+			terrain[pi][pj] = new Tile("blank1");
 		}
 		else if (which == 1) {
 			var ii: number = pi;
 			var jj: number = pj;
 			if (level[pi][pj].isPt) {
-				ii = level[pi][pj].ptI;
-				jj = level[pi][pj].ptJ;
+				var pt: Pointer = level[pi][pj] as Pointer;
+				ii = pt.ptI;
+				jj = pt.ptJ;
 			}
 			var wid: number = 1;
 			var hei: number = 1;
@@ -61,7 +62,7 @@ function gameLoop(): void {
 			}
 			for (var i = 0; i < hei; i ++) {
 				for (var j = 0; j < wid; j ++) {
-					level[ii + i][jj + j] = new Block();
+					level[ii + i][jj + j] = new Block("blank1", true, false);
 				}
 			}
 		}

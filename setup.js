@@ -14,7 +14,6 @@ var __extends = (this && this.__extends) || (function () {
 // classes {
 var Tile = /** @class */ (function () {
     function Tile(imageId) {
-        if (imageId === void 0) { imageId = "blank1"; }
         this.imageId = imageId;
     }
     Tile.prototype.toJSON = function () {
@@ -27,39 +26,46 @@ var Tile = /** @class */ (function () {
 }());
 var Block = /** @class */ (function (_super) {
     __extends(Block, _super);
-    function Block(imageId, passable, isPt, ptI, ptJ) {
-        if (imageId === void 0) { imageId = "blank1"; }
-        if (passable === void 0) { passable = true; }
-        if (isPt === void 0) { isPt = false; }
-        if (ptI === void 0) { ptI = -1; }
-        if (ptJ === void 0) { ptJ = -1; }
+    function Block(imageId, passable, isPt) {
         var _this = _super.call(this, imageId) || this;
         _this.passable = passable;
         _this.isPt = isPt;
-        _this.ptI = ptI;
-        _this.ptJ = ptJ;
         return _this;
     }
     Block.prototype.toJSON = function () {
         var res = _super.prototype.toJSON.call(this);
         res.passable = this.passable;
         res.isPt = this.isPt;
-        if (this.isPt) {
-            res.ptI = this.ptI;
-            res.ptJ = this.ptJ;
-        }
     };
     Block.prototype.fromJSON = function (obj) {
         _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
         this.isPt = obj.isPt;
-        if (obj.isPt) {
-            this.ptI = obj.ptI;
-            this.ptJ = obj.ptJ;
-        }
     };
     return Block;
 }(Tile));
+var Pointer = /** @class */ (function (_super) {
+    __extends(Pointer, _super);
+    function Pointer(passable, ptI, ptJ) {
+        var _this = _super.call(this, "", passable, true) || this;
+        _this.ptI = ptI;
+        _this.ptJ = ptJ;
+        return _this;
+    }
+    Pointer.prototype.toJSON = function () {
+        return {
+            passable: this.passable,
+            ptI: this.ptI,
+            ptJ: this.ptJ
+        };
+    };
+    Pointer.prototype.fromJSON = function (obj) {
+        this.passable = obj.passable,
+            this.ptI = obj.ptI;
+        this.ptJ = obj.ptJ;
+    };
+    return Pointer;
+}(Block));
 var Entity = /** @class */ (function () {
     function Entity(i, j) {
         this.i = i;
@@ -118,8 +124,8 @@ for (var i = 0; i < mapHei; i++) {
     terrain.push(new Array(mapWid));
     level.push(new Array(mapWid));
     for (var j = 0; j < mapWid; j++) {
-        terrain[i][j] = new Tile();
-        level[i][j] = new Block();
+        terrain[i][j] = new Tile("blank1");
+        level[i][j] = new Block("blank1", true, false);
     }
 }
 // cur setting {
@@ -168,10 +174,10 @@ function addBlock(imageId, i, j) {
     for (var ii = 0; ii < img.length; ii++) {
         for (var jj = 0; jj < img[0].length; jj++) {
             if (ii == 0 && jj == 0) {
-                level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
+                level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
             }
             else {
-                level[i + ii][j + jj] = new Block(imageId, img[ii][jj], true, i, j);
+                level[i + ii][j + jj] = new Pointer(img[ii][jj], i, j);
             }
         }
     }
@@ -222,6 +228,7 @@ function levelToJSON() {
 function terrFromJSON(obj) {
     for (var i = 0; i < min(mapHei, obj.length); i++) {
         for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+            terrain[i][j] = new Tile(undefined);
             terrain[i][j].fromJSON(obj[i][j]);
         }
     }
@@ -229,6 +236,12 @@ function terrFromJSON(obj) {
 function levelFromJSON(obj) {
     for (var i = 0; i < min(mapHei, obj.length); i++) {
         for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+            if (obj[i][j].isPt) {
+                level[i][j] = new Pointer(undefined, undefined, undefined);
+            }
+            else {
+                level[i][j] = new Block(undefined, undefined, undefined);
+            }
             level[i][j].fromJSON(obj[i][j]);
         }
     }

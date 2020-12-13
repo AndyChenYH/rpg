@@ -7,7 +7,7 @@ class Tile {
 	fromJSON
 	*/
 	imageId: string;
-	constructor(imageId: string = "blank1") {
+	constructor(imageId: string) {
 		this.imageId = imageId;
 	}
 	toJSON() : any {
@@ -20,33 +20,43 @@ class Tile {
 class Block extends Tile {
 	passable: boolean;
 	isPt: boolean;
-	ptI: number;
-	ptJ: number;
-	constructor(imageId: string = "blank1", passable: boolean = true, isPt: boolean = false, ptI: number = -1, ptJ: number = -1) {
+	constructor(imageId: string, passable: boolean, isPt: boolean) {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
-		this.ptI = ptI;
-		this.ptJ = ptJ;
 	}
 	toJSON() : any {
 		var res: any = super.toJSON();
 		res.passable = this.passable;
 		res.isPt = this.isPt;
-		if (this.isPt) {
-			res.ptI = this.ptI;
-			res.ptJ = this.ptJ;
-		}
 	}
 	fromJSON(obj: any): void {
 		super.fromJSON(obj);
 		this.passable = obj.passable;
 		this.isPt = obj.isPt;
-		if (obj.isPt) {
-			this.ptI = obj.ptI;
-			this.ptJ = obj.ptJ;
-		}
 	}
+}
+class Pointer extends Block {
+	ptI: number;
+	ptJ: number;
+	constructor(passable: boolean, ptI: number, ptJ: number) {
+		super("", passable, true);
+		this.ptI = ptI;
+		this.ptJ = ptJ;
+	}
+	toJSON() : any {
+		return {
+			passable: this.passable,
+			ptI: this.ptI,
+			ptJ: this.ptJ,
+		};
+	}
+	fromJSON(obj: any) : void {
+		this.passable = obj.passable,
+		this.ptI = obj.ptI;
+		this.ptJ = obj.ptJ;
+	}
+
 }
 
 class Entity {
@@ -106,8 +116,8 @@ for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
 	level.push(new Array(mapWid));
 	for (var j = 0; j < mapWid; j++) {
-		terrain[i][j] = new Tile();
-		level[i][j] = new Block();
+		terrain[i][j] = new Tile("blank1");
+		level[i][j] = new Block("blank1", true, false);
 	}
 }
 
@@ -161,10 +171,10 @@ function addBlock(imageId: string, i: number, j: number): void {
 	for (var ii = 0; ii < img.length; ii++) {
 		for (var jj = 0; jj < img[0].length; jj++) {
 			if (ii == 0 && jj == 0) {
-				level[i + ii][j + jj] = new Block(imageId, img[ii][jj]);
+				level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
 			}
 			else {
-				level[i + ii][j + jj] = new Block(imageId, img[ii][jj], true, i, j);
+				level[i + ii][j + jj] = new Pointer(img[ii][jj], i, j);
 			}
 		}
 	}
@@ -214,6 +224,7 @@ function levelToJSON() : any[][] {
 function terrFromJSON(obj: any): void {
 	for (var i = 0; i < min(mapHei, obj.length); i++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+			terrain[i][j] = new Tile(undefined);
 			terrain[i][j].fromJSON(obj[i][j]);
 		}
 	}
@@ -221,6 +232,12 @@ function terrFromJSON(obj: any): void {
 function levelFromJSON(obj: any): void {
 	for (var i = 0; i < min(mapHei, obj.length); i++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
+			if (obj[i][j].isPt) {
+				level[i][j] = new Pointer(undefined, undefined, undefined);
+			}
+			else {
+				level[i][j] = new Block(undefined, undefined, undefined);
+			}
 			level[i][j].fromJSON(obj[i][j]);
 		}
 	}

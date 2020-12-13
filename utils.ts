@@ -52,11 +52,14 @@ function rd(low: number, high: number) : number {
 function drawImage(id: string, x: number, y: number, width: number, height: number) {
 	if (loaded) {
 		var img: any = document.getElementById(id);
-		ctx.drawImage(img, x, y, width, height);
+		try {
+			ctx.drawImage(img, x, y, width, height);
+		}
+		catch (err) {
+			console.log(id);
+			throw err;
+		}
 	}
-	// else {
-	// 	console.log("wait until loaded");
-	// }
 }
 
 function assert(condition: boolean) {
