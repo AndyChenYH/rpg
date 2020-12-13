@@ -2,6 +2,7 @@
 gameFromJSON(rawGame);
 
 player.inv[3][0] = new Axe("axe1", 1);
+player.inv[3][2] = new Axe("axe1", 1);
 
 function gameLoop(): void {
 	ctx.clearRect(0, 0, winWid, winHei);
@@ -90,6 +91,7 @@ function gameLoop(): void {
 	// draw inventory
 	ctx.strokeStyle = "#000000";
 	for (var i = 0; i < 4; i ++) {
+		if (!dispInv && i != 3) continue;
 		for (var j = 0; j < 9; j ++) {
 			drawRect(j * scale + invOffJ, i * scale + invOffI, scale, scale, "#888888");
 			if (player.inv[i][j] !== undefined) {

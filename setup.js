@@ -111,10 +111,18 @@ var Player = /** @class */ (function (_super) {
         _this.speed = 0.1;
         _this.images = ["player1", "player2", "player3", "player4"];
         _this.inv = __spreadArrays(Array(4)).map(function (e) { return Array(9); });
-        _this.invI = 3;
-        _this.invJ = 0;
         return _this;
     }
+    Player.prototype.addItem = function (it) {
+        for (var i = 3; 0 <= i; i--) {
+            for (var j = 0; j < 9; j++) {
+                if (this.inv[i][j] === undefined) {
+                    this.inv[i][j] = it;
+                    return;
+                }
+            }
+        }
+    };
     Player.prototype.move = function (di, dj) {
         this.faceI = di;
         this.faceJ = dj;
@@ -332,6 +340,16 @@ function checkDown(e) {
 function checkUp(e) {
     var ch = String.fromCharCode(e.keyCode);
     if (ch == "E") {
+        if (dispInv) {
+            for (var i = 0; i < 3; i++) {
+                for (var j = 0; j < 3; j++) {
+                    if (craftTable[i][j] !== undefined) {
+                        player.addItem(craftTable[i][j]);
+                        craftTable[i][j] = undefined;
+                    }
+                }
+            }
+        }
         dispInv = !dispInv;
     }
     if (heldDown[ch] !== undefined) {

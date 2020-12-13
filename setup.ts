@@ -89,15 +89,20 @@ class Player extends Entity {
 	speed: number = 0.1;
 	images: string[];
 	inv: Item[][];
-	invI: number;
-	invJ: number;
 	constructor(i: number, j: number) {
 		super(i, j);
 		this.images = ["player1", "player2", "player3", "player4"];
 		this.inv = [...Array(4)].map(e => Array(9));
-		
-		this.invI = 3;
-		this.invJ = 0;
+	}
+	addItem(it: Item) : void {
+		for (var i = 3; 0 <= i; i --) {
+			for (var j = 0; j < 9; j ++) {
+				if (this.inv[i][j] === undefined) {
+					this.inv[i][j] = it;
+					return;
+				}
+			}
+		}
 	}
 	move(di: number, dj: number): void {
 		this.faceI = di;
@@ -321,6 +326,16 @@ function checkDown(e: KeyboardEvent): void {
 function checkUp(e: KeyboardEvent): void {
 	var ch: string = String.fromCharCode(e.keyCode);
 	if (ch == "E") {
+		if (dispInv) {
+			for (var i = 0; i < 3; i ++) {
+				for (var j = 0; j < 3; j ++) {
+					if (craftTable[i][j] !== undefined) {
+						player.addItem(craftTable[i][j]);
+						craftTable[i][j] = undefined;
+					}
+				}
+			}
+		}
 		dispInv = !dispInv;
 	}
 	if (heldDown[ch] !== undefined) {
