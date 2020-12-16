@@ -20,48 +20,36 @@ class Tile {
 class Block extends Tile {
 	passable: boolean;
 	isPt: boolean;
-	constructor(imageId: string, passable: boolean, isPt: boolean) {
+	ptI: number;
+	ptJ: number;
+	constructor(imageId: string, passable: boolean, isPt: boolean, ptI: number=undefined, ptJ: number=undefined) {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
+	}
+	orig() : Block {
+		assert(this.isPt);
+		return level[this.ptI][this.ptJ];
 	}
 	toJSON() : any {
 		var res: any = super.toJSON();
 		res.passable = this.passable;
 		res.isPt = this.isPt;
+		if (this.isPt) {
+			res.ptI = this.ptI;
+			res.ptJ = this.ptJ;
+		}
 		return res;
 	}
 	fromJSON(obj: any): void {
 		super.fromJSON(obj);
 		this.passable = obj.passable;
 		this.isPt = obj.isPt;
+		if (obj.isPt) {
+			this.ptI = obj.ptI;
+			this.ptJ = obj.ptJ;
+		}
 	}
-}
-class Pointer extends Block {
-	ptI: number;
-	ptJ: number;
-	constructor(passable: boolean, ptI: number, ptJ: number) {
-		super("", passable, true);
-		this.ptI = ptI;
-		this.ptJ = ptJ;
-	}
-	orig() : Block {
-		return level[this.ptI][this.ptJ];
-	}
-	toJSON() : any {
-		return {
-			passable: this.passable,
-			isPt: true,
-			ptI: this.ptI,
-			ptJ: this.ptJ,
-		};
-	}
-	fromJSON(obj: any) : void {
-		this.passable = obj.passable,
-		this.ptI = obj.ptI;
-		this.ptJ = obj.ptJ;
-	}
-
 }
 class Item {
 	imageId: string;
@@ -106,7 +94,7 @@ class Player extends Entity {
 		var nj: number = round(this.j) + this.faceJ;
 		if (bd(ni, nj)) {
 			var bl: Block;
-			if (level[ni][nj].isPt) bl = (level[ni][nj] as Pointer).orig();
+			if (level[ni][nj].isPt) bl = level[ni][nj].orig();
 			if (bl.imageId.substring(0, 4) === "tree") {
 			}
 		}

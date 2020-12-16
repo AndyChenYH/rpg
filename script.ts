@@ -35,9 +35,8 @@ function gameLoop(): void {
 				var ii: number = pi;
 				var jj: number = pj;
 				if (level[pi][pj].isPt) {
-					var pt: Pointer = level[pi][pj] as Pointer;
-					ii = pt.ptI;
-					jj = pt.ptJ;
+					ii = level[pi][pj].ptI;
+					jj = level[pi][pj].ptJ;
 				}
 				var wid: number = 1;
 				var hei: number = 1;

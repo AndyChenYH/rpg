@@ -153,33 +153,6 @@ var rawGame = [
         "isPt": false
       },
       {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false
-      }
-    ],
-    [
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false
-      },
-      {
-        "imageId": "blank1",
-        "passable": true,
-        "isPt": false
-      },
-      {
         "imageId": "tree2",
         "passable": false,
         "isPt": false
@@ -207,10 +180,36 @@ var rawGame = [
         "isPt": false
       },
       {
+        "imageId": "",
         "passable": false,
-        "isPt": true,
-        "ptI": 3,
-        "ptJ": 2
+        "isPt": true
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false
+      }
+    ],
+    [
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false
+      },
+      {
+        "imageId": "blank1",
+        "passable": true,
+        "isPt": false
       },
       {
         "imageId": "blank1",

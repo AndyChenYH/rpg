@@ -1,4 +1,3 @@
-// @ts-ignore
 gameFromJSON(rawGame);
 player.inv[3][0] = new Axe("axe1", 1);
 player.inv[3][2] = new Axe("axe1", 1);
@@ -35,9 +34,8 @@ function gameLoop() {
                 var ii = pi;
                 var jj = pj;
                 if (level[pi][pj].isPt) {
-                    var pt = level[pi][pj];
-                    ii = pt.ptI;
-                    jj = pt.ptJ;
+                    ii = level[pi][pj].ptI;
+                    jj = level[pi][pj].ptJ;
                 }
                 var wid = 1;
                 var hei = 1;

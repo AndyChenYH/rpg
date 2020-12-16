@@ -33,51 +33,39 @@ var Tile = /** @class */ (function () {
 }());
 var Block = /** @class */ (function (_super) {
     __extends(Block, _super);
-    function Block(imageId, passable, isPt) {
+    function Block(imageId, passable, isPt, ptI, ptJ) {
+        if (ptI === void 0) { ptI = undefined; }
+        if (ptJ === void 0) { ptJ = undefined; }
         var _this = _super.call(this, imageId) || this;
         _this.passable = passable;
         _this.isPt = isPt;
         return _this;
     }
+    Block.prototype.orig = function () {
+        assert(this.isPt);
+        return level[this.ptI][this.ptJ];
+    };
     Block.prototype.toJSON = function () {
         var res = _super.prototype.toJSON.call(this);
         res.passable = this.passable;
         res.isPt = this.isPt;
+        if (this.isPt) {
+            res.ptI = this.ptI;
+            res.ptJ = this.ptJ;
+        }
         return res;
     };
     Block.prototype.fromJSON = function (obj) {
         _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
         this.isPt = obj.isPt;
+        if (obj.isPt) {
+            this.ptI = obj.ptI;
+            this.ptJ = obj.ptJ;
+        }
     };
     return Block;
 }(Tile));
-var Pointer = /** @class */ (function (_super) {
-    __extends(Pointer, _super);
-    function Pointer(passable, ptI, ptJ) {
-        var _this = _super.call(this, "", passable, true) || this;
-        _this.ptI = ptI;
-        _this.ptJ = ptJ;
-        return _this;
-    }
-    Pointer.prototype.orig = function () {
-        return level[this.ptI][this.ptJ];
-    };
-    Pointer.prototype.toJSON = function () {
-        return {
-            passable: this.passable,
-            isPt: true,
-            ptI: this.ptI,
-            ptJ: this.ptJ
-        };
-    };
-    Pointer.prototype.fromJSON = function (obj) {
-        this.passable = obj.passable,
-            this.ptI = obj.ptI;
-        this.ptJ = obj.ptJ;
-    };
-    return Pointer;
-}(Block));
 var Item = /** @class */ (function () {
     function Item(imageId) {
         this.imageId = imageId;

@@ -89,7 +89,7 @@ function addBlock(imageId, i, j) {
                 level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
             }
             else {
-                level[i + ii][j + jj] = new Pointer(img[ii][jj], i, j);
+                level[i + ii][j + jj] = new Block("", img[ii][jj], true, i, j);
             }
         }
     }
