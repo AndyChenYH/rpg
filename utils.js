@@ -45,13 +45,7 @@ function rd(low, high) {
 function drawImage(id, x, y, width, height) {
     if (loaded) {
         var img = document.getElementById(id);
-        try {
-            ctx.drawImage(img, x, y, width, height);
-        }
-        catch (err) {
-            console.log(id);
-            throw err;
-        }
+        ctx.drawImage(img, x, y, width, height);
     }
 }
 function drawImageSmaller(id, x, y, width, height) {

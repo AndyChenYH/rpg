@@ -1,4 +1,3 @@
-// @ts-ignore
 gameFromJSON(rawGame);
 
 player.inv[3][0] = new Axe("axe1", 1);
@@ -79,7 +78,13 @@ function gameLoop(): void {
 				var y: number = (i - top) * scale;
 				if (lev.isPt) continue;
 				if (blockDat[lev.imageId] === undefined) {
-					drawImage(lev.imageId, x, y, scale, scale);
+					try {
+						drawImage(lev.imageId, x, y, scale, scale);
+					}
+					catch (err) {
+						console.log(lev);
+						throw err;
+					}
 				}
 				else {
 					var relHei: number = blockDat[lev.imageId].pass.length;

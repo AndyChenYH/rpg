@@ -79,7 +79,13 @@ function gameLoop() {
                 if (lev.isPt)
                     continue;
                 if (blockDat[lev.imageId] === undefined) {
-                    drawImage(lev.imageId, x, y, scale, scale);
+                    try {
+                        drawImage(lev.imageId, x, y, scale, scale);
+                    }
+                    catch (err) {
+                        console.log(lev);
+                        throw err;
+                    }
                 }
                 else {
                     var relHei = blockDat[lev.imageId].pass.length;

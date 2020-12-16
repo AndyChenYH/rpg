@@ -52,13 +52,7 @@ function rd(low: number, high: number) : number {
 function drawImage(id: string, x: number, y: number, width: number, height: number) : void {
 	if (loaded) {
 		var img: any = document.getElementById(id);
-		try {
-			ctx.drawImage(img, x, y, width, height);
-		}
-		catch (err) {
-			console.log(id);
-			throw err;
-		}
+		ctx.drawImage(img, x, y, width, height);
 	}
 }
 function drawImageSmaller(id: string, x: number, y: number, width: number, height: number) : void { 

@@ -1,5 +1,4 @@
-var rawGame =
-[
+var rawGame = [
   [
     [
       {
