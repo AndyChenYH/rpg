@@ -11,6 +11,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -37,6 +48,7 @@ var Block = /** @class */ (function (_super) {
         var _this = _super.call(this, imageId) || this;
         _this.passable = passable;
         _this.isPt = isPt;
+        _this.ptI = _this.ptJ = -1;
         return _this;
     }
     Block.prototype.setPt = function (ptI, ptJ) {
@@ -49,12 +61,14 @@ var Block = /** @class */ (function (_super) {
         return level[this.ptI][this.ptJ];
     };
     Block.prototype.toJSON = function () {
-        var res = _super.prototype.toJSON.call(this);
-        res.passable = this.passable;
-        res.isPt = this.isPt;
+        var res = __assign(__assign({}, _super.prototype.toJSON.call(this)), {
+            passable: this.passable,
+            isPt: this.isPt,
+            ptI: this.ptI,
+            ptJ: this.ptJ
+        });
         if (this.isPt) {
-            res.ptI = this.ptI;
-            res.ptJ = this.ptJ;
+            console.log(res);
         }
         return res;
     };
@@ -62,10 +76,8 @@ var Block = /** @class */ (function (_super) {
         _super.prototype.fromJSON.call(this, obj);
         this.passable = obj.passable;
         this.isPt = obj.isPt;
-        if (obj.isPt) {
-            this.ptI = obj.ptI;
-            this.ptJ = obj.ptJ;
-        }
+        this.ptI = obj.ptI;
+        this.ptJ = obj.ptJ;
     };
     return Block;
 }(Tile));

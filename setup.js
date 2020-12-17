@@ -89,7 +89,7 @@ function addBlock(imageId, i, j) {
                 level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
             }
             else {
-                level[i + ii][j + jj] = new Block(undefined, img[ii][jj], true);
+                level[i + ii][j + jj] = new Block("", img[ii][jj], true);
                 level[i + ii][j + jj].setPt(i, j);
             }
         }

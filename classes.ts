@@ -12,10 +12,10 @@ class Tile {
 	constructor(imageId: string) {
 		this.imageId = imageId;
 	}
-	toJSON() : any {
+	toJSON() : ITile {
 		return { imageId: this.imageId };
 	}
-	fromJSON(obj: any): void {
+	fromJSON(obj: ITile): void {
 		this.imageId = obj.imageId;
 	}
 }
@@ -31,6 +31,7 @@ class Block extends Tile {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
+		this.ptI = this.ptJ = -1;
 	}
 	setPt(ptI: number, ptJ: number) : void {
 		assert(this.isPt);
@@ -41,31 +42,29 @@ class Block extends Tile {
 		assert(this.isPt);
 		return level[this.ptI][this.ptJ];
 	}
-	toJSON() : any {
-		var res: any = super.toJSON();
-		res.passable = this.passable;
-		res.isPt = this.isPt;
+	toJSON() : IBlock {
+		var res: IBlock = {...super.toJSON(), ...{
+			passable: this.passable,
+			isPt: this.isPt,
+			ptI: this.ptI,
+			ptJ: this.ptJ
+		}};
 		if (this.isPt) {
-			res.ptI = this.ptI;
-			res.ptJ = this.ptJ;
+			console.log(res);
 		}
 		return res;
 	}
-	fromJSON(obj: any): void {
+	fromJSON(obj: IBlock): void {
 		super.fromJSON(obj);
 		this.passable = obj.passable;
 		this.isPt = obj.isPt;
-		if (obj.isPt) {
-			this.ptI = obj.ptI;
-			this.ptJ = obj.ptJ;
-		}
+		this.ptI = obj.ptI;
+		this.ptJ = obj.ptJ;
 	}
 }
 interface IBlock extends ITile {
 	passable: boolean;
 	isPt: boolean;
-}
-interface IPointer extends IBlock {
 	ptI: number;
 	ptJ: number;
 }

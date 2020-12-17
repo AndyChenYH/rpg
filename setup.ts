@@ -100,7 +100,7 @@ function addBlock(imageId: string, i: number, j: number): void {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
 			}
 			else {
-				level[i + ii][j + jj] = new Block(undefined, img[ii][jj], true);
+				level[i + ii][j + jj] = new Block("", img[ii][jj], true);
 				level[i + ii][j + jj].setPt(i, j);
 			}
 		}
@@ -128,8 +128,8 @@ function fill(): void {
 		}
 	}
 }
-function terrToJSON() : any[][] {
-	var res: any[][] = [];
+function terrToJSON() : ITile[][] {
+	var res: ITile[][] = [];
 	for (var i = 0; i < mapHei; i ++) {
 		res.push([]);
 		for (var j = 0; j < mapWid; j ++) {
@@ -138,8 +138,8 @@ function terrToJSON() : any[][] {
 	}
 	return res;
 }
-function levelToJSON() : any[][] {
-	var res: any[][] = [];
+function levelToJSON() : IBlock[][] {
+	var res: IBlock[][] = [];
 	for (var i = 0; i < mapHei; i ++) {
 		res.push([]);
 		for (var j = 0; j < mapWid; j ++) {
@@ -148,24 +148,24 @@ function levelToJSON() : any[][] {
 	}
 	return res;
 }
-function terrFromJSON(obj: any): void {
+function terrFromJSON(obj: ITile[][]): void {
 	for (var i = 0; i < min(mapHei, obj.length); i++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
 			terrain[i][j].fromJSON(obj[i][j]);
 		}
 	}
 }
-function levelFromJSON(obj: any): void {
+function levelFromJSON(obj: IBlock[][]): void {
 	for (var i = 0; i < min(mapHei, obj.length); i++) {
 		for (var j = 0; j < min(mapWid, obj[i].length); j++) {
 			level[i][j].fromJSON(obj[i][j]);
 		}
 	}
 }
-function gameToJSON(): any {
+function gameToJSON(): [ITile[][], IBlock[][]] {
 	return [terrToJSON(), levelToJSON()];
 }
-function gameFromJSON(obj: any): void {
+function gameFromJSON(obj: [ITile[][], IBlock[][]]): void {
 	terrFromJSON(obj[0]);
 	levelFromJSON(obj[1]);
 }
