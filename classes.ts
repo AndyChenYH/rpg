@@ -4,7 +4,9 @@ class Tile {
 	if you are adding instance fields, make sure to change:
 	constructor parameter
 	constructor initialization
+	toJSON
 	fromJSON
+	interface
 	*/
 	imageId: string;
 	constructor(imageId: string) {
@@ -17,15 +19,23 @@ class Tile {
 		this.imageId = obj.imageId;
 	}
 }
+interface ITile {
+	imageId: string;
+}
 class Block extends Tile {
 	passable: boolean;
 	isPt: boolean;
 	ptI: number;
 	ptJ: number;
-	constructor(imageId: string, passable: boolean, isPt: boolean, ptI: number=undefined, ptJ: number=undefined) {
+	constructor(imageId: string, passable: boolean, isPt: boolean) {
 		super(imageId);
 		this.passable = passable;
 		this.isPt = isPt;
+	}
+	setPt(ptI: number, ptJ: number) : void {
+		assert(this.isPt);
+		this.ptI = ptI;
+		this.ptJ = ptJ;
 	}
 	orig() : Block {
 		assert(this.isPt);
@@ -50,6 +60,14 @@ class Block extends Tile {
 			this.ptJ = obj.ptJ;
 		}
 	}
+}
+interface IBlock extends ITile {
+	passable: boolean;
+	isPt: boolean;
+}
+interface IPointer extends IBlock {
+	ptI: number;
+	ptJ: number;
 }
 class Item {
 	imageId: string;

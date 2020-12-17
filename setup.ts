@@ -36,7 +36,11 @@ var curEdit: string = "dirt1";
 var whichEdit: number = 0;
 // } cur setting
 
-const blockDat: {[key: string]: {health: number, pass: boolean[][]}} = {
+interface IDat {
+	health: number;
+	pass: boolean[][];
+}
+const blockDat: {[key: string]: IDat} = {
 	"wall1": {
 		health: Infinity,
 		pass: [[false]],
@@ -82,6 +86,7 @@ function setEdit() {
 
 function addBlock(imageId: string, i: number, j: number): void {
 	const img: boolean[][] = blockDat[imageId].pass;
+	// check if any part is out of bounds or collides with another block
 	for (var ii = 0; ii < img.length; ii++) {
 		for (var jj = 0; jj < img[0].length; jj++) {
 			if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
@@ -95,8 +100,8 @@ function addBlock(imageId: string, i: number, j: number): void {
 				level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
 			}
 			else {
-				level[i + ii][j + jj] = new Block("", img[ii][jj], true, i, j);
-				
+				level[i + ii][j + jj] = new Block(undefined, img[ii][jj], true);
+				level[i + ii][j + jj].setPt(i, j);
 			}
 		}
 	}

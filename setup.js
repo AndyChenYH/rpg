@@ -33,7 +33,6 @@ for (var i = 0; i < mapHei; i++) {
 // cur setting {
 var curEdit = "dirt1";
 var whichEdit = 0;
-// } cur setting
 var blockDat = {
     "wall1": {
         health: Infinity,
@@ -76,6 +75,7 @@ function setEdit() {
 }
 function addBlock(imageId, i, j) {
     var img = blockDat[imageId].pass;
+    // check if any part is out of bounds or collides with another block
     for (var ii = 0; ii < img.length; ii++) {
         for (var jj = 0; jj < img[0].length; jj++) {
             if (!bd(i + ii, j + jj) || level[i + ii][j + jj].imageId !== "blank1") {
@@ -89,7 +89,8 @@ function addBlock(imageId, i, j) {
                 level[i + ii][j + jj] = new Block(imageId, img[ii][jj], false);
             }
             else {
-                level[i + ii][j + jj] = new Block("", img[ii][jj], true, i, j);
+                level[i + ii][j + jj] = new Block(undefined, img[ii][jj], true);
+                level[i + ii][j + jj].setPt(i, j);
             }
         }
     }

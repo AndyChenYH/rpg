@@ -33,14 +33,17 @@ var Tile = /** @class */ (function () {
 }());
 var Block = /** @class */ (function (_super) {
     __extends(Block, _super);
-    function Block(imageId, passable, isPt, ptI, ptJ) {
-        if (ptI === void 0) { ptI = undefined; }
-        if (ptJ === void 0) { ptJ = undefined; }
+    function Block(imageId, passable, isPt) {
         var _this = _super.call(this, imageId) || this;
         _this.passable = passable;
         _this.isPt = isPt;
         return _this;
     }
+    Block.prototype.setPt = function (ptI, ptJ) {
+        assert(this.isPt);
+        this.ptI = ptI;
+        this.ptJ = ptJ;
+    };
     Block.prototype.orig = function () {
         assert(this.isPt);
         return level[this.ptI][this.ptJ];

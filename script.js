@@ -1,4 +1,4 @@
-gameFromJSON(rawGame);
+// gameFromJSON(rawGame);
 player.inv[3][0] = new Axe("axe1", 1);
 player.inv[3][2] = new Axe("axe1", 1);
 function gameLoop() {
@@ -39,10 +39,10 @@ function gameLoop() {
                 }
                 var wid = 1;
                 var hei = 1;
-                var img = blockDat[level[ii][jj].imageId].pass;
-                if (img != undefined) {
-                    hei = img.length;
-                    wid = img[0].length;
+                var img = blockDat[level[ii][jj].imageId];
+                if (img !== undefined) {
+                    hei = img.pass.length;
+                    wid = img.pass[0].length;
                 }
                 for (var i = 0; i < hei; i++) {
                     for (var j = 0; j < wid; j++) {
@@ -77,13 +77,7 @@ function gameLoop() {
                 if (lev.isPt)
                     continue;
                 if (blockDat[lev.imageId] === undefined) {
-                    try {
-                        drawImage(lev.imageId, x, y, scale, scale);
-                    }
-                    catch (err) {
-                        console.log(lev);
-                        throw err;
-                    }
+                    drawImage(lev.imageId, x, y, scale, scale);
                 }
                 else {
                     var relHei = blockDat[lev.imageId].pass.length;
