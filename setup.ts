@@ -2,26 +2,37 @@
 // #region
 // should be divisible by canvas width and height
 const scale: number = 30;
+// allows the user to add and delete blocks and pass through blocks
 var editing: boolean = false;
+// whether the player is in their inventory
 var dispInv: boolean = false;
+// current mouse positions
 var mouseX: number = 0;
 var mouseY: number = 0;
+// offset of inventory
 const invOffI: number = winHei - scale * 4;
 const invOffJ: number = 0;
+// oofset of crafting table
 const craOffI: number = invOffI;
 const craOffJ: number = scale * 10 + invOffJ;
+// player stands at (1, 1)
 var player: Player = new Player(1, 1);
+// dimensions of game map
 const mapWid: number = 5;
 const mapHei: number = 5;
+// tiles player's feet
 var terrain: Tile[][] = [];
+// above ground blocks
 var level: Block[][] = [];
 var craftTable: Item[][] = [];
+// initializing crafting table
 for (var i = 0; i < 3; i ++) {
 	craftTable.push([]);
 	for (var j = 0; j < 3; j ++) {
 		craftTable[i].push(undefined);
 	}
 }
+// initializing terrain and level
 for (var i = 0; i < mapHei; i++) {
 	terrain.push(new Array(mapWid));
 	level.push(new Array(mapWid));
@@ -32,14 +43,19 @@ for (var i = 0; i < mapHei; i++) {
 }
 
 // cur setting {
-var curEdit: string = "dirt1";
+// editing terrain(0) or level(1)?
 var whichEdit: number = 0;
+// which tile/block should be put in
+var curEdit: string = "dirt1";
 // } cur setting
 
+// definition for blocks in blockDat
 interface IDat {
 	health: number;
 	pass: boolean[][];
 }
+// health and passability and dimensions of blocks that are not 1*1
+// TODO: even 1*1s have to be put in
 const blockDat: {[key: string]: IDat} = {
 	"wall1": {
 		health: Infinity,

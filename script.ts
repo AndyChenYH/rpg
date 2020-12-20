@@ -121,34 +121,41 @@ function gameLoop(): void {
 			// some parts of the screen will be empty
 			if (bd(i, j)) {
 				var lev: Block = level[floor(i)][floor(j)];
+				// coordinates of top left cornor of image
 				var x: number = (j - left) * scale;
 				var y: number = (i - top) * scale;
 				if (lev.isPt) continue;
-				if (blockDat[lev.imageId] === undefined) {
-					drawImage(lev.imageId, x, y, scale, scale);
+				// each relative length is one scale
+				var relHei: number = 1;
+				var relWid: number = 1;
+				// if the block is not 1 * 1
+				if (blockDat[lev.imageId] !== undefined) {
+					relHei = blockDat[lev.imageId].pass.length;
+					relWid = blockDat[lev.imageId].pass[0].length;
 				}
-				else {
-					var relHei: number = blockDat[lev.imageId].pass.length;
-					var relWid: number = blockDat[lev.imageId].pass[0].length;
-					drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
-				}
+				drawImage(lev.imageId, x, y, relWid * scale, relHei * scale);
 			}
 		}
 	}
 
 	// draw inventory
 	for (var i = 0; i < 4; i ++) {
+		// only draw the hotbar if player has not opened their inventory
 		if (!dispInv && i != 3) continue;
 		for (var j = 0; j < 9; j ++) {
 			ctx.strokeStyle = "#AAAAAA";
+			// special border around selected slot
 			if (i === 3 && j === player.hotJ) ctx.strokeStyle = "#000000";
 			drawRect(j * scale + invOffJ, i * scale + invOffI, scale, scale, "#888888");
+			// if it's not empty
 			if (player.inv[i][j] !== undefined) {
+				// make the image slightly smaller than the border
 				drawImageSmaller(player.inv[i][j].imageId, j * scale + invOffJ, i * scale + invOffI, scale, scale);
 			}
 		}
 	}
 	// draw crafting table
+	// only draw if player has opened their inventory
 	if (dispInv) {
 		for (var i = 0; i < 3; i ++) {
 			for (var j = 0; j < 3; j ++) {
@@ -160,17 +167,20 @@ function gameLoop(): void {
 			}
 		}
 	}
-	// draw dragging
+	// draw dragging animation
+	// player has to have their inventory open
 	if (isDrag && dispInv) {
+		// slot that the player is dragging from
 		var invJ: number = floor((dragX - invOffJ) / scale);
 		var invI: number = floor((dragY - invOffI) / scale);
+		// making sure the item actually exists
 		if (bd(invI, invJ) && player.inv[invI][invJ] !== undefined) {
+			// make it slightly opaque
 			ctx.globalAlpha = 0.7;
 			drawImage(player.inv[invI][invJ].imageId, mouseX - scale / 2, mouseY - scale / 2, scale, scale);
 			ctx.globalAlpha = 1;
 		}
 	}
-
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();
@@ -178,6 +188,7 @@ gameLoop();
 function debug(): void {
 	console.log(player.i, player.j);
 }
+// toggle edit button
 function edit(): void {
 	editing = !editing;
 	document.getElementById("editing").innerHTML = String(editing);
