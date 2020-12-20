@@ -1,10 +1,14 @@
+// loading the game from raw map data
 gameFromJSON(rawGame);
 
+// testing: this will not be in the final code
 player.inv[3][0] = new Axe("axe1", 1);
 player.inv[3][2] = new Axe("axe1", 1);
 
 function gameLoop(): void {
+	// clears the screen
 	ctx.clearRect(0, 0, winWid, winHei);
+	// draws background image
 	drawImage("bg1", 0, 0, winWid, winHei);
 
 	// player controls {
@@ -12,39 +16,55 @@ function gameLoop(): void {
 	if (heldDown["D"]) player.move(0, 1);
 	if (heldDown["W"]) player.move(-1, 0);
 	if (heldDown["S"]) player.move(1, 0);
-	
 	// } player controls
 
 	// level editing {
+	// only allow the user to add and delete blocks if editing is toggled on	
 	if (editing) {
-		var pi: number = round(player.i);
-		var pj: number = round(player.j);
+		// too lazy to type out the whole thing, so saved then as constants
+		const pi: number = round(player.i);
+		const pj: number = round(player.j);
+		// add in single block
 		if (heldDown["B"]) {
+			// ground/tiles
 			if (whichEdit == 0) {
+				// simply changing the image, since that's the only attribute of tiles	
 				terrain[pi][pj].imageId = curEdit;
 			}
+			// above ground/blocks
 			else if (whichEdit == 1) {
+				// spawn in block, putting into considering its passability and dimensions
 				addBlock(curEdit, pi, pj);
 			}
 		}
+		// deleting block or block group
 		if (heldDown["C"]) {
+			// tile blocks
 			if (whichEdit == 0) {
+				// simply making it blank
 				terrain[pi][pj] = new Tile("blank1");
 			}
+			// above ground blocks
 			else if (whichEdit == 1) {
+				// top left corner of the block/group to be deleted
 				var ii: number = pi;
 				var jj: number = pj;
+				// if current block is pointer, set it to its original block instead
 				if (level[pi][pj].isPt) {
 					ii = level[pi][pj].ptI;
 					jj = level[pi][pj].ptJ;
 				}
+				// dimensions of block
 				var wid: number = 1;
 				var hei: number = 1;
 				var img: IDat = blockDat[level[ii][jj].imageId];
+				// only set it if the dimensions are not 1*1, meaning that it's defined in blockDat
 				if (img !== undefined) {
+					// width and height based on the dimensions of the passable matrix
 					hei = img.pass.length;
 					wid = img.pass[0].length;
 				}
+				// clearing the parent block and all of its pointers
 				for (var i = 0; i < hei; i ++) {
 					for (var j = 0; j < wid; j ++) {
 						level[ii + i][jj + j] = new Block("blank1", true, false);
@@ -54,23 +74,51 @@ function gameLoop(): void {
 		}
 	}
 	// } level editing
+
+	// drawing terrain
+	/*
+	+-----------------------------------------+
+	| entire map                              |
+	|                                         |
+	|                                         |
+	|        top left        numWid           |
+	|              +---------------------+    |
+	|              |                     |    |
+	|              |                     |    |
+	|              |      player         |    |
+	|      numHei  |         @           |    |
+	|              |                     |    |
+	|              |     gridspace       |    |
+	|              |                     |    |
+	|              +---------------------+    |
+	|                                         |
+	+-----------------------------------------+
+	*/
+	// size of the grid space that can be fit onto the screen
 	var numW: number = floor(winWid / scale / 2);
 	var numH: number = floor(winHei / scale / 2);
+	// top left corner of the visible grid space
 	var top: number = player.i - numH;
 	var left: number = player.j - numW;
+	// looping through the square grid space
 	for (var i = 0; i < numH * 2; i++) {
 		for (var j = 0; j < numW * 2; j++) {
 			if (bd(i, j)) {
 				var ter: Tile = terrain[floor(i)][floor(j)];
+				// getting real coordinates of the tile
 				var x: number = (j - left) * scale;
 				var y: number = (i - top) * scale;
 				drawImage(ter.imageId, x, y, scale, scale);
 			}
 		}
 	}
+	// paint the player on top of the tiles and below the blocks
 	player.paint();
+	// painting the blocks
 	for (var i = 0; i < numH * 2; i++) {
 		for (var j = 0; j < numW * 2; j++) {
+			// if the map is smaller than the gridspace or if the player is near the border
+			// some parts of the screen will be empty
 			if (bd(i, j)) {
 				var lev: Block = level[floor(i)][floor(j)];
 				var x: number = (j - left) * scale;
